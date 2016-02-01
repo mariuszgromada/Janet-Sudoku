@@ -1,0 +1,11 @@
+mkdir src-linked
+mkdir src-linked/utils
+cd src-linked/utils
+git init
+git remote add -f origin https://github.com/mariuszgromada/Java-Utils.git
+git config core.sparseCheckout true
+echo "/src" | out-file -encoding ascii .git/info/sparse-checkout
+git pull origin master
+
+git fetch origin master
+git reset --hard origin/master
