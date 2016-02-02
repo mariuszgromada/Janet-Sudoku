@@ -45,12 +45,11 @@
  *                              Asked if he believes in one God, a mathematician answered:
  *                              "Yes, up to isomorphism."
  */
-package org.mariuszgromada.math.entertain.sudokusolver;
+package org.mariuszgromada.math.entertain.janetsudoku;
 
 import java.util.Stack;
-
-import org.mariuszgromada.utils.ArrayX;
-import org.mariuszgromada.utils.DateTimeX;
+import org.mariuszgromada.janetutils.ArrayX;
+import org.mariuszgromada.janetutils.DateTimeX;
 
 /**
  * Sudoku board, with predefined Sudoku examples and possibility to load
@@ -459,18 +458,7 @@ public class SudokuBoard {
 		}
 		if (boardState != BOARD_EMPTY)
 			boardInit();
-		int[][] newSudokuBoard = null;
-		switch(exampleNumber) {
-		case 1:
-			newSudokuBoard = Store.SUDOKU_EXAMPLE_1;
-			break;
-		case 2:
-			newSudokuBoard = Store.SUDOKU_EXAMPLE_2;
-			break;
-		case 3:
-			newSudokuBoard = Store.SUDOKU_EXAMPLE_3;
-			break;
-		}
+		int[][] newSudokuBoard = Store.getSudokuExample(exampleNumber);
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++)
 				sudokuBoard[i][j] = newSudokuBoard[i][j];
@@ -644,6 +632,42 @@ public class SudokuBoard {
 		return solvingStatus;
 	}
 	/**
+	 * Gets array representing Sudoku board
+	 * @return Array representing Sudoku board
+	 */
+	public int[][] getSudokuBoard() {
+		return sudokuBoard;
+	}
+	/**
+	 * Gets array representing solved Sudoku board
+	 * @return Array representing solved Sudoku board
+	 */
+	public int[][] getSolvedBoard() {
+		return solvedBoard;
+	}
+	/**
+	 * Gets array representing evaluated empty fields
+	 * meaning number of still free digits possible
+	 * @return Array representing evaluated empty fields
+	 */
+	public int[][] getEmptyFields() {
+		int[][] emptyFields = new int[BOARD_SIZE][BOARD_SIZE];
+		if (boardState == BOARD_EMPTY) {
+			for (int i = 0; i < BOARD_SIZE; i++)
+				for (int j = 0; i < BOARD_SIZE; i++)
+					emptyFields[i][j] = 9;
+			return emptyFields;
+		}
+		for (int i = 0; i < BOARD_SIZE; i++)
+			for (int j = 0; i < BOARD_SIZE; i++) {
+				if (sudokuBoard[i][j] == EMPTY_FIELD)
+					emptyFields[i][j] = emptyFieldsPointer[i][j].digitsStillFreeNumber;
+				else
+					emptyFields[i][j] = 0;
+			}
+		return emptyFields;
+	}
+	/**
 	 * Get all current board entries
 	 * @return  Array of current board entries.
 	 */
@@ -772,80 +796,20 @@ public class SudokuBoard {
 	 * @return Board and empty fields representation.
 	 */
 	public String boardAndEmptyFieldsToString() {
-		String boardStr = "    Sudoku board           Number of free digits\n";
-		boardStr = boardStr + "=====================      =====================\n";
-		for (int i = 0; i < BOARD_SIZE; i ++) {
-			if ((i > 0) && (i < BOARD_SIZE) && (i % SUB_SQURE_SIZE == 0))
-				boardStr = boardStr + "---------------------      ---------------------\n" ;
-			for (int j = 0; j < BOARD_SIZE; j++) {
-				if ((j > 0) && (j < BOARD_SIZE) && (j % SUB_SQURE_SIZE == 0))
-					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] != EMPTY_FIELD)
-					boardStr = boardStr + sudokuBoard[i][j] + " ";
-				else
-					boardStr = boardStr + ". ";
-			}
-			boardStr = boardStr + "     ";
-			for (int j = 0; j < BOARD_SIZE; j++) {
-				if ((j > 0) && (j < BOARD_SIZE) && (j % SUB_SQURE_SIZE == 0))
-					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] == EMPTY_FIELD)
-					boardStr = boardStr + emptyFieldsPointer[i][j].digitsStillFreeNumber + " ";
-				else
-					boardStr = boardStr + ". ";
-			}
-			boardStr = boardStr + "\n";
-		}
-		boardStr = boardStr + "=====================      =====================\n";
-		boardStr = boardStr + boardStateToString() + "\n";
-		return boardStr;
+		return Store.boardAndEmptyFieldsToString(sudokuBoard, getEmptyFields()) + boardStateToString() + "\n";
 	}
 	/**
 	 * Returns string board (only) representation
 	 * @return Board (only) representation.
 	 */
 	public String boardToString() {
-		String boardStr = "    Sudoku board           Number of free digits\n";
-		boardStr = boardStr + "=====================\n";
-		for (int i = 0; i < BOARD_SIZE; i ++) {
-			if ((i > 0) && (i < BOARD_SIZE) && (i % SUB_SQURE_SIZE == 0))
-				boardStr = boardStr + "---------------------\n" ;
-			for (int j = 0; j < BOARD_SIZE; j++) {
-				if ((j > 0) && (j < BOARD_SIZE) && (j % SUB_SQURE_SIZE == 0))
-					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] != EMPTY_FIELD)
-					boardStr = boardStr + sudokuBoard[i][j] + " ";
-				else
-					boardStr = boardStr + ". ";
-			}
-			boardStr = boardStr + "\n";
-		}
-		boardStr = boardStr + "=====================\n";
-		boardStr = boardStr + boardStateToString() + "\n";
-		return boardStr;
+		return Store.boardToString(sudokuBoard) + boardStateToString() + "\n";
 	}
 	/**
 	 * Returns string empty fields (only) representation.
 	 * @return Empty fields (only) representation.
 	 */
 	public String emptyFieldsToString() {
-		String boardStr = "Number of free digits\n";
-		boardStr = boardStr + "=====================\n";
-		for (int i = 0; i < BOARD_SIZE; i ++) {
-			if ((i > 0) && (i < BOARD_SIZE) && (i % SUB_SQURE_SIZE == 0))
-				boardStr = boardStr + "---------------------\n" ;
-			for (int j = 0; j < BOARD_SIZE; j++) {
-				if ((j > 0) && (j < BOARD_SIZE) && (j % SUB_SQURE_SIZE == 0))
-					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] == EMPTY_FIELD)
-					boardStr = boardStr + emptyFieldsPointer[i][j].digitsStillFreeNumber + " ";
-				else
-					boardStr = boardStr + ". ";
-			}
-			boardStr = boardStr + "\n";
-		}
-		boardStr = boardStr + "=====================\n";
-		boardStr = boardStr + boardStateToString() + "\n";
-		return boardStr;
+		return Store.emptyFieldsToString( getEmptyFields() ) + boardStateToString() + "\n";
 	}
 }

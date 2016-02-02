@@ -1,10 +1,11 @@
 mkdir src-linked
-mkdir src-linked/utils
-cd src-linked/utils
+mkdir src-linked/Janet-Utils
+cd src-linked/Janet-Utils
 git init
-git remote add -f origin https://github.com/mariuszgromada/Java-Utils.git
+git remote add -f origin https://github.com/mariuszgromada/Janet-Utils.git
 git config core.sparseCheckout true
-echo "/src" | out-file -encoding ascii .git/info/sparse-checkout
+echo "CURRENT/java/src" | out-file -encoding ascii .git/info/sparse-checkout
+echo "CURRENT/c-sharp/src" | out-file -append -encoding ascii .git/info/sparse-checkout
 git pull origin master
 
 git fetch origin master
