@@ -48,7 +48,7 @@
 package org.mariuszgromada.math.entertain.janetsudoku;
 
 /**
- * Data type for board entry, containing row & column indexes and digit.
+ * Data type for board entry, containing row and column indexes and digit.
  *
  * @author         <b>Mariusz Gromada</b><br/>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
@@ -63,44 +63,44 @@ package org.mariuszgromada.math.entertain.janetsudoku;
  *
  * @version        0.0.1
  */
-public class BoardEntry {
+public class BoardCell {
 	/**
-	 * Empty field.
+	 * Empty cell.
 	 */
-	public static final byte EMPTY_FIELD = 0;
+	public static final int EMPTY_CELL = EmptyCell.CELL_ID;
 	/**
-	 * Field is not pointing to any fields on the board
+	 * Cell is not pointing to any cells on the board.
 	 */
 	public static final int NULL_INDEX = -1;
 	/**
-	 * Row index of board entry
+	 * Row index of board entry.
 	 */
-	public int rowIdx;
+	public int rowIndex;
 	/**
-	 * Column index of board entry
+	 * Column index of board entry.
 	 */
-	public int colIdx;
+	public int colIndex;
 	/**
-	 * Entry digit
+	 * Entry digit.
 	 */
 	public int digit;
 	/**
-	 * Default constructor - uninitialized entry
+	 * Default constructor - uninitialized entry.
 	 */
-	public BoardEntry() {
-		rowIdx = NULL_INDEX;
-		colIdx = NULL_INDEX;
-		digit = EMPTY_FIELD;
+	public BoardCell() {
+		rowIndex = NULL_INDEX;
+		colIndex = NULL_INDEX;
+		digit = EMPTY_CELL;
 	}
 	/**
-	 * Constructor - initialized entry
-	 * @param rowIdx   Row index
-	 * @param colIdx   Column index
-	 * @param digit    Entry digit
+	 * Constructor - initialized entry.
+	 * @param rowIndex   Row index.
+	 * @param colIndex   Column index.
+	 * @param digit    Entry digit.
 	 */
-	public BoardEntry(int rowIdx, int colIdx, int digit) {
-		this.rowIdx = rowIdx;
-		this.colIdx = colIdx;
+	public BoardCell(int rowIndex, int colIndex, int digit) {
+		this.rowIndex = rowIndex;
+		this.colIndex = colIndex;
 		this.digit = digit;
 	}
 }

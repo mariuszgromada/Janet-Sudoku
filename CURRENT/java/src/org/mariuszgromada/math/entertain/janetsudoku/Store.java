@@ -68,11 +68,11 @@ import org.mariuszgromada.janetutils.io.FileX;
  */
 public final class Store {
 	/**
-	 * Sudoku solver version
+	 * Sudoku solver version.
 	 */
 	public static final String JANET_SUDOKU_VERSION = "0.0.1";
 	/**
-	 * Sudoku solver name;
+	 * Sudoku solver name.
 	 */
 	public static final String JANET_SUDOKU_NAME = "Janet-Sudoku";
 	/**
@@ -124,12 +124,12 @@ public final class Store {
             {9,0,0, 3,4,0, 0,0,1},
 		};
 	/**
-	 * Number of Sudoku examples available in Store
+	 * Number of Sudoku examples available in Store.
 	 */
 	public static final int NUMBER_OF_SUDOKU_EXAMPLES = 3;
 	/**
-	 * Gets Sudoku example for the Sudoku Store
-	 * @param exampleNumber     Example number
+	 * Gets Sudoku example for the Sudoku Store.
+	 * @param exampleNumber     Example number.
 	 * @return                  Sudoku example is exists, otherwise null.
 	 * @see Store#NUMBER_OF_SUDOKU_EXAMPLES
 	 */
@@ -159,7 +159,7 @@ public final class Store {
 	 * @return  Array representing loaded Sudoku board,
 	 *          null - if problem occurred while loading.
 	 */
-	public static final int[][] loadSudoku(String filePath) {
+	public static final int[][] loadBoard(String filePath) {
 		ArrayList<String> fileLines = FileX.readFileLines2ArraList(filePath);
 		ArrayList<String> sudokuRows = new ArrayList<String>();
 		if (fileLines == null) return null;
@@ -194,7 +194,7 @@ public final class Store {
 			String sudokuRow = sudokuRows.get(i);
 			for (int j = 0; j < SudokuSolver.BOARD_SIZE; j++) {
 				char c = sudokuRow.charAt(j);
-				int d = SudokuSolver.EMPTY_FIELD;
+				int d = SudokuSolver.EMPTY_CELL;
 				if  (c == '1') d = 1;
 				else if  (c == '2') d = 2;
 				else if  (c == '3') d = 3;
@@ -210,7 +210,8 @@ public final class Store {
 		return sudokuBoard;
 	}
 	/**
-	 * Returns string board (only) representation
+	 * Returns string board (only) representation.
+	 * @param  sudokuBoard   Array representing Sudoku puzzles.
 	 * @return Board (only) representation.
 	 */
 	public static final String boardToString(int[][] sudokuBoard) {
@@ -222,7 +223,7 @@ public final class Store {
 			for (int j = 0; j < SudokuSolver.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuSolver.BOARD_SIZE) && (j % SudokuSolver.SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] != SudokuSolver.EMPTY_FIELD)
+				if (sudokuBoard[i][j] != SudokuSolver.EMPTY_CELL)
 					boardStr = boardStr + sudokuBoard[i][j] + " ";
 				else
 					boardStr = boardStr + ". ";
@@ -233,10 +234,11 @@ public final class Store {
 		return boardStr;
 	}
 	/**
-	 * Returns string empty fields (only) representation.
-	 * @return Empty fields (only) representation.
+	 * Returns string representation of empty cells (only).
+	 * @param  emptyCells  Array representing empty cells of Sudoku puzzles.
+	 * @return Empty cells (only) string representation.
 	 */
-	public static final String emptyFieldsToString(int[][] emptyFields) {
+	public static final String emptyCellsToString(int[][] emptyCells) {
 		String boardStr = "Number of free digits\n";
 		boardStr = boardStr + "=====================\n";
 		for (int i = 0; i < SudokuSolver.BOARD_SIZE; i ++) {
@@ -245,8 +247,8 @@ public final class Store {
 			for (int j = 0; j < SudokuSolver.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuSolver.BOARD_SIZE) && (j % SudokuSolver.SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
-				if (emptyFields[i][j] > 0)
-					boardStr = boardStr + emptyFields[i][j] + " ";
+				if (emptyCells[i][j] > 0)
+					boardStr = boardStr + emptyCells[i][j] + " ";
 				else
 					boardStr = boardStr + ". ";
 			}
@@ -256,10 +258,12 @@ public final class Store {
 		return boardStr;
 	}
 	/**
-	 * Returns string board and empty fields representation.
-	 * @return Board and empty fields representation.
+	 * Returns string board and empty cells representation.
+	 * @param  sudokuBoard   Array representing Sudoku puzzles.
+	 * @param  emptyCells    Array representing empty cells of Sudoku puzzles.
+	 * @return Board and empty cells representation.
 	 */
-	public static final String boardAndEmptyFieldsToString(int[][] sudokuBoard, int[][] emptyFields) {
+	public static final String boardAndEmptyCellsToString(int[][] sudokuBoard, int[][] emptyCells) {
 		String boardStr = "    Sudoku board           Number of free digits\n";
 		boardStr = boardStr + "=====================      =====================\n";
 		for (int i = 0; i < SudokuSolver.BOARD_SIZE; i ++) {
@@ -268,7 +272,7 @@ public final class Store {
 			for (int j = 0; j < SudokuSolver.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuSolver.BOARD_SIZE) && (j % SudokuSolver.SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] != SudokuSolver.EMPTY_FIELD)
+				if (sudokuBoard[i][j] != SudokuSolver.EMPTY_CELL)
 					boardStr = boardStr + sudokuBoard[i][j] + " ";
 				else
 					boardStr = boardStr + ". ";
@@ -277,8 +281,8 @@ public final class Store {
 			for (int j = 0; j < SudokuSolver.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuSolver.BOARD_SIZE) && (j % SudokuSolver.SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
-				if (emptyFields[i][j] > 0)
-					boardStr = boardStr + emptyFields[i][j] + " ";
+				if (emptyCells[i][j] > 0)
+					boardStr = boardStr + emptyCells[i][j] + " ";
 				else
 					boardStr = boardStr + ". ";
 			}
@@ -288,51 +292,55 @@ public final class Store {
 		return boardStr;
 	}
 	/**
-	 * Returns string representation of path to the solution
-	 * @param solutionBoardEntries  Array representing sequence of board entries
-	 * @return                      String representation of sequence of board entries
+	 * Returns string representation of path to the solution.
+	 * @param solutionBoardCells  Array representing sequence of board cells.
+	 * @return                      String representation of sequence of board cells.
 	 */
-	public static final String solutionPathToString(BoardEntry[] solutionBoardEntries) {
+	public static final String solutionPathToString(BoardCell[] solutionBoardCells) {
 		String solutionPath = "";
 		solutionPath = solutionPath + " --------------- \n";
 		solutionPath = solutionPath + "| id | i, j | d |\n";
 		solutionPath = solutionPath + "|----|----- |---|\n";
-		if (solutionBoardEntries != null)
-			for (int i = 0; i < solutionBoardEntries.length; i++) {
-				BoardEntry b = solutionBoardEntries[i];
+		if (solutionBoardCells != null)
+			for (int i = 0; i < solutionBoardCells.length; i++) {
+				BoardCell b = solutionBoardCells[i];
 				if (i + 1 < 10) solutionPath = solutionPath + "|  ";
 				else solutionPath = solutionPath + "| ";
-				solutionPath = solutionPath + (i+1) + " | " + (b.rowIdx+1) + ", " + (b.colIdx + 1) + " | " + b.digit + " |\n";
+				solutionPath = solutionPath + (i+1) + " | " + (b.rowIndex+1) + ", " + (b.colIndex + 1) + " | " + b.digit + " |\n";
 			}
 		solutionPath = solutionPath + " --------------- \n";
 		return solutionPath;
 	}
 }
 /**
- * Digit random seed data type
+ * Digit random seed data type.
  */
 class DigitRandomSeed {
 	int digit;
 	double randomSeed;
 }
 /**
- * Package level class describing empty field
+ * Package level class describing empty cell.
  */
-class EmptyField {
+class EmptyCell {
 	/**
-	 * Empty field row number
+	 * Empty cell id.
 	 */
-	int rowIdx;
+	public static final int CELL_ID = 0;
 	/**
-	 * Empty field column number
+	 * Empty cell row number.
 	 */
-	int colIdx;
+	int rowIndex;
+	/**
+	 * Empty cell column number.
+	 */
+	int colIndex;
 	/**
 	 * List of digits than still can be used.
 	 */
 	int[] digitsStillFree;
 	/**
-	 * Random seed for randomized accessing digits still free
+	 * Random seed for randomized accessing digits still free.
 	 */
 	DigitRandomSeed[] digitsRandomSeed;
 	/**
@@ -343,15 +351,15 @@ class EmptyField {
 	 * Default constructor.
 	 */
 	/**
-	 * Random seed for randomized accessing empty fields
+	 * Random seed for randomized accessing empty cells.
 	 */
 	double randomSeed;
 	/**
-	 * Default constructor;
+	 * Default constructor.
 	 */
-	public EmptyField() {
-		rowIdx = SudokuSolver.NULL_INDEX;
-		colIdx = SudokuSolver.NULL_INDEX;
+	public EmptyCell() {
+		rowIndex = SudokuSolver.NULL_INDEX;
+		colIndex = SudokuSolver.NULL_INDEX;
 		digitsStillFree = new int[SudokuSolver.BOARD_MAX_INDEX];
 		digitsRandomSeed = new DigitRandomSeed[SudokuSolver.BOARD_MAX_INDEX];
 		for (int i = 0; i < SudokuSolver.BOARD_MAX_INDEX; i++) {
@@ -364,10 +372,10 @@ class EmptyField {
 		setAllDigitsStillFree();
 	}
 	/**
-	 * Sorting digits  by random seed
+	 * Sorting digits  by random seed.
 	 *
-	 * @param l    Starting left index
-	 * @param r    Starting rgth index
+	 * @param l    Starting left index.
+	 * @param r    Starting right index.
 	 */
 	private void sortDigitsRandomSeed(int l, int r) {
 		int i = l;
@@ -396,7 +404,7 @@ class EmptyField {
 	}
 	/**
 	 * All digits are set that can be used in the specified filed
-	 * of the board
+	 * of the board.
 	 */
 	public void setAllDigitsStillFree() {
 		for (int i = 0; i < SudokuSolver.BOARD_MAX_INDEX; i++) {
@@ -404,30 +412,26 @@ class EmptyField {
 		}
 		digitsStillFreeNumber = 0;
 	}
-
-	public static final String solutionPathToString(BoardEntry[] solutionBoardEntries) {
-		return "";
-	}
 }
 /**
  * Data type for sub-square definition
- * on the Sudoku board
+ * on the Sudoku board.
  */
 class SubSquare {
 	/**
-	 * Left top - row index
+	 * Left top - row index.
 	 */
 	int rowMin;
 	/**
-	 * Right bottom - row index
+	 * Right bottom - row index.
 	 */
 	int rowMax;
 	/**
-	 * Left top - column index
+	 * Left top - column index.
 	 */
 	int colMin;
 	/**
-	 * Right bottom - column index
+	 * Right bottom - column index.
 	 */
 	int colMax;
 }
