@@ -45,8 +45,9 @@
  *                              Asked if he believes in one God, a mathematician answered:
  *                              "Yes, up to isomorphism."
  */
-package org.mariuszgromada.math.entertain.janetsudoku;
+package org.mariuszgromada.math.janetsudoku;
 
+import java.util.ArrayList;
 import java.util.Stack;
 import org.mariuszgromada.janetutils.ArrayX;
 import org.mariuszgromada.janetutils.DateTimeX;
@@ -70,22 +71,6 @@ import org.mariuszgromada.janetutils.DateTimeX;
  * @version        0.0.1
  */
 public class SudokuSolver {
-	/**
-	 * Sudoku board was successfully loaded.
-	 */
-	public static final int BOARD_EMPTY = 1;
-	/**
-	 * Sudoku board was successfully loaded.
-	 */
-	public static final int BOARD_LOADED = 2;
-	/**
-	 * Sudoku board is ready to start solving process.
-	 */
-	public static final int BOARD_READY = 3;
-	/**
-	 * Sudoku board is ready to start solving process.
-	 */
-	public static final int BOARD_ERROR = -1;
 	/**
 	 * Sudoku solving not initiated.
 	 */
@@ -121,26 +106,6 @@ public class SudokuSolver {
 	 */
 	public static final int ERROR_GETCELLDIGIT_INCORRECT_INDEX = -104;
 	/**
-	 * Sudoku board size.
-	 */
-	public static final int BOARD_SIZE = 9;
-	/**
-	 * Sudoku board sub-square size.
-	 */
-	public static final int SUB_SQURE_SIZE = 3;
-	/**
-	 * We will use array indexes from 1.,.n, instead 0...n-1
-	 */
-	static final int BOARD_MAX_INDEX = BOARD_SIZE + 1;
-	/**
-	 * Number of cells on the Sudoku board.
-	 */
-	static final int BOARD_CELLS_NUMBER = BOARD_SIZE * BOARD_SIZE;
-	/**
-	 * Empty cell.
-	 */
-	static final byte EMPTY_CELL = BoardCell.EMPTY_CELL;
-	/**
 	 * Message type normal.
 	 */
 	private static final int NORMAL_MSG = 1;
@@ -148,6 +113,38 @@ public class SudokuSolver {
 	 * Message type error.
 	 */
 	private static final int ERROR_MSG = -1;
+	/**
+	 * Sudoku board size.
+	 */
+	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
+	/**
+	 * Sudoku board sub-square size.
+	 */
+	private static final int SUB_SQURE_SIZE = SudokuBoard.SUB_SQURE_SIZE;
+	/**
+	 * Number of cells on the Sudoku board.
+	 */
+	private static final int BOARD_CELLS_NUMBER = SudokuBoard.BOARD_CELLS_NUMBER;
+	/**
+	 * Sudoku board was successfully loaded.
+	 */
+	private static final int BOARD_EMPTY = SudokuBoard.BOARD_EMPTY;
+	/**
+	 * Sudoku board was successfully loaded.
+	 */
+	private static final int BOARD_LOADED = SudokuBoard.BOARD_LOADED;
+	/**
+	 * Sudoku board is ready to start solving process.
+	 */
+	private static final int BOARD_READY = SudokuBoard.BOARD_READY;
+	/**
+	 * Sudoku board is ready to start solving process.
+	 */
+	private static final int BOARD_ERROR = SudokuBoard.BOARD_ERROR;
+	/**
+	 * Empty cell identifier.
+	 */
+	private static final int EMPTY_CELL = BoardCell.EMPTY_CELL;
 	/**
 	 * Marker if analyzed digit 0...9 is still not used.
 	 */
@@ -173,6 +170,10 @@ public class SudokuSolver {
 	 */
 	private Stack<BoardCell> solutionBoardCells;
 	/**
+	 * All solutions list
+	 */
+	private ArrayList<SudokuBoard> solutionsList;
+	/**
 	 * Solving status indicator.
 	 */
 	int boardState;
@@ -188,7 +189,12 @@ public class SudokuSolver {
 	 * Step back counter showing how many different
 	 * routes were evaluated while solving.
 	 */
-	private int closedRoutesConter;
+	private int closedPathsCounter;
+	/**
+	 * Total evaluated paths counter while finding all solutions.
+	 */
+	private int totalPathsCounter;
+
 	/**
 	 * If yes then empty cells with the same number of
 	 * still free digits will be randomized.
@@ -240,7 +246,7 @@ public class SudokuSolver {
 	/**
 	 * Constructor - based on the Sudoku predefined example number.
 	 * @param exampleNumber  number of Sudoku example to load between 1
-	 * and {@link Store#NUMBER_OF_SUDOKU_EXAMPLES}
+	 * and {@link SudokuStore#NUMBER_OF_SUDOKU_EXAMPLES}
 	 */
 	public SudokuSolver(int exampleNumber) {
 		clearPuzzels();
@@ -264,16 +270,16 @@ public class SudokuSolver {
 	 *
 	 * @param exampleNumber  Number of predefined Sudoku example.
 	 * @return {@link SudokuSolver#ERROR_LOADBOARD_LOADING_FAILED} or
-	 *         {@link SudokuSolver#BOARD_LOADED}.
+	 *         {@link SudokuBoard#BOARD_LOADED}.
 	 */
 	public int loadBoard(int exampleNumber) {
-		if ((exampleNumber < 1) || (exampleNumber > Store.NUMBER_OF_SUDOKU_EXAMPLES)) {
-			addMessage("Loading failed - example number should be between 1 and " + Store.NUMBER_OF_SUDOKU_EXAMPLES, ERROR_MSG);
+		if ((exampleNumber < 1) || (exampleNumber > SudokuStore.NUMBER_OF_SUDOKU_EXAMPLES)) {
+			addMessage("Loading failed - example number should be between 1 and " + SudokuStore.NUMBER_OF_SUDOKU_EXAMPLES, ERROR_MSG);
 			return ERROR_LOADBOARD_LOADING_FAILED;
 		}
 		if (boardState != BOARD_EMPTY)
 			clearPuzzels();
-		int[][] loadedBoard = Store.getSudokuExample(exampleNumber);
+		int[][] loadedBoard = SudokuStore.getSudokuExample(exampleNumber);
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++)
 				sudokuBoard[i][j] = loadedBoard[i][j];
@@ -286,10 +292,10 @@ public class SudokuSolver {
 	 *
 	 * @param filePath File path that contains board definition.
 	 * @return {@link SudokuSolver#ERROR_LOADBOARD_LOADING_FAILED} or
-	 *         {@link SudokuSolver#BOARD_LOADED}.
+	 *         {@link SudokuBoard#BOARD_LOADED}.
 	 */
 	public int loadBoard(String filePath) {
-		int[][] loadedBoard = Store.loadBoard(filePath);
+		int[][] loadedBoard = SudokuStore.loadBoard(filePath);
 		if (loadedBoard == null) {
 			addMessage("Loading from file failed: " + filePath, ERROR_MSG);
 			return ERROR_LOADBOARD_LOADING_FAILED;
@@ -308,7 +314,7 @@ public class SudokuSolver {
 	 *
 	 * @param sudokuBoard Array representing Sudoku puzzles.
 	 * @return {@link SudokuSolver#ERROR_LOADBOARD_LOADING_FAILED} or
-	 *         {@link SudokuSolver#BOARD_LOADED}.
+	 *         {@link SudokuBoard#BOARD_LOADED}.
 	 */
 	public int loadBoard(int[][] sudokuBoard) {
 		if (sudokuBoard == null) {
@@ -370,7 +376,7 @@ public class SudokuSolver {
 	 * @param rowIndex    Cell row index between 0 and 8.
 	 * @param colIndex    Cell column index between 0 and 8.
 	 * @return            Cell digit between 1 and 9, if cell empty
-	 *                    then {@link SudokuSolver#EMPTY_CELL}.
+	 *                    then {@link BoardCell#EMPTY_CELL}.
 	 *                    If indexes are out of range then error
 	 *                    {@link SudokuSolver#ERROR_GETCELLDIGIT_INCORRECT_INDEX}
 	 *                    is returned.
@@ -393,10 +399,10 @@ public class SudokuSolver {
 	 */
 	/**
 	 * Method starts solving procedure.
-	 * @return if board state is {@link SudokuSolver#BOARD_EMPTY} then {@link SudokuSolver#ERROR_SOLVE_SOLVING_NOT_STARTED},
-	 *         if board state is {@link SudokuSolver#BOARD_ERROR} then {@link SudokuSolver#ERROR_SOLVE_SOLVING_NOT_STARTED},
-	 *         if board state is {@link SudokuSolver#BOARD_LOADED} then {@link SudokuSolver#ERROR_SOLVE_SOLVING_NOT_STARTED},
-	 *         if board state is {@link SudokuSolver#BOARD_READY} then returns solving status:
+	 * @return if board state is {@link SudokuBoard#BOARD_EMPTY} then {@link SudokuSolver#ERROR_SOLVE_SOLVING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_ERROR} then {@link SudokuSolver#ERROR_SOLVE_SOLVING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_LOADED} then {@link SudokuSolver#ERROR_SOLVE_SOLVING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_READY} then returns solving status:
 	 *              {@link SudokuSolver#SUDOKU_SOLVED},
 	 *              {@link SudokuSolver#ERROR_SOLVE_SOLVING_FAILED}.
 	 *
@@ -424,7 +430,7 @@ public class SudokuSolver {
 			solvingStatus = SUDOKU_SOLVING_STARTED;
 			solutionBoardCells = new Stack<BoardCell>();
 			long solvingStartTime = DateTimeX.currentTimeMillis();
-			closedRoutesConter = 0;
+			closedPathsCounter = 0;
 			solve(0);
 			long solvingEndTime = DateTimeX.currentTimeMillis();
 			solvingTime = (solvingEndTime - solvingStartTime) / 1000.0;
@@ -433,7 +439,7 @@ public class SudokuSolver {
 				boardState = BOARD_ERROR;
 				addMessage("Error while solving - no solutions found - setting board state as 'error' !!", ERROR_MSG);
 			} else {
-				addMessage("Sudoku solved !!! Cells solved: " + emptyCellsNumber + " ... Closed routes: " + closedRoutesConter + " ... solving time: " + solvingTime + " s.", NORMAL_MSG);
+				addMessage("Sudoku solved !!! Cells solved: " + emptyCellsNumber + " ... Closed routes: " + closedPathsCounter + " ... solving time: " + solvingTime + " s.", NORMAL_MSG);
 				emptyCellsNumber = 0;
 			}
 			return solvingStatus;
@@ -493,10 +499,84 @@ public class SudokuSolver {
 							updateDigitsStillFree(emptyCell);
 							if (level < emptyCellsNumber - 1)
 								sortEmptyCells(level, emptyCellsNumber-1);
-							closedRoutesConter++;
+							closedPathsCounter++;
 						}
 					} else
 						return;
+				}
+			}
+		} else {
+			sudokuBoard[emptyCell.rowIndex][emptyCell.colIndex] = EMPTY_CELL;
+			updateDigitsStillFree(emptyCell);
+		}
+	}
+	public int findAllSolutions() {
+		switch(boardState) {
+		case BOARD_EMPTY:
+			addMessage("Nothing to solve - the board is empty!", ERROR_MSG);
+			return ERROR_SOLVE_SOLVING_NOT_STARTED;
+		case BOARD_ERROR:
+			addMessage("Can not start solving process - the board contains an error!", ERROR_MSG);
+			return ERROR_SOLVE_SOLVING_NOT_STARTED;
+		case BOARD_LOADED:
+			addMessage("Can not start solving process - the board is not ready!", ERROR_MSG);
+			return ERROR_SOLVE_SOLVING_NOT_STARTED;
+		case BOARD_READY:
+			addMessage("Starting solving process!", NORMAL_MSG);
+			if (randomizeEmptyCells == true)
+				addMessage(">>> Will randomize empty cells if number of still free digits is the same.", NORMAL_MSG);
+			if (randomizeFreeDigits == true)
+				addMessage(">>> Will randomize still free digits for a given empty cell.", NORMAL_MSG);
+			solutionsList = new ArrayList<SudokuBoard>();
+			long solvingStartTime = DateTimeX.currentTimeMillis();
+			totalPathsCounter = 0;
+			findAllSolutions(0);
+			long solvingEndTime = DateTimeX.currentTimeMillis();
+			solvingTime = (solvingEndTime - solvingStartTime) / 1000.0;
+			return solutionsList.size();
+		}
+		addMessage("Can not start solving process - do not know why :-(", ERROR_MSG);
+		return ERROR_SOLVE_SOLVING_NOT_STARTED;
+	}
+	private void findAllSolutions(int level) {
+		/*
+		 * Enter level.
+		 * Check if solved.
+		 */
+		if (level == emptyCellsNumber) {
+			SudokuBoard solution = new SudokuBoard();
+			for (int i = 0; i < BOARD_SIZE; i++)
+				for (int j = 0; j < BOARD_SIZE; j++)
+					solution.board[i][j] = sudokuBoard[i][j];
+			solutionsList.add(solution);
+			System.out.println("Solution + 1, total paths: " + totalPathsCounter);
+			return;
+		}
+		/*
+		 * If still other cells are empty, perform recursive steps.
+		 */
+		EmptyCell emptyCell = emptyCells[level];
+		int digitsStillFreeNumber = emptyCell.digitsStillFreeNumber;
+		if (digitsStillFreeNumber > 0) {
+			int digitNum = 0;
+			for (int digitIndex = 1; digitIndex <= 9; digitIndex++) {
+				int digit = digitIndex;
+				if (randomizeFreeDigits == true)
+					digit = emptyCell.digitsRandomSeed[digitIndex].digit;
+				if (emptyCell.digitsStillFree[digit] == DIGIT_STILL_FREE) {
+					digitNum++;
+					sudokuBoard[emptyCell.rowIndex][emptyCell.colIndex] = digit;
+					if (level + 1 < emptyCellsNumber - 1)
+						sortEmptyCells(level+1, emptyCellsNumber-1);
+					updateDigitsStillFree(emptyCell);
+					findAllSolutions(level + 1);
+					if (digitNum == digitsStillFreeNumber) {
+						sudokuBoard[emptyCell.rowIndex][emptyCell.colIndex] = EMPTY_CELL;
+						updateDigitsStillFree(emptyCell);
+						if (level < emptyCellsNumber - 1)
+							sortEmptyCells(level, emptyCellsNumber-1);
+						totalPathsCounter++;
+					}
 				}
 			}
 		} else {
@@ -526,14 +606,14 @@ public class SudokuSolver {
 		solvedBoard = null;
 		solutionBoardCells = null;
 		solvingTime = 0;
-		closedRoutesConter = 0;
+		closedPathsCounter = 0;
 		addMessage("Clearing sudoku board - board is empty.", NORMAL_MSG);
 	}
 	/**
 	 * Search and initialize list of empty cells.
-	 * @return    {@link SudokuSolver#BOARD_EMPTY}
-	 *            {@link SudokuSolver#BOARD_READY}
-	 *            {@vlink SudokuSolver#BOARD_ERROR}.
+	 * @return    {@link SudokuBoard#BOARD_EMPTY}
+	 *            {@link SudokuBoard#BOARD_READY}
+	 *            {@link SudokuBoard#BOARD_ERROR}.
 	 */
 	private int findEmptyCells() {
 		for (int i = 0; i < BOARD_CELLS_NUMBER; i++)
@@ -715,7 +795,7 @@ public class SudokuSolver {
 	 * @param msg Message.
 	 */
 	private void addMessage(String msg, int msgType) {
-		String vdt = "[" + Store.JANET_SUDOKU_NAME + "-v." + Store.JANET_SUDOKU_VERSION + "][" + DateTimeX.getCurrDateTimeStr() + "]";
+		String vdt = "[" + SudokuStore.JANET_SUDOKU_NAME + "-v." + SudokuStore.JANET_SUDOKU_VERSION + "][" + DateTimeX.getCurrDateTimeStr() + "]";
 		String mt = "(msg)";
 		if (msgType == ERROR_MSG) {
 			mt = "(error)";
@@ -753,9 +833,9 @@ public class SudokuSolver {
 	}
 	/**
 	 * Return current Sudou board state.
-	 * @return  {@link SudokuSolver#BOARD_READY} or
-	 *          {@link SudokuSolver#BOARD_EMPTY} or
-	 *          {@link SudokuSolver#BOARD_ERROR}.
+	 * @return  {@link SudokuBoard#BOARD_READY} or
+	 *          {@link SudokuBoard#BOARD_EMPTY} or
+	 *          {@link SudokuBoard#BOARD_ERROR}.
 	 */
 	public int getBoardState() {
 		return boardState;
@@ -847,7 +927,7 @@ public class SudokuSolver {
 	 * @return Number of closed routes while solving.
 	 */
 	public int getClosedRoutesNumber() {
-		return closedRoutesConter;
+		return closedPathsCounter;
 	}
 	/**
 	 * By default random seed on empty cells is enabled. This parameter
@@ -934,20 +1014,28 @@ public class SudokuSolver {
 	 * @return Board and empty cells representation.
 	 */
 	public String boardAndEmptyCellsToString() {
-		return Store.boardAndEmptyCellsToString(sudokuBoard, getEmptyCells()) + boardStateToString() + "\n";
+		return SudokuStore.boardAndEmptyCellsToString(sudokuBoard, getEmptyCells()) + boardStateToString() + "\n";
 	}
 	/**
 	 * Returns string board (only) representation.
 	 * @return Board (only) representation.
 	 */
 	public String boardToString() {
-		return Store.boardToString(sudokuBoard) + boardStateToString() + "\n";
+		return SudokuStore.boardToString(sudokuBoard) + boardStateToString() + "\n";
 	}
 	/**
 	 * Returns string empty cells (only) representation.
 	 * @return Empty cells (only) representation.
 	 */
 	public String emptyCellsToString() {
-		return Store.emptyCellsToString( getEmptyCells() ) + boardStateToString() + "\n";
+		return SudokuStore.emptyCellsToString( getEmptyCells() ) + boardStateToString() + "\n";
+	}
+	/**
+	 * Return string representation of cells that lead to
+	 * the solution, keeping the sequence.
+	 * @return  String representation of entries that lead to the solution.
+	 */
+	public String solutionPathToString() {
+		return SudokuStore.solutionPathToString( getSolutionBoardCells() );
 	}
 }

@@ -45,7 +45,7 @@
  *                              Asked if he believes in one God, a mathematician answered:
  *                              "Yes, up to isomorphism."
  */
-package org.mariuszgromada.math.entertain.janetsudoku;
+package org.mariuszgromada.math.janetsudoku;
 
 /**
  * Data type for board entry, containing row and column indexes and digit.
