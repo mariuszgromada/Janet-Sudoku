@@ -2,4 +2,5 @@ bin/
 .classpath
 .project
 CURRENT/java/src/tests/
+CURRENT/java/.settings/
 src-linked

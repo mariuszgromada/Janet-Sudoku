@@ -67,11 +67,11 @@ public class BoardCell {
 	/**
 	 * Empty cell.
 	 */
-	public static final int EMPTY_CELL = EmptyCell.CELL_ID;
+	public static final int EMPTY = EmptyCell.CELL_ID;
 	/**
 	 * Cell is not pointing to any cells on the board.
 	 */
-	public static final int NULL_INDEX = -1;
+	public static final int INDEX_NULL = -1;
 	/**
 	 * Row index of board entry.
 	 */
@@ -88,9 +88,9 @@ public class BoardCell {
 	 * Default constructor - uninitialized entry.
 	 */
 	public BoardCell() {
-		rowIndex = NULL_INDEX;
-		colIndex = NULL_INDEX;
-		digit = EMPTY_CELL;
+		rowIndex = INDEX_NULL;
+		colIndex = INDEX_NULL;
+		digit = EMPTY;
 	}
 	/**
 	 * Constructor - initialized entry.

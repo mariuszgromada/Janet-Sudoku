@@ -194,7 +194,7 @@ public final class SudokuStore {
 			String sudokuRow = sudokuRows.get(i);
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
 				char c = sudokuRow.charAt(j);
-				int d = BoardCell.EMPTY_CELL;
+				int d = BoardCell.EMPTY;
 				if  (c == '1') d = 1;
 				else if  (c == '2') d = 2;
 				else if  (c == '3') d = 3;
@@ -218,12 +218,12 @@ public final class SudokuStore {
 		String boardStr = "    Sudoku board\n";
 		boardStr = boardStr + "=====================\n";
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
-			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.SUB_SQURE_SIZE == 0))
+			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 				boardStr = boardStr + "---------------------\n" ;
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
-				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.SUB_SQURE_SIZE == 0))
+				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] != BoardCell.EMPTY_CELL)
+				if (sudokuBoard[i][j] != BoardCell.EMPTY)
 					boardStr = boardStr + sudokuBoard[i][j] + " ";
 				else
 					boardStr = boardStr + ". ";
@@ -242,10 +242,10 @@ public final class SudokuStore {
 		String boardStr = "Number of free digits\n";
 		boardStr = boardStr + "=====================\n";
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
-			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.SUB_SQURE_SIZE == 0))
+			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 				boardStr = boardStr + "---------------------\n" ;
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
-				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.SUB_SQURE_SIZE == 0))
+				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
 				if (emptyCells[i][j] > 0)
 					boardStr = boardStr + emptyCells[i][j] + " ";
@@ -267,19 +267,19 @@ public final class SudokuStore {
 		String boardStr = "    Sudoku board           Number of free digits\n";
 		boardStr = boardStr + "=====================      =====================\n";
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
-			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.SUB_SQURE_SIZE == 0))
+			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 				boardStr = boardStr + "---------------------      ---------------------\n" ;
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
-				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.SUB_SQURE_SIZE == 0))
+				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
-				if (sudokuBoard[i][j] != BoardCell.EMPTY_CELL)
+				if (sudokuBoard[i][j] != BoardCell.EMPTY)
 					boardStr = boardStr + sudokuBoard[i][j] + " ";
 				else
 					boardStr = boardStr + ". ";
 			}
 			boardStr = boardStr + "     ";
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
-				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.SUB_SQURE_SIZE == 0))
+				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
 				if (emptyCells[i][j] > 0)
 					boardStr = boardStr + emptyCells[i][j] + " ";
@@ -358,8 +358,8 @@ class EmptyCell {
 	 * Default constructor.
 	 */
 	public EmptyCell() {
-		rowIndex = BoardCell.NULL_INDEX;
-		colIndex = BoardCell.NULL_INDEX;
+		rowIndex = BoardCell.INDEX_NULL;
+		colIndex = BoardCell.INDEX_NULL;
 		digitsStillFree = new int[SudokuBoard.BOARD_MAX_INDEX];
 		digitsRandomSeed = new DigitRandomSeed[SudokuBoard.BOARD_MAX_INDEX];
 		for (int i = 0; i < SudokuBoard.BOARD_MAX_INDEX; i++) {
