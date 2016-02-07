@@ -527,7 +527,6 @@ public class SudokuSolver {
 			solution.board = getBoardCopy();
 			solution.pathNumber = totalPathsCounter;
 			solutionsList.add(solution);
-			System.out.println("Solution + 1, total paths: " + totalPathsCounter);
 			return;
 		}
 		/*
