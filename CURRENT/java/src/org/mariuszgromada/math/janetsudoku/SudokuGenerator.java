@@ -65,7 +65,13 @@ import java.util.ArrayList;
  * @version        0.0.1
  */
 public class SudokuGenerator {
+	/**
+	 * Board size derived form SudokuBoard class.
+	 */
 	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
+	/**
+	 * Board cells number derived form SudokuBoard class.
+	 */
 	private static final int BOARD_CELLS_NUMBER = SudokuBoard.BOARD_CELLS_NUMBER;
 	private static final int CELL_EMPTY = BoardCell.EMPTY;
 	public int[][] generate() {

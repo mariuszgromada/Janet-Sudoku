@@ -128,6 +128,10 @@ public final class SudokuStore {
 	 */
 	public static final int NUMBER_OF_SUDOKU_EXAMPLES = 3;
 	/**
+	 * Board size derived form SudokuBoard class.
+	 */
+	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
+	/**
 	 * Gets Sudoku example for the Sudoku Store.
 	 * @param exampleNumber     Example number.
 	 * @return                  Sudoku example is exists, otherwise null.
@@ -163,7 +167,7 @@ public final class SudokuStore {
 		ArrayList<String> fileLines = FileX.readFileLines2ArraList(filePath);
 		ArrayList<String> sudokuRows = new ArrayList<String>();
 		if (fileLines == null) return null;
-		if (fileLines.size() < SudokuBoard.BOARD_SIZE) return null;
+		if (fileLines.size() < BOARD_SIZE) return null;
 		for (String line : fileLines) {
 			if (line.length() > 0) {
 				if (line.charAt(0) != '#') {
@@ -183,16 +187,16 @@ public final class SudokuStore {
 							(c == '.')
 						) sudokuRow = sudokuRow + c;
 					}
-					if (sudokuRow.length() >= SudokuBoard.BOARD_SIZE)
-						sudokuRows.add(sudokuRow.substring(0, SudokuBoard.BOARD_SIZE));
+					if (sudokuRow.length() >= BOARD_SIZE)
+						sudokuRows.add(sudokuRow.substring(0, BOARD_SIZE));
 				}
 			}
 		}
-		if (sudokuRows.size() < SudokuBoard.BOARD_SIZE) return null;
-		int[][] sudokuBoard = new int[SudokuBoard.BOARD_SIZE][SudokuBoard.BOARD_SIZE];
-		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i++) {
+		if (sudokuRows.size() < BOARD_SIZE) return null;
+		int[][] sudokuBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++) {
 			String sudokuRow = sudokuRows.get(i);
-			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
+			for (int j = 0; j < BOARD_SIZE; j++) {
 				char c = sudokuRow.charAt(j);
 				int d = BoardCell.EMPTY;
 				if  (c == '1') d = 1;
@@ -208,6 +212,37 @@ public final class SudokuStore {
 			}
 		}
 		return sudokuBoard;
+	}
+	/**
+	 * Clockwise rotation of Sudoku board.
+	 *
+	 * @param sudokuBoard Array representing Sudoku board.
+	 * @return Clockwise rotated sudoku board.
+	 */
+	public static final int[][] rotateClockWise(int[][] sudokuBoard) {
+		int[][] rotatedBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i< BOARD_SIZE; i++) {
+			int newColIndex = BOARD_SIZE - i - 1;
+			for (int j = 0; j < BOARD_SIZE; j++)
+				rotatedBoard[j][newColIndex] = sudokuBoard[i][j];
+		}
+		return rotatedBoard;
+	}
+	/**
+	 * Counterclockwise rotation of Sudoku board.
+	 *
+	 * @param sudokuBoard Array representing Sudoku board.
+	 * @return Clockwise rotated Sudoku board.
+	 */
+	public static final int[][] rotateCounterclockWise(int[][] sudokuBoard) {
+		int[][] rotatedBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i< BOARD_SIZE; i++) {
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				int newRowsIndex = BOARD_SIZE - j -1;
+				rotatedBoard[newRowsIndex][j] = sudokuBoard[i][j];
+			}
+		}
+		return rotatedBoard;
 	}
 	/**
 	 * Returns string board (only) representation.

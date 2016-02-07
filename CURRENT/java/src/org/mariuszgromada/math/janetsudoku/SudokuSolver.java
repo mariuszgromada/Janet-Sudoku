@@ -217,7 +217,7 @@ public class SudokuSolver {
 	 * =====================================================
 	 */
 	/**
-	 * Default constructor - only board initialization.
+	 * Default constructor - only board initialisation.
 	 */
 	public SudokuSolver() {
 		clearPuzzels();
@@ -487,17 +487,25 @@ public class SudokuSolver {
 			updateDigitsStillFree(emptyCell);
 		}
 	}
+	/**
+	 * Method searching all solutions procedure.
+	 *
+	 * @return if board state is {@link SudokuBoard#BOARD_STATE_EMPTY} then {@link Errors#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_ERROR} then {@link Errors#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_LOADED} then {@link Errors#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_READY} then returns number of all solutions found.
+	 */
 	public int findAllSolutions() {
 		switch(boardState) {
 		case BOARD_STATE_EMPTY:
 			addMessage("Nothing to solve - the board is empty!", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+			return Errors.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
 		case BOARD_STATE_ERROR:
 			addMessage("Can not start solving process - the board contains an error!", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+			return Errors.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
 		case BOARD_STATE_LOADED:
 			addMessage("Can not start solving process - the board is not ready!", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+			return Errors.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
 		case BOARD_STATE_READY:
 			addMessage("Starting solving process!", MSG_INFO);
 			if (randomizeEmptyCells == true)
@@ -517,6 +525,10 @@ public class SudokuSolver {
 		addMessage("Can not start solving process - do not know why :-(", MSG_ERROR);
 		return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
 	}
+	/**
+	 * Recursive process of searching all possible solutions.
+	 * @param level     Level of recursive step.
+	 */
 	private void findAllSolutions(int level) {
 		/*
 		 * Enter level.
@@ -553,7 +565,6 @@ public class SudokuSolver {
 						if (level < emptyCellsNumber - 1)
 							sortEmptyCells(level, emptyCellsNumber-1);
 						totalPathsCounter++;
-						//System.out.println(totalPathsCounter);
 					}
 				}
 			}
