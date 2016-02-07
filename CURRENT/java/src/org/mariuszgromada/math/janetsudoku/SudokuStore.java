@@ -132,6 +132,10 @@ public final class SudokuStore {
 	 */
 	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
 	/**
+	 * Sudoku board sub-square size derived from SudokuBoard class.
+	 */
+	private static final int BOARD_SUB_SQURE_SIZE = SudokuBoard.BOARD_SUB_SQURE_SIZE;
+	/**
 	 * Gets Sudoku example for the Sudoku Store.
 	 * @param exampleNumber     Example number.
 	 * @return                  Sudoku example is exists, otherwise null.
@@ -236,13 +240,90 @@ public final class SudokuStore {
 	 */
 	public static final int[][] rotateCounterclockWise(int[][] sudokuBoard) {
 		int[][] rotatedBoard = new int[BOARD_SIZE][BOARD_SIZE];
-		for (int i = 0; i< BOARD_SIZE; i++) {
 			for (int j = 0; j < BOARD_SIZE; j++) {
-				int newRowsIndex = BOARD_SIZE - j -1;
-				rotatedBoard[newRowsIndex][j] = sudokuBoard[i][j];
+				int newRowIndex = BOARD_SIZE - j -1;
+				for (int i = 0; i< BOARD_SIZE; i++)
+					rotatedBoard[newRowIndex][j] = sudokuBoard[i][j];
+			}
+		return rotatedBoard;
+	}
+	public static final int[][] reflectHorizontally(int[][] sudokuBoard) {
+		int[][] reflectedBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			int newRowIndex = BOARD_SIZE - i - 1;
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				reflectedBoard[newRowIndex][j] = sudokuBoard[i][j];
 			}
 		}
-		return rotatedBoard;
+		return reflectedBoard;
+	}
+	public static final int[][] reflectVertically(int[][] sudokuBoard) {
+		int[][] reflectedBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int j = 0; j < BOARD_SIZE; j++) {
+			int newColIndex = BOARD_SIZE - j - 1;
+			for (int i = 0; i < BOARD_SIZE; i++) {
+				reflectedBoard[i][newColIndex] = sudokuBoard[i][j];
+			}
+		}
+		return reflectedBoard;
+	}
+	public static final int[][] transposeTlBr(int[][] sudokuBoard) {
+		int[][] reflectedBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++)
+			for (int j = 0; j < BOARD_SIZE; j++)
+				reflectedBoard[j][i] = sudokuBoard[i][j];
+		return reflectedBoard;
+	}
+	public static final int[][] transposeTrBl(int[][] sudokuBoard) {
+		int[][] reflectedBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			int newColIndex = BOARD_SIZE - i -1;
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				int newRowIndex = BOARD_SIZE - j - 1;
+				reflectedBoard[newRowIndex][newColIndex] = sudokuBoard[i][j];
+			}
+		}
+		return reflectedBoard;
+	}
+	public static final int boardSegmentStartIndex(int segId) {
+		if (segId == 1) return 0;
+		else if (segId == 2) return 3;
+		else if (segId == 3) return 6;
+		else return Errors.SUDOKUSTORE_BOARDSEGMENTSTARTINDEX_INCORRECT_SEGMENT;
+	}
+	public static final int[][] swapColSegments(int[][] sudokuBoard, int colSeg1, int colSeg2) {
+		int[][] newBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++)
+			for (int j = 0; j< BOARD_SIZE; j++)
+				newBoard[i][j] = sudokuBoard[i][j];
+		if (colSeg1 == colSeg2) return newBoard;
+		if ( (colSeg1 < 1) || (colSeg1 > 3) ) return newBoard;
+		if ( (colSeg2 < 1) || (colSeg2 > 3) ) return newBoard;
+		int startColSeg1 = boardSegmentStartIndex(colSeg1);
+		int startColSeg2 = boardSegmentStartIndex(colSeg2);
+		for (int j = 0; j < BOARD_SUB_SQURE_SIZE; j++)
+			for (int i = 0; i < BOARD_SIZE; i++) {
+				newBoard[i][startColSeg1 + j] = sudokuBoard[i][startColSeg2 + j];
+				newBoard[i][startColSeg2 + j] = sudokuBoard[i][startColSeg1 + j];
+			}
+		return newBoard;
+	}
+	public static final int[][] swapRowSegments(int[][] sudokuBoard, int rowSeg1, int rowSeg2) {
+		int[][] newBoard = new int[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++)
+			for (int j = 0; j< BOARD_SIZE; j++)
+				newBoard[i][j] = sudokuBoard[i][j];
+		if (rowSeg1 == rowSeg2) return newBoard;
+		if ( (rowSeg1 < 1) || (rowSeg1 > 3) ) return newBoard;
+		if ( (rowSeg2 < 1) || (rowSeg2 > 3) ) return newBoard;
+		int startRowSeg1 = boardSegmentStartIndex(rowSeg1);
+		int startRowSeg2 = boardSegmentStartIndex(rowSeg2);
+		for (int i = 0; i < BOARD_SUB_SQURE_SIZE; i++)
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				newBoard[startRowSeg1 + i][j] = sudokuBoard[startRowSeg2 + i][j];
+				newBoard[startRowSeg2 + i][j] = sudokuBoard[startRowSeg1 + i][j];
+			}
+		return newBoard;
 	}
 	/**
 	 * Returns string board (only) representation.

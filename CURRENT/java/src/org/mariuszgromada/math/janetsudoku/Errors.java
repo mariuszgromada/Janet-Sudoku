@@ -107,4 +107,5 @@ public class Errors {
 	 * @see {@link SudokuSolver#getCellDigit(int, int)}
 	 */
 	public static final int SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX = -105;
+	public static final int SUDOKUSTORE_BOARDSEGMENTSTARTINDEX_INCORRECT_SEGMENT = -106;
 }
