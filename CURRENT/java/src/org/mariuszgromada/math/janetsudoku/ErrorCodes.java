@@ -64,48 +64,61 @@ package org.mariuszgromada.math.janetsudoku;
  *
  * @version        0.0.1
  */
-public class Errors {
+public class ErrorCodes {
 	/**
 	 * Sudoku board loading failed.
 	 *
-	 * @see {@link SudokuSolver}
-	 * @see {@link SudokuSolver#loadBoard(int)}
-	 * #see {@link SudokuSolver#loadBoard(int[][])}
-	 * @see {@link SudokuSolver#loadBoard(String)}
+	 * @see SudokuSolver
+	 * @see SudokuSolver#loadBoard(int)
+	 * #see SudokuSolver#loadBoard(int[][])
+	 * @see SudokuSolver#loadBoard(String)
 	 */
 	public static final int SUDOKUSOLVER_LOADBOARD_LOADING_FAILED = -100;
 	/**
 	 * Sudoku solving requested, but not started.
 	 *
-	 * @see {@link SudokuSolver}
-	 * @see {@link SudokuSolver#solve()}
+	 * @see SudokuSolver
+	 * @see SudokuSolver#solve()
 	 */
 	public static final int SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED = -101;
 	/**
 	 * Sudoku solving requested, but falied.
 	 *
-	 * @see {@link SudokuSolver}
-	 * @see {@link SudokuSolver#solve()}
+	 * @see SudokuSolver
+	 * @see SudokuSolver#solve()
 	 */
 	public static final int SUDOKUSOLVER_SOLVE_SOLVING_FAILED = -102;
 	/**
 	 * Finding all Sudoku solutions requested, but not started.
 	 *
-	 * @see {@link SudokuSolver}
-	 * @see {@link SudokuSolver#findAllSolutions()}
+	 * @see SudokuSolver
+	 * @see SudokuSolver#findAllSolutions()
 	 */
 	public static final int SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED = -103;
 	/**
 	 * Incorrect cell definition while calling setCell method (incorrect index or incorrect digit).
-	 * @see {@link SudokuSolver}
-	 * @see {@link SudokuSolver#setCell(int, int, int)}
+	 * @see SudokuSolver
+	 * @see SudokuSolver#setCell(int, int, int)
 	 */
 	public static final int SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION = -104;
 	/**
 	 * Incorrect cell definition while calling getCell method (incorrect index).
-	 * @see {@link SudokuSolver}
-	 * @see {@link SudokuSolver#getCellDigit(int, int)}
+	 * @see SudokuSolver
+	 * @see SudokuSolver#getCellDigit(int, int)
 	 */
 	public static final int SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX = -105;
+	/**
+	 * Incorrect segment index while calling {@link SudokuStore#boardSegmentStartIndex(int)}
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#boardSegmentStartIndex(int)
+	 */
 	public static final int SUDOKUSTORE_BOARDSEGMENTSTARTINDEX_INCORRECT_SEGMENT = -106;
+	/**
+	 * Negative or zero parameter while calling {@link SudokuStore#randomIndex(int)}
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#randomIndex(int)
+	 */
+	public static final int SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER = -107;
 }

@@ -217,7 +217,7 @@ public class SudokuSolver {
 	 * =====================================================
 	 */
 	/**
-	 * Default constructor - only board initialisation.
+	 * Default constructor - only board initialization.
 	 */
 	public SudokuSolver() {
 		clearPuzzels();
@@ -228,7 +228,7 @@ public class SudokuSolver {
 	/**
 	 * Constructor - based on the Sudoku predefined example number.
 	 * @param exampleNumber  number of Sudoku example to load between 1
-	 * and {@link SudokuStore#NUMBER_OF_SUDOKU_EXAMPLES}
+	 * and {@link SudokuPuzzles#NUMBER_OF_PUZZLE_EXAMPLES}
 	 */
 	public SudokuSolver(int exampleNumber) {
 		clearPuzzels();
@@ -251,17 +251,17 @@ public class SudokuSolver {
 	 * Loads Sudoku example given by the parameter exampleNumber.
 	 *
 	 * @param exampleNumber  Number of predefined Sudoku example.
-	 * @return {@link Errors#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
+	 * @return {@link ErrorCodes#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
 	 *         {@link SudokuBoard#BOARD_STATE_LOADED}.
 	 */
 	public int loadBoard(int exampleNumber) {
-		if ((exampleNumber < 1) || (exampleNumber > SudokuStore.NUMBER_OF_SUDOKU_EXAMPLES)) {
-			addMessage("Loading failed - example number should be between 1 and " + SudokuStore.NUMBER_OF_SUDOKU_EXAMPLES, MSG_ERROR);
-			return Errors.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+		if ((exampleNumber < 1) || (exampleNumber > SudokuStore.NUMBER_OF_PUZZLE_EXAMPLES)) {
+			addMessage("Loading failed - example number should be between 1 and " + SudokuStore.NUMBER_OF_PUZZLE_EXAMPLES, MSG_ERROR);
+			return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
 		}
 		if (boardState != BOARD_STATE_EMPTY)
 			clearPuzzels();
-		int[][] loadedBoard = SudokuStore.getSudokuExample(exampleNumber);
+		int[][] loadedBoard = SudokuStore.getPuzzleExample(exampleNumber);
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++)
 				sudokuBoard[i][j] = loadedBoard[i][j];
@@ -273,14 +273,14 @@ public class SudokuSolver {
 	 * Loads Sudoku from file.
 	 *
 	 * @param filePath File path that contains board definition.
-	 * @return {@link Errors#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
+	 * @return {@link ErrorCodes#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
 	 *         {@link SudokuBoard#BOARD_STATE_LOADED}.
 	 */
 	public int loadBoard(String filePath) {
 		int[][] loadedBoard = SudokuStore.loadBoard(filePath);
 		if (loadedBoard == null) {
 			addMessage("Loading from file failed: " + filePath, MSG_ERROR);
-			return Errors.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+			return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
 		}
 		if (boardState != BOARD_STATE_EMPTY)
 			clearPuzzels();
@@ -295,29 +295,29 @@ public class SudokuSolver {
 	 * Loads Sudoku from array.
 	 *
 	 * @param sudokuBoard Array representing Sudoku puzzles.
-	 * @return {@link Errors#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
+	 * @return {@link ErrorCodes#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
 	 *         {@link SudokuBoard#BOARD_STATE_LOADED}.
 	 */
 	public int loadBoard(int[][] sudokuBoard) {
 		if (sudokuBoard == null) {
 			addMessage("Loading from array failed - null array!", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+			return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
 		}
 		if (sudokuBoard.length != BOARD_SIZE) {
 			addMessage("Loading from array failed - incorrect number of rows! " + sudokuBoard.length, MSG_ERROR);
-			return Errors.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+			return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
 		}
 		for (int i = 0; i < sudokuBoard.length; i++)
 			if (sudokuBoard[i].length != BOARD_SIZE) {
 				addMessage("Loading from array failed - incorrect number of columns! " + sudokuBoard[i].length, MSG_ERROR);
-				return Errors.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+				return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
 			}
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++) {
 				int d = sudokuBoard[i][j];
 				if ( !( ((d >= 1) && (d <= 9)) || (d == CELL_EMPTY) ) )  {
 					addMessage("Loading from array failed - incorrect digit: " + d, MSG_ERROR);
-					return Errors.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+					return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
 				}
 			}
 		if (boardState != BOARD_STATE_EMPTY)
@@ -336,20 +336,20 @@ public class SudokuSolver {
 	 * @param colIndex   Cell column index between 0 and 8.
 	 * @param digit      Cell digit between 1 and 9, or EMPTY_CELL.
 	 * @return           Number of empty cells that left if cell definition correct,
-	 *                   {@link Errors#SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION} otherwise.
+	 *                   {@link ErrorCodes#SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION} otherwise.
 	 */
 	public int setCell(int rowIndex, int colIndex, int digit) {
 		if ( (rowIndex < 0) || (rowIndex >= BOARD_SIZE) ) {
 			addMessage("Incorrect row index - is: " + rowIndex + ", should be between 0 and " + BOARD_SIZE + ".", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION;
+			return ErrorCodes.SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION;
 		}
 		if ( (colIndex < 0) || (colIndex >= BOARD_SIZE) ) {
 			addMessage("Incorrect colmn index - is: " + colIndex + ", should be between 0 and " + BOARD_SIZE + ".", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION;
+			return ErrorCodes.SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION;
 		}
 		if ( ( (digit < 1) || (digit > 9) ) && (digit != CELL_EMPTY) ){
 			addMessage("Incorrect digit definition - is: " + digit + ", should be between 1 and 9, or " + CELL_EMPTY + " for empty cell", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION;
+			return ErrorCodes.SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION;
 		}
 		return findEmptyCells();
 	}
@@ -360,17 +360,17 @@ public class SudokuSolver {
 	 * @return            Cell digit between 1 and 9, if cell empty
 	 *                    then {@link BoardCell#EMPTY}.
 	 *                    If indexes are out of range then error
-	 *                    {@link Errors#SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX}
+	 *                    {@link ErrorCodes#SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX}
 	 *                    is returned.
 	 */
 	public int getCellDigit(int rowIndex, int colIndex) {
 		if ( (rowIndex < 0) || (rowIndex >= BOARD_SIZE) ) {
 			addMessage("Incorrect row index - is: " + rowIndex + ", should be between 0 and " + BOARD_SIZE + ".", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX;
+			return ErrorCodes.SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX;
 		}
 		if ( (colIndex < 0) || (colIndex >= BOARD_SIZE) ) {
 			addMessage("Incorrect colmn index - is: " + colIndex + ", should be between 0 and " + BOARD_SIZE + ".", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX;
+			return ErrorCodes.SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX;
 		}
 		return sudokuBoard[rowIndex][colIndex];
 	}
@@ -381,12 +381,12 @@ public class SudokuSolver {
 	 */
 	/**
 	 * Method starts solving procedure.
-	 * @return if board state is {@link SudokuBoard#BOARD_STATE_EMPTY} then {@link Errors#SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED},
-	 *         if board state is {@link SudokuBoard#BOARD_STATE_ERROR} then {@link Errors#SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED},
-	 *         if board state is {@link SudokuBoard#BOARD_STATE_LOADED} then {@link Errors#SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED},
+	 * @return if board state is {@link SudokuBoard#BOARD_STATE_EMPTY} then {@link ErrorCodes#SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_ERROR} then {@link ErrorCodes#SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_LOADED} then {@link ErrorCodes#SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED},
 	 *         if board state is {@link SudokuBoard#BOARD_STATE_READY} then returns solving status:
 	 *              {@link SudokuSolver#SOLVING_STATE_SOLVED},
-	 *              {@link Errors#SUDOKUSOLVER_SOLVE_SOLVING_FAILED}.
+	 *              {@link ErrorCodes#SUDOKUSOLVER_SOLVE_SOLVING_FAILED}.
 	 *
 	 */
 	public int solve() {
@@ -394,15 +394,15 @@ public class SudokuSolver {
 		case BOARD_STATE_EMPTY:
 			addMessage("Nothing to solve - the board is empty!", MSG_ERROR);
 			solvingState = SOLVING_STATE_NOT_STARTED;
-			return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+			return ErrorCodes.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
 		case BOARD_STATE_ERROR:
 			addMessage("Can not start solving process - the board contains an error!", MSG_ERROR);
 			solvingState = SOLVING_STATE_NOT_STARTED;
-			return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+			return ErrorCodes.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
 		case BOARD_STATE_LOADED:
 			addMessage("Can not start solving process - the board is not ready!", MSG_ERROR);
 			solvingState = SOLVING_STATE_NOT_STARTED;
-			return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+			return ErrorCodes.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
 		case BOARD_STATE_READY:
 			addMessage("Starting solving process!", MSG_INFO);
 			if (randomizeEmptyCells == true)
@@ -418,7 +418,7 @@ public class SudokuSolver {
 			long solvingEndTime = DateTimeX.currentTimeMillis();
 			computingTime = (solvingEndTime - solvingStartTime) / 1000.0;
 			if (solvingState != SOLVING_STATE_SOLVED) {
-				solvingState = Errors.SUDOKUSOLVER_SOLVE_SOLVING_FAILED;
+				solvingState = ErrorCodes.SUDOKUSOLVER_SOLVE_SOLVING_FAILED;
 				boardState = BOARD_STATE_ERROR;
 				addMessage("Error while solving - no solutions found - setting board state as 'error' !!", MSG_ERROR);
 			} else {
@@ -430,7 +430,7 @@ public class SudokuSolver {
 		}
 		addMessage("Can not start solving process - do not know why :-(. Please report bug!", MSG_ERROR);
 		solvingState = SOLVING_STATE_NOT_STARTED;
-		return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+		return ErrorCodes.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
 	}
 	/**
 	 * Recursive process of Sudoku solving.
@@ -490,22 +490,22 @@ public class SudokuSolver {
 	/**
 	 * Method searching all solutions procedure.
 	 *
-	 * @return if board state is {@link SudokuBoard#BOARD_STATE_EMPTY} then {@link Errors#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
-	 *         if board state is {@link SudokuBoard#BOARD_STATE_ERROR} then {@link Errors#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
-	 *         if board state is {@link SudokuBoard#BOARD_STATE_LOADED} then {@link Errors#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
+	 * @return if board state is {@link SudokuBoard#BOARD_STATE_EMPTY} then {@link ErrorCodes#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_ERROR} then {@link ErrorCodes#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_LOADED} then {@link ErrorCodes#SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED},
 	 *         if board state is {@link SudokuBoard#BOARD_STATE_READY} then returns number of all solutions found.
 	 */
 	public int findAllSolutions() {
 		switch(boardState) {
 		case BOARD_STATE_EMPTY:
 			addMessage("Nothing to solve - the board is empty!", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
+			return ErrorCodes.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
 		case BOARD_STATE_ERROR:
 			addMessage("Can not start solving process - the board contains an error!", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
+			return ErrorCodes.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
 		case BOARD_STATE_LOADED:
 			addMessage("Can not start solving process - the board is not ready!", MSG_ERROR);
-			return Errors.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
+			return ErrorCodes.SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED;
 		case BOARD_STATE_READY:
 			addMessage("Starting solving process!", MSG_INFO);
 			if (randomizeEmptyCells == true)
@@ -523,7 +523,7 @@ public class SudokuSolver {
 			return solutionsList.size();
 		}
 		addMessage("Can not start solving process - do not know why :-(", MSG_ERROR);
-		return Errors.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
+		return ErrorCodes.SUDOKUSOLVER_SOLVE_SOLVING_NOT_STARTED;
 	}
 	/**
 	 * Recursive process of searching all possible solutions.
@@ -732,7 +732,7 @@ public class SudokuSolver {
 	 * of a given empty cell.
 	 *
 	 * @param l    Starting left index.
-	 * @param r    Starting rgth index.
+	 * @param r    Starting right index.
 	 */
 	private void sortEmptyCells(int l, int r) {
 		int i = l;
@@ -858,16 +858,12 @@ public class SudokuSolver {
 	 * @return  Current copy of Sudoku board
 	 */
 	public int[][] getBoardCopy() {
-		int[][] boardCopy = new int[SudokuBoard.BOARD_SIZE][SudokuBoard.BOARD_SIZE];
-		for (int i = 0; i < BOARD_SIZE; i++)
-			for (int j = 0; j < BOARD_SIZE; j++)
-				boardCopy[i][j] = sudokuBoard[i][j];
-		return boardCopy;
+		return SudokuStore.boardCopy(sudokuBoard);
 	}
 	/**
 	 * Return current solving status.
 	 * @return  {@link SudokuSolver#SOLVING_STATE_NOT_STARTED} or
-	 *          {@link Errors#SUDOKUSOLVER_SOLVE_SOLVING_FAILED} or
+	 *          {@link ErrorCodes#SUDOKUSOLVER_SOLVE_SOLVING_FAILED} or
 	 *          {@link SudokuSolver#SOLVING_STATE_SOLVED}.
 	 */
 	public int getSolvingState() {
@@ -890,7 +886,7 @@ public class SudokuSolver {
 	/**
 	 * Gets all solutions list evaluated by the findAllSolutions() method
 	 * @return  List of all found solutions
-	 * @see {@link #findAllSolutions()}
+	 * @see SudokuSolver#findAllSolutions()
 	 */
 	public ArrayList<SudokuBoard> getAllSolutionsList() {
 		return solutionsList;
@@ -1035,7 +1031,7 @@ public class SudokuSolver {
 		case SOLVING_STATE_SOLVED:
 			boardStateStr = boardStateStr + "solved";
 			break;
-		case Errors.SUDOKUSOLVER_SOLVE_SOLVING_FAILED:
+		case ErrorCodes.SUDOKUSOLVER_SOLVE_SOLVING_FAILED:
 			boardStateStr = boardStateStr + "failed";
 			break;
 		}

@@ -50,8 +50,8 @@ package org.mariuszgromada.math.janetsudoku;
 /**
  * Data type used while returning all solutions list
  *
- * @see {@link SudokuSolver}
- * @see {@link SudokuSolver#findAllSolutions()}
+ * @see SudokuSolver
+ * @see SudokuSolver#findAllSolutions()
  *
  * @author         <b>Mariusz Gromada</b><br/>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
@@ -75,6 +75,10 @@ public class SudokuBoard {
 	 * Sudoku board sub-square size.
 	 */
 	public static final int BOARD_SUB_SQURE_SIZE = 3;
+	/**
+	 * Number of 9x3 column segments or 3x9 row segments.
+	 */
+	public static final int BOARD_SEGMENTS_NUMBER = 3;
 	/**
 	 * We will use array indexes from 1.,.n, instead 0...n-1
 	 */
