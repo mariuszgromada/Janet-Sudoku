@@ -66,6 +66,22 @@ import java.util.ArrayList;
  */
 public class SudokuGenerator {
 	/**
+	 * Empty cell identifier.
+	 */
+	private static final int CELL_EMPTY = BoardCell.EMPTY;
+	/**
+	 * Marker if analyzed digit 0...9 is still not used.
+	 */
+	static final int DIGIT_STILL_FREE = SudokuSolver.DIGIT_STILL_FREE;
+	/**
+	 * Digit 0...9 can not be used in that place.
+	 */
+	static final int DIGIT_IN_USE = SudokuSolver.DIGIT_IN_USE;
+	private boolean randomizeEmptyCells = true;
+
+	int [][] solvedBoard;
+	BoardCell[] boardCells;
+	/**
 	 * Board size derived form SudokuBoard class.
 	 */
 	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
@@ -73,12 +89,11 @@ public class SudokuGenerator {
 	 * Board cells number derived form SudokuBoard class.
 	 */
 	private static final int BOARD_CELLS_NUMBER = SudokuBoard.BOARD_CELLS_NUMBER;
-	private static final int CELL_EMPTY = BoardCell.EMPTY;
 	public int[][] generate() {
-		SudokuSolver solved = new SudokuSolver("/home/pi/projects/github/Janet-Sudoku/CURRENT/examples/sudoku-04.txt");
+		SudokuSolver solved = new SudokuSolver("D:\\Mariusz\\projekty\\GitHub\\Janet-Sudoku\\CURRENT\\examples\\sudoku-03.txt");
 		solved.solve();
-		int[][] solvedBoard = solved.solvedBoard;
-		BoardCell[] boardCells = new BoardCell[BOARD_CELLS_NUMBER];
+		solvedBoard = SudokuStore.seqOfRandomBoardTransf(solved.solvedBoard);
+		boardCells = new BoardCell[BOARD_CELLS_NUMBER];
 		int cellIndex = 0;
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++) {
@@ -86,9 +101,11 @@ public class SudokuGenerator {
 			cellIndex++;
 		}
 		int filledCells = BOARD_CELLS_NUMBER;
+		updateDigitsStillFreeCounts();
+		sortBoardCells(0,filledCells-1);
 		int n = 0;
 		do {
-			int r = (int)Math.floor( Math.random() * filledCells );
+			int r = 0;
 			int i = boardCells[r].rowIndex;
 			int j = boardCells[r].colIndex;
 			int d = solvedBoard[i][j];
@@ -109,6 +126,8 @@ public class SudokuGenerator {
 				boardCells[r] = b2;
 			}
 			filledCells--;
+			updateDigitsStillFreeCounts();
+			if (filledCells > 0) sortBoardCells(0,filledCells-1);
 		} while (filledCells > 0);
 		SudokuSolver s = new SudokuSolver();
 		s.loadBoard(solvedBoard);
@@ -118,5 +137,78 @@ public class SudokuGenerator {
 		n = solutionsList.size();
 		System.out.println("solutions " + n);
 		return solvedBoard;
+	}
+	public void updateDigitsStillFreeCounts() {
+		for (int i = 0; i < BOARD_CELLS_NUMBER; i++)
+			countDigitsStillFree(boardCells[i]);
+	}
+	private void countDigitsStillFree(BoardCell boardCell) {
+		int[] digitsStillFree = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		for (int j = 0; j < BOARD_SIZE; j++) {
+			int boardDigit = solvedBoard[boardCell.rowIndex][j];
+			if (boardDigit != CELL_EMPTY)
+				digitsStillFree[boardDigit] = DIGIT_IN_USE;
+		}
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			int boardDigit = solvedBoard[i][boardCell.colIndex];
+			if (boardDigit != CELL_EMPTY)
+				digitsStillFree[boardDigit] = DIGIT_IN_USE;
+		}
+		SubSquare sub = SubSquare.getSubSqare(boardCell);
+		/*
+		 * Mark digits used in a sub-square.
+		 */
+		for (int i = sub.rowMin; i < sub.rowMax; i++)
+			for (int j = sub.colMin; j < sub.colMax; j++) {
+				int boardDigit = solvedBoard[i][j];
+				if (boardDigit != CELL_EMPTY)
+					digitsStillFree[boardDigit] = DIGIT_IN_USE;
+			}
+		/*
+		 * Find number of still free digits to use.
+		 */
+		digitsStillFree[boardCell.digit] = 0;
+		boardCell.digitsStillFreeNumber = 0;
+		for (int digit = 1; digit < 10; digit++)
+			if (digitsStillFree[digit] == DIGIT_STILL_FREE)
+				boardCell.digitsStillFreeNumber++;
+	}
+	private void sortBoardCells(int l, int r) {
+		int i = l;
+		int j = r;
+		BoardCell x;
+		BoardCell w;
+		x = boardCells[(l+r)/2];
+		do {
+			if (randomizeEmptyCells == true) {
+				/*
+				 * Adding randomization
+				 */
+				while (boardCells[i].digitsStillFreeNumber + boardCells[i].randomSeed < x.digitsStillFreeNumber + x.randomSeed)
+					i++;
+				while (boardCells[j].digitsStillFreeNumber + boardCells[j].randomSeed > x.digitsStillFreeNumber + x.randomSeed)
+					j--;
+			} else {
+				/*
+				 * No randomization
+				 */
+				while (boardCells[i].digitsStillFreeNumber < x.digitsStillFreeNumber)
+					i++;
+				while (boardCells[j].digitsStillFreeNumber > x.digitsStillFreeNumber)
+					j--;
+			}
+			if (i<=j)
+			{
+				w = boardCells[i];
+				boardCells[i] = boardCells[j];
+				boardCells[j] = w;
+				i++;
+				j--;
+			}
+		} while (i <= j);
+		if (l < j)
+			sortBoardCells(l,j);
+		if (i < r)
+			sortBoardCells(i,r);
 	}
 }

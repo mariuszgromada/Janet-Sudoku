@@ -1,5 +1,5 @@
 /*
- * @(#)Store.java        0.0.1    2016-02-01
+ * @(#)SudokuStore.java        0.0.1    2016-02-01
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -95,6 +95,22 @@ public final class SudokuStore {
 	 * derived from SudokuBoard class.
 	 */
 	private static final int BOARD_SEGMENTS_NUMBER = SudokuBoard.BOARD_SEGMENTS_NUMBER;
+	/**
+	 * Number of available random board transformations.
+	 *
+	 * @see SudokuStore#randomBoardTransf(int[][]);
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][]);
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int);
+	 */
+	public static final int AVAILABLE_RND_BOARD_TRANSF = 17;
+	/**
+	 * Default sequence length of random board transformations.
+	 *
+	 * @see SudokuStore#randomBoardTransf(int[][]);
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][]);
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int);
+	 */
+	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 20;
 	/*
 	 * ======================================================
 	 *     Loading / getting board methods
@@ -461,7 +477,7 @@ public final class SudokuStore {
 	public static final int[][] swapRowsInSegmentRandomly(int[][] sudokuBoard) {
 		int rowSeg = randomIndex(BOARD_SEGMENTS_NUMBER);
 		int row1 = randomIndex(BOARD_SUB_SQURE_SIZE);
-		int row2 = randomIndex(BOARD_SEGMENTS_NUMBER);
+		int row2 = randomIndex(BOARD_SUB_SQURE_SIZE);
 		return swapRowsInSegment(sudokuBoard, rowSeg, row1, row2);
 	}
 	/**
@@ -500,7 +516,7 @@ public final class SudokuStore {
 	public static final int[][] swapColsInSegmentRandomly(int[][] sudokuBoard) {
 		int colSeg = randomIndex(BOARD_SEGMENTS_NUMBER);
 		int col1 = randomIndex(BOARD_SUB_SQURE_SIZE);
-		int col2 = randomIndex(BOARD_SEGMENTS_NUMBER);
+		int col2 = randomIndex(BOARD_SUB_SQURE_SIZE);
 		return swapColsInSegment(sudokuBoard, colSeg, col1, col2);
 	}
 	/*
@@ -510,7 +526,7 @@ public final class SudokuStore {
 	 */
 	public static final int[][] permuteBoard(int[][] sudokuBoard, int[] permutation) {
 		if (sudokuBoard == null) return null;
-		if (isValidPermutation(permutation, BOARD_SEGMENTS_NUMBER) == false) return boardCopy(sudokuBoard);
+		if (isValidPermutation(permutation, BOARD_SIZE) == false) return boardCopy(sudokuBoard);
 		int[][] permutatedBoard = new int[BOARD_SIZE][BOARD_SIZE];
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++) {
@@ -521,6 +537,9 @@ public final class SudokuStore {
 					permutatedBoard[i][j] = permutation[digit-1]+1;
 			}
 		return permutatedBoard;
+	}
+	public static final int[][] permuteBoard(int[][] sudokuBoard) {
+		return permuteBoard(sudokuBoard, generatePermutation(BOARD_SIZE));
 	}
 	/**
 	 * Method applies given permutation of length 3 (permutation of 0, 1, 2)
@@ -746,6 +765,108 @@ public final class SudokuStore {
 	}
 	/*
 	 * ======================================================
+	 *                 Random transformations
+	 * ======================================================
+	 */
+	/**
+	 * Based on the parameter value method applies
+	 * one of the following board transformation:
+	 * <ul>
+	 * <li>0 - {@link #rotateClockWise(int[][])}
+	 * <li>1 - {@link #rotateCounterclockWise(int[][])}
+	 * <li>2 - {@link #reflectHorizontally(int[][])}
+	 * <li>3 - {@link #reflectVertically(int[][])}
+	 * <li>4 - {@link #transposeTlBr(int[][])}
+	 * <li>5 - {@link #transposeTrBl(int[][])}
+	 * <li>6 - {@link #swapRowSegmentsRandomly(int[][])}
+	 * <li>7 - {@link #swapColSegmentsRandomly(int[][])}
+	 * <li>8 - {@link #swapRowsInSegmentRandomly(int[][])}
+	 * <li>9 - {@link #swapColsInSegmentRandomly(int[][])}
+	 * <li>10 - {@link #permuteBoard(int[][])}
+	 * <li>11 - {@link #permuteRowSegments(int[][])}
+	 * <li>12 - {@link #permuteColSegments(int[][])}
+	 * <li>13 - {@link #permuteRowsInSegment(int[][])}
+	 * <li>14 - {@link #permuteRowsInAllSegments(int[][])}
+	 * <li>15 - {@link #permuteColsInSegment(int[][])}
+	 * <li>16 - {@link #permuteColsInAllSegments(int[][])}
+	 * </ul>
+	 *
+	 * @param sudokuBoard   Sudoku board to be transformed
+	 * @param transfId      Random operation id between 0 and {@link #AVAILABLE_RND_BOARD_TRANSF}.
+	 * @return              Sudoku board resulting from transformation.
+	 */
+	public static final int[][] randomBoardTransf(int[][] sudokuBoard, int transfId) {
+		int rndTransf = randomIndex(AVAILABLE_RND_BOARD_TRANSF);
+		switch (rndTransf) {
+		case 0:  return rotateClockWise(sudokuBoard);
+		case 1:  return rotateCounterclockWise(sudokuBoard);
+		case 2:  return reflectHorizontally(sudokuBoard);
+		case 3:  return reflectVertically(sudokuBoard);
+		case 4:  return transposeTlBr(sudokuBoard);
+		case 5:  return transposeTrBl(sudokuBoard);
+		case 6:  return swapRowSegmentsRandomly(sudokuBoard);
+		case 7:  return swapColSegmentsRandomly(sudokuBoard);
+		case 8:  return swapRowsInSegmentRandomly(sudokuBoard);
+		case 9:  return swapColsInSegmentRandomly(sudokuBoard);
+		case 10: return permuteBoard(sudokuBoard);
+		case 11: return permuteRowSegments(sudokuBoard);
+		case 12: return permuteColSegments(sudokuBoard);
+		case 13: return permuteRowsInSegment(sudokuBoard);
+		case 14: return permuteRowsInAllSegments(sudokuBoard);
+		case 15: return permuteColsInSegment(sudokuBoard);
+		case 16: return permuteColsInAllSegments(sudokuBoard);
+		}
+		return sudokuBoard;
+	}
+	/**
+	 * Random board transformation of type selected randomly (typed randomly selected between
+	 * 0 and {@link #AVAILABLE_RND_BOARD_TRANSF}).
+	 *
+	 * @param sudokuBoard        Sudoku board to be transformed.
+	 * @return                   Sudoku board resulting from transformation.
+	 *
+	 * @see #randomBoardTransf(int[][], int);
+	 */
+	public static final int[][] randomBoardTransf(int[][] sudokuBoard) {
+		return randomBoardTransf(sudokuBoard, randomIndex(AVAILABLE_RND_BOARD_TRANSF));
+	}
+	/**
+	 * Applies to the Sudoku board sequence (of a given length) of transformations selected randomly
+	 * (each transformation selected randomly between 0 and {@link #AVAILABLE_RND_BOARD_TRANSF}).
+	 *
+	 * @param sudokuBoard       Sudoku board to be transformed.
+	 * @param seqLength         Length of sequence (positive)
+	 * @return                  Sudoku board resulting from transformations.
+	 *                          If seqLengh is lower than 1 then exact copy of
+	 *                          Sudoku board is returned.
+	 *
+	 * @see #randomBoardTransf(int[][], int);
+	 */
+	public static final int[][] seqOfRandomBoardTransf(int[][] sudokuBoard, int seqLength) {
+		if (seqLength < 1) return boardCopy(sudokuBoard);
+		int[][] newBoard = boardCopy(sudokuBoard);
+		for (int i = 0; i < seqLength; i++)
+			newBoard = randomBoardTransf(newBoard);
+		return newBoard;
+	}
+	/**
+	 * Applies to the Sudoku board sequence (of default length) of transformations selected randomly
+	 * (each transformation selected randomly between 0 and {@link #AVAILABLE_RND_BOARD_TRANSF}).
+	 * Invocation of {@link #seqOfRandomBoardTransf(int[][], int)} with sequence length
+	 * equal to {@link #DEFAULT_RND_TRANSF_SEQ_LENGTH}.
+	 *
+	 * @param sudokuBoard       Sudoku board to be transformed.
+	 * @return                  Sudoku board resulting from transformations.
+	 *                          If seqLengh is lower than 1 then exact copy of
+	 *                          Sudoku board is returned.
+	 *
+	 * @see #randomBoardTransf(int[][], int);
+	 */
+	public static final int[][] seqOfRandomBoardTransf(int[][] sudokuBoard) {
+		return seqOfRandomBoardTransf(sudokuBoard, DEFAULT_RND_TRANSF_SEQ_LENGTH);
+	}
+	/*
+	 * ======================================================
 	 *              Random numbers generators
 	 *               Permutation generators
 	 * ======================================================
@@ -881,11 +1002,12 @@ public final class SudokuStore {
 	 * @return Board (only) representation.
 	 */
 	public static final String boardToString(int[][] sudokuBoard) {
-		String boardStr = "    Sudoku board\n";
-		boardStr = boardStr + "=====================\n";
+		String boardStr = "";
+		boardStr = boardStr + "+-------+-------+-------+\n";
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
 			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
-				boardStr = boardStr + "---------------------\n" ;
+				boardStr = boardStr + "+-------+-------+-------+\n" ;
+			boardStr = boardStr + "| ";
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
@@ -894,9 +1016,9 @@ public final class SudokuStore {
 				else
 					boardStr = boardStr + ". ";
 			}
-			boardStr = boardStr + "\n";
+			boardStr = boardStr + "|\n";
 		}
-		boardStr = boardStr + "=====================\n";
+		boardStr = boardStr + "+-------+-------+-------+\n";
 		return boardStr;
 	}
 	/**
@@ -1108,4 +1230,53 @@ class SubSquare {
 	 * Right bottom - column index.
 	 */
 	int colMax;
+	/**
+	 * Sub-square identification on the Sudoku board
+	 * based on the cell position
+	 * @param emptyCell   Cell object, including cell position
+	 * @return             Sub-square left-top and right-bottom indexes.
+	 */
+	static final SubSquare getSubSqare(EmptyCell emptyCell) {
+		return getSubSqare(emptyCell.rowIndex, emptyCell.colIndex);
+	}
+	/**
+	 * Sub-square identification on the Sudoku board
+	 * based on the cell position
+	 * @param emptyCell   Cell object, including cell position
+	 * @return             Sub-square left-top and right-bottom indexes.
+	 */
+	static final SubSquare getSubSqare(BoardCell boardCell) {
+		return getSubSqare(boardCell.rowIndex, boardCell.colIndex);
+	}
+	/**
+	 * Sub-square identification on the Sudoku board
+	 * based on the cell position
+	 * @param rowIndex     Row index
+	 * @param colIndex     Column index
+	 * @return             Sub-square left-top and right-bottom indexes.
+	 */
+	static final SubSquare getSubSqare(int rowIndex, int colIndex) {
+		SubSquare sub = new SubSquare();
+		if (rowIndex < SudokuBoard.BOARD_SUB_SQURE_SIZE) {
+			sub.rowMin = 0;
+			sub.rowMax = SudokuBoard.BOARD_SUB_SQURE_SIZE;
+		} else if (rowIndex < 2 * SudokuBoard.BOARD_SUB_SQURE_SIZE) {
+			sub.rowMin = SudokuBoard.BOARD_SUB_SQURE_SIZE;
+			sub.rowMax = 2 * SudokuBoard.BOARD_SUB_SQURE_SIZE;
+		} else {
+			sub.rowMin = 2 * SudokuBoard.BOARD_SUB_SQURE_SIZE;
+			sub.rowMax = 3 * SudokuBoard.BOARD_SUB_SQURE_SIZE;
+		}
+		if (colIndex < SudokuBoard.BOARD_SUB_SQURE_SIZE) {
+			sub.colMin = 0;
+			sub.colMax = SudokuBoard.BOARD_SUB_SQURE_SIZE;
+		} else if (colIndex < 2 * SudokuBoard.BOARD_SUB_SQURE_SIZE) {
+			sub.colMin = SudokuBoard.BOARD_SUB_SQURE_SIZE;
+			sub.colMax = 2 * SudokuBoard.BOARD_SUB_SQURE_SIZE;
+		} else {
+			sub.colMin = 2 * SudokuBoard.BOARD_SUB_SQURE_SIZE;
+			sub.colMax = 3 * SudokuBoard.BOARD_SUB_SQURE_SIZE;
+		}
+		return sub;
+	}
 }

@@ -96,10 +96,6 @@ public class SudokuSolver {
 	 */
 	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
 	/**
-	 * Sudoku board sub-square size.
-	 */
-	private static final int BOARD_SUB_SQURE_SIZE = SudokuBoard.BOARD_SUB_SQURE_SIZE;
-	/**
 	 * Number of cells on the Sudoku board.
 	 */
 	private static final int BOARD_CELLS_NUMBER = SudokuBoard.BOARD_CELLS_NUMBER;
@@ -675,7 +671,7 @@ public class SudokuSolver {
 			if (boardDigit != CELL_EMPTY)
 				emptyCell.digitsStillFree[boardDigit] = DIGIT_IN_USE;
 		}
-		SubSquare sub = getSubSqare(emptyCell);
+		SubSquare sub = SubSquare.getSubSqare(emptyCell);
 		/*
 		 * Mark digits used in a sub-square.
 		 */
@@ -704,7 +700,7 @@ public class SudokuSolver {
 		for (int i = 0; i < BOARD_SIZE; i++)
 			if (sudokuBoard[i][emptyCell.colIndex] == CELL_EMPTY)
 				findDigitsStillFree(emptyCellsPointer[i][emptyCell.colIndex]);
-		SubSquare sub = getSubSqare(emptyCell);
+		SubSquare sub = SubSquare.getSubSqare(emptyCell);
 		for (int i = sub.rowMin; i < sub.rowMax; i++)
 			for (int j = sub.colMin; j < sub.colMax; j++)
 				if (sudokuBoard[i][j] == CELL_EMPTY)
@@ -771,37 +767,6 @@ public class SudokuSolver {
 			sortEmptyCells(l,j);
 		if (i < r)
 			sortEmptyCells(i,r);
-	}
-	/**
-	 * Sub-square identification on the Sudoku board
-	 * based on the cell position
-	 * @param emptyCell   Cell object, including cell position
-	 * @return             Sub-square left-top and right-bottom indexes.
-	 */
-	private SubSquare getSubSqare(EmptyCell emptyCell) {
-		SubSquare sub = new SubSquare();
-		if (emptyCell.rowIndex < BOARD_SUB_SQURE_SIZE) {
-			sub.rowMin = 0;
-			sub.rowMax = BOARD_SUB_SQURE_SIZE;
-		} else if (emptyCell.rowIndex < 2*BOARD_SUB_SQURE_SIZE) {
-			sub.rowMin = BOARD_SUB_SQURE_SIZE;
-			sub.rowMax = 2*BOARD_SUB_SQURE_SIZE;
-		} else {
-			sub.rowMin = 2*BOARD_SUB_SQURE_SIZE;
-			sub.rowMax = 3*BOARD_SUB_SQURE_SIZE;
-		}
-		if (emptyCell.colIndex < BOARD_SUB_SQURE_SIZE) {
-			sub.colMin = 0;
-			sub.colMax = BOARD_SUB_SQURE_SIZE;
-		} else if (emptyCell.colIndex < 2*BOARD_SUB_SQURE_SIZE) {
-			sub.colMin = BOARD_SUB_SQURE_SIZE;
-			sub.colMax = 2*BOARD_SUB_SQURE_SIZE;
-		} else {
-			sub.colMin = 2*BOARD_SUB_SQURE_SIZE;
-			sub.colMax = 3*BOARD_SUB_SQURE_SIZE;
-		}
-		return sub;
-
 	}
 	/**
 	 * Message builder.

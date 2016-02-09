@@ -85,12 +85,22 @@ public class BoardCell {
 	 */
 	public int digit;
 	/**
+	 * Random seed.
+	 */
+	double randomSeed;
+	/**
+	 * Digits still free number.
+	 */
+	int digitsStillFreeNumber;
+	/**
 	 * Default constructor - uninitialized entry.
 	 */
 	public BoardCell() {
 		rowIndex = INDEX_NULL;
 		colIndex = INDEX_NULL;
 		digit = EMPTY;
+		randomSeed = Math.random();
+		digitsStillFreeNumber = -1;
 	}
 	/**
 	 * Constructor - initialized entry.
@@ -102,5 +112,7 @@ public class BoardCell {
 		this.rowIndex = rowIndex;
 		this.colIndex = colIndex;
 		this.digit = digit;
+		randomSeed = Math.random();
+		digitsStillFreeNumber = -1;
 	}
 }
