@@ -67,7 +67,7 @@ public final class SudokuPuzzles {
 	/**
 	 * Number of Sudoku examples available in Store.
 	 */
-	public static final int NUMBER_OF_PUZZLE_EXAMPLES = 53;
+	public static final int NUMBER_OF_PUZZLE_EXAMPLES = 56;
 	/**
 	 * Sudoku example - number 1.
 	 */
@@ -915,5 +915,53 @@ public final class SudokuPuzzles {
 			{0,0,9, 0,4,0, 3,0,1},
 			{0,0,0, 7,0,2, 0,0,0},
 			{0,0,0, 0,0,8, 0,0,6},
+		};
+	/**
+	 * Sudoku example - number 54.
+	 */
+	public static final int[][] SUDOKU_EXAMPLE_54 = {
+			{0,0,0, 0,0,6, 1,0,0},
+			{0,0,0, 0,9,1, 6,0,8},
+			{7,0,0, 0,0,0, 0,0,0},
+
+			{0,0,0, 0,0,0, 0,0,2},
+			{3,7,0, 0,0,0, 0,0,0},
+			{0,0,0, 0,0,4, 0,0,6},
+
+			{0,0,0, 7,3,0, 0,0,0},
+			{0,8,1, 0,0,0, 0,0,0},
+			{0,0,0, 5,0,0, 0,0,0},
+		};
+	/**
+	 * Sudoku example - number 55.
+	 */
+	public static final int[][] SUDOKU_EXAMPLE_55 = {
+			{0,0,8, 0,0,0, 0,3,2},
+			{0,0,0, 0,6,1, 0,0,0},
+			{0,0,5, 0,0,0, 0,0,0},
+
+			{6,0,0, 0,0,3, 0,0,0},
+			{1,0,0, 0,0,0, 0,0,7},
+			{0,0,0, 2,0,0, 0,0,8},
+
+			{0,0,0, 0,0,0, 6,0,0},
+			{0,0,0, 8,2,0, 0,0,0},
+			{5,3,0, 0,0,0, 9,0,0},
+		};
+	/**
+	 * Sudoku example - number 56.
+	 */
+	public static final int[][] SUDOKU_EXAMPLE_56 = {
+			{0,0,5, 3,0,0, 0,0,0},
+			{8,0,0, 0,0,0, 0,2,0},
+			{0,7,0, 0,1,0, 5,0,0},
+
+			{4,0,0, 0,0,5, 3,0,0},
+			{0,1,0, 0,7,0, 0,0,6},
+			{0,0,3, 2,0,0, 0,8,0},
+
+			{0,6,0, 5,0,0, 0,0,9},
+			{0,4,0, 0,0,0, 0,3,0},
+			{0,0,0, 0,0,9, 7,0,0},
 		};
 }
