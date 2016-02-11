@@ -110,7 +110,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#seqOfRandomBoardTransf(int[][]);
 	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int);
 	 */
-	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 20;
+	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 200;
 	/*
 	 * ======================================================
 	 *     Loading / getting board methods
@@ -121,64 +121,10 @@ public final class SudokuStore {
 	 * @param exampleNumber     Example number.
 	 * @return                  Sudoku example is exists, otherwise null.
 	 * @see SudokuPuzzles#NUMBER_OF_PUZZLE_EXAMPLES
+	 * @see SudokuPuzzles#getPuzzleExample(int)
 	 */
 	public static final int[][] getPuzzleExample(int exampleNumber) {
-		switch(exampleNumber) {
-		case 1: return SudokuPuzzles.PUZZLE_EXAMPLE_01;
-		case 2: return SudokuPuzzles.PUZZLE_EXAMPLE_02;
-		case 3: return SudokuPuzzles.PUZZLE_EXAMPLE_03;
-		case 4: return SudokuPuzzles.PUZZLE_EXAMPLE_04;
-		case 5: return SudokuPuzzles.PUZZLE_EXAMPLE_05;
-		case 6: return SudokuPuzzles.PUZZLE_EXAMPLE_06;
-		case 7: return SudokuPuzzles.PUZZLE_EXAMPLE_07;
-		case 8: return SudokuPuzzles.PUZZLE_EXAMPLE_08;
-		case 9: return SudokuPuzzles.PUZZLE_EXAMPLE_09;
-		case 10: return SudokuPuzzles.PUZZLE_EXAMPLE_10;
-		case 11: return SudokuPuzzles.PUZZLE_EXAMPLE_11;
-		case 12: return SudokuPuzzles.PUZZLE_EXAMPLE_12;
-		case 13: return SudokuPuzzles.PUZZLE_EXAMPLE_13;
-		case 14: return SudokuPuzzles.PUZZLE_EXAMPLE_14;
-		case 15: return SudokuPuzzles.PUZZLE_EXAMPLE_15;
-		case 16: return SudokuPuzzles.PUZZLE_EXAMPLE_16;
-		case 17: return SudokuPuzzles.PUZZLE_EXAMPLE_17;
-		case 18: return SudokuPuzzles.PUZZLE_EXAMPLE_18;
-		case 19: return SudokuPuzzles.PUZZLE_EXAMPLE_19;
-		case 20: return SudokuPuzzles.PUZZLE_EXAMPLE_20;
-		case 21: return SudokuPuzzles.PUZZLE_EXAMPLE_21;
-		case 22: return SudokuPuzzles.PUZZLE_EXAMPLE_22;
-		case 23: return SudokuPuzzles.PUZZLE_EXAMPLE_23;
-		case 24: return SudokuPuzzles.PUZZLE_EXAMPLE_24;
-		case 25: return SudokuPuzzles.PUZZLE_EXAMPLE_25;
-		case 26: return SudokuPuzzles.PUZZLE_EXAMPLE_26;
-		case 27: return SudokuPuzzles.PUZZLE_EXAMPLE_27;
-		case 28: return SudokuPuzzles.PUZZLE_EXAMPLE_28;
-		case 29: return SudokuPuzzles.PUZZLE_EXAMPLE_29;
-		case 30: return SudokuPuzzles.PUZZLE_EXAMPLE_30;
-		case 31: return SudokuPuzzles.PUZZLE_EXAMPLE_31;
-		case 32: return SudokuPuzzles.PUZZLE_EXAMPLE_32;
-		case 33: return SudokuPuzzles.PUZZLE_EXAMPLE_33;
-		case 34: return SudokuPuzzles.PUZZLE_EXAMPLE_34;
-		case 35: return SudokuPuzzles.PUZZLE_EXAMPLE_35;
-		case 36: return SudokuPuzzles.PUZZLE_EXAMPLE_36;
-		case 37: return SudokuPuzzles.PUZZLE_EXAMPLE_37;
-		case 38: return SudokuPuzzles.PUZZLE_EXAMPLE_38;
-		case 39: return SudokuPuzzles.PUZZLE_EXAMPLE_39;
-		case 40: return SudokuPuzzles.PUZZLE_EXAMPLE_40;
-		case 41: return SudokuPuzzles.PUZZLE_EXAMPLE_41;
-		case 42: return SudokuPuzzles.PUZZLE_EXAMPLE_42;
-		case 43: return SudokuPuzzles.PUZZLE_EXAMPLE_43;
-		case 44: return SudokuPuzzles.PUZZLE_EXAMPLE_44;
-		case 45: return SudokuPuzzles.PUZZLE_EXAMPLE_45;
-		case 46: return SudokuPuzzles.PUZZLE_EXAMPLE_46;
-		case 47: return SudokuPuzzles.PUZZLE_EXAMPLE_47;
-		case 48: return SudokuPuzzles.PUZZLE_EXAMPLE_48;
-		case 49: return SudokuPuzzles.PUZZLE_EXAMPLE_49;
-		case 50: return SudokuPuzzles.PUZZLE_EXAMPLE_50;
-		case 51: return SudokuPuzzles.PUZZLE_EXAMPLE_51;
-		case 52: return SudokuPuzzles.PUZZLE_EXAMPLE_52;
-		case 53: return SudokuPuzzles.PUZZLE_EXAMPLE_53;
-		}
-		return null;
+		return SudokuPuzzles.getPuzzleExample(exampleNumber);
 	}
 	/**
 	 * Loads Sudoku board form text file.
@@ -265,6 +211,7 @@ public final class SudokuStore {
 	 * @return Clockwise rotated sudoku board.
 	 */
 	public static final int[][] rotateClockWise(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		int[][] rotatedBoard = new int[BOARD_SIZE][BOARD_SIZE];
 		for (int i = 0; i< BOARD_SIZE; i++) {
 			int newColIndex = BOARD_SIZE - i - 1;
@@ -399,6 +346,7 @@ public final class SudokuStore {
 	 *           column  segments procedure.
 	 */
 	public static final int[][] swapRowSegmentsRandomly(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		int seg1 = randomIndex(BOARD_SEGMENTS_NUMBER);
 		int seg2 = randomIndex(BOARD_SEGMENTS_NUMBER);
 		return swapRowSegments(sudokuBoard, seg1, seg2);
@@ -437,6 +385,7 @@ public final class SudokuStore {
 	 *           column  segments procedure.
 	 */
 	public static final int[][] swapColSegmentsRandomly(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		int seg1 = randomIndex(BOARD_SEGMENTS_NUMBER);
 		int seg2 = randomIndex(BOARD_SEGMENTS_NUMBER);
 		return swapColSegments(sudokuBoard, seg1, seg2);
@@ -475,6 +424,7 @@ public final class SudokuStore {
 	 *           column  segments procedure.
 	 */
 	public static final int[][] swapRowsInSegmentRandomly(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		int rowSeg = randomIndex(BOARD_SEGMENTS_NUMBER);
 		int row1 = randomIndex(BOARD_SUB_SQURE_SIZE);
 		int row2 = randomIndex(BOARD_SUB_SQURE_SIZE);
@@ -514,6 +464,7 @@ public final class SudokuStore {
 	 *           column  segments procedure.
 	 */
 	public static final int[][] swapColsInSegmentRandomly(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		int colSeg = randomIndex(BOARD_SEGMENTS_NUMBER);
 		int col1 = randomIndex(BOARD_SUB_SQURE_SIZE);
 		int col2 = randomIndex(BOARD_SUB_SQURE_SIZE);
@@ -539,6 +490,7 @@ public final class SudokuStore {
 		return permutatedBoard;
 	}
 	public static final int[][] permuteBoard(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		return permuteBoard(sudokuBoard, generatePermutation(BOARD_SIZE));
 	}
 	/**
@@ -577,6 +529,7 @@ public final class SudokuStore {
 	 *           the null is returned.
 	 */
 	public static final int[][] permuteRowSegments(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		return permuteRowSegments(sudokuBoard, generatePermutation(BOARD_SEGMENTS_NUMBER) );
 	}
 	/**
@@ -615,6 +568,7 @@ public final class SudokuStore {
 	 *           the null is returned.
 	 */
 	public static final int[][] permuteColSegments(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		return permuteColSegments(sudokuBoard, generatePermutation(BOARD_SEGMENTS_NUMBER) );
 	}
 	/**
@@ -658,6 +612,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#generatePermutation(int)
 	 */
 	public static final int[][] permuteRowsInSegment(int[][] sudokuBoard, int rowSeg) {
+		if (sudokuBoard == null) return null;
 		return permuteRowsInSegment(sudokuBoard, rowSeg, generatePermutation(BOARD_SUB_SQURE_SIZE) );
 	}
 	/**
@@ -671,6 +626,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#generatePermutation(int)
 	 */
 	public static final int[][] permuteRowsInSegment(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		return permuteRowsInSegment(sudokuBoard, randomIndex(BOARD_SEGMENTS_NUMBER), generatePermutation(BOARD_SUB_SQURE_SIZE) );
 	}
 	/**
@@ -685,6 +641,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#generatePermutation(int)
 	 */
 	public static final int[][] permuteRowsInAllSegments(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		int[][] permutatedBoard0 = permuteRowsInSegment(sudokuBoard, 0);
 		int[][] permutatedBoard1 = permuteRowsInSegment(permutatedBoard0, 1);
 		int[][] permutatedBoard2 = permuteRowsInSegment(permutatedBoard1, 2);
@@ -731,6 +688,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#generatePermutation(int)
 	 */
 	public static final int[][] permuteColsInSegment(int[][] sudokuBoard, int colSeg) {
+		if (sudokuBoard == null) return null;
 		return permuteColsInSegment(sudokuBoard, colSeg, generatePermutation(BOARD_SUB_SQURE_SIZE) );
 	}
 	/**
@@ -744,6 +702,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#generatePermutation(int)
 	 */
 	public static final int[][] permuteColsInSegment(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		return permuteColsInSegment(sudokuBoard, randomIndex(BOARD_SEGMENTS_NUMBER), generatePermutation(BOARD_SUB_SQURE_SIZE) );
 	}
 	/**
@@ -758,6 +717,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#generatePermutation(int)
 	 */
 	public static final int[][] permuteColsInAllSegments(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		int[][] permutatedBoard0 = permuteColsInSegment(sudokuBoard, 0);
 		int[][] permutatedBoard1 = permuteColsInSegment(permutatedBoard0, 1);
 		int[][] permutatedBoard2 = permuteColsInSegment(permutatedBoard1, 2);
@@ -796,6 +756,7 @@ public final class SudokuStore {
 	 * @return              Sudoku board resulting from transformation.
 	 */
 	public static final int[][] randomBoardTransf(int[][] sudokuBoard, int transfId) {
+		if (sudokuBoard == null) return null;
 		int rndTransf = randomIndex(AVAILABLE_RND_BOARD_TRANSF);
 		switch (rndTransf) {
 		case 0:  return rotateClockWise(sudokuBoard);
@@ -828,6 +789,7 @@ public final class SudokuStore {
 	 * @see #randomBoardTransf(int[][], int);
 	 */
 	public static final int[][] randomBoardTransf(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		return randomBoardTransf(sudokuBoard, randomIndex(AVAILABLE_RND_BOARD_TRANSF));
 	}
 	/**
@@ -843,6 +805,7 @@ public final class SudokuStore {
 	 * @see #randomBoardTransf(int[][], int);
 	 */
 	public static final int[][] seqOfRandomBoardTransf(int[][] sudokuBoard, int seqLength) {
+		if (sudokuBoard == null) return null;
 		if (seqLength < 1) return boardCopy(sudokuBoard);
 		int[][] newBoard = boardCopy(sudokuBoard);
 		for (int i = 0; i < seqLength; i++)
@@ -863,6 +826,7 @@ public final class SudokuStore {
 	 * @see #randomBoardTransf(int[][], int);
 	 */
 	public static final int[][] seqOfRandomBoardTransf(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return null;
 		return seqOfRandomBoardTransf(sudokuBoard, DEFAULT_RND_TRANSF_SEQ_LENGTH);
 	}
 	/*

@@ -228,6 +228,8 @@ public class SudokuSolver {
 	 */
 	public SudokuSolver(int exampleNumber) {
 		clearPuzzels();
+		randomizeEmptyCells = true;
+		randomizeFreeDigits = true;
 		loadBoard(exampleNumber);
 	}
 	/**
@@ -236,7 +238,19 @@ public class SudokuSolver {
 	 */
 	public SudokuSolver(String filePath) {
 		clearPuzzels();
+		randomizeEmptyCells = true;
+		randomizeFreeDigits = true;
 		loadBoard(filePath);
+	}
+	/**
+	 * Constructor - based on array representing Sudoku board.
+	 * @param sudokuBoard    9x9 array representing Sudoku board/
+	 */
+	public SudokuSolver(int[][] sudokuBoard) {
+		clearPuzzels();
+		randomizeEmptyCells = true;
+		randomizeFreeDigits = true;
+		loadBoard(sudokuBoard);
 	}
 	/*
 	 * =====================================================

@@ -65,10 +65,6 @@ package org.mariuszgromada.math.janetsudoku;
  */
 public final class SudokuPuzzles {
 	/**
-	 * Number of Sudoku examples available in Store.
-	 */
-	public static final int NUMBER_OF_PUZZLE_EXAMPLES = 56;
-	/**
 	 * Sudoku example - number 1.
 	 */
 	public static final int[][] PUZZLE_EXAMPLE_01 = {
@@ -919,7 +915,7 @@ public final class SudokuPuzzles {
 	/**
 	 * Sudoku example - number 54.
 	 */
-	public static final int[][] SUDOKU_EXAMPLE_54 = {
+	public static final int[][] PUZZLE_EXAMPLE_54 = {
 			{0,0,0, 0,0,6, 1,0,0},
 			{0,0,0, 0,9,1, 6,0,8},
 			{7,0,0, 0,0,0, 0,0,0},
@@ -935,7 +931,7 @@ public final class SudokuPuzzles {
 	/**
 	 * Sudoku example - number 55.
 	 */
-	public static final int[][] SUDOKU_EXAMPLE_55 = {
+	public static final int[][] PUZZLE_EXAMPLE_55 = {
 			{0,0,8, 0,0,0, 0,3,2},
 			{0,0,0, 0,6,1, 0,0,0},
 			{0,0,5, 0,0,0, 0,0,0},
@@ -951,7 +947,7 @@ public final class SudokuPuzzles {
 	/**
 	 * Sudoku example - number 56.
 	 */
-	public static final int[][] SUDOKU_EXAMPLE_56 = {
+	public static final int[][] PUZZLE_EXAMPLE_56 = {
 			{0,0,5, 3,0,0, 0,0,0},
 			{8,0,0, 0,0,0, 0,2,0},
 			{0,7,0, 0,1,0, 5,0,0},
@@ -964,4 +960,129 @@ public final class SudokuPuzzles {
 			{0,4,0, 0,0,0, 0,3,0},
 			{0,0,0, 0,0,9, 7,0,0},
 		};
+	/**
+	 * Sudoku example - number 57.
+	 * Difficulty: Evil
+	 */
+	public static final int[][] PUZZLE_EXAMPLE_57 = {
+			{0,0,0, 1,9,6, 3,0,0},
+			{0,0,0, 0,0,0, 2,0,8},
+			{7,0,0, 0,4,0, 0,6,0},
+
+			{0,6,0, 0,0,7, 0,2,1},
+			{0,0,0, 0,0,0, 0,0,0},
+			{9,1,0, 8,0,0, 0,3,0},
+
+			{0,8,0, 0,2,0, 0,0,3},
+			{6,0,5, 0,0,0, 0,0,0},
+			{0,0,3, 7,8,4, 0,0,0},
+		};
+	/**
+	 * Sudoku example - number 58.
+	 * Difficulty: Very difficult
+	 */
+	public static final int[][] PUZZLE_EXAMPLE_58 = {
+			{0,0,7, 0,0,0, 4,0,9},
+			{0,0,6, 9,0,5, 2,0,0},
+			{8,0,0, 0,7,0, 0,0,0},
+
+			{0,3,0, 0,0,8, 0,6,0},
+			{1,0,0, 0,6,0, 0,0,5},
+			{7,0,0, 2,0,0, 0,8,0},
+
+			{0,0,0, 0,9,0, 0,0,2},
+			{0,0,1, 8,0,6, 5,0,0},
+			{5,0,9, 0,0,0, 3,0,0},
+		};
+	/**
+	 * Sudoku example - number 59.
+	 * Difficulty: Extreme
+	 */
+	public static final int[][] PUZZLE_EXAMPLE_59 = {
+			{0,0,7, 5,0,2, 4,0,0},
+			{0,0,0, 0,0,0, 0,0,0},
+			{5,0,1, 0,0,0, 2,0,7},
+
+			{1,0,0, 0,6,0, 0,0,9},
+			{0,0,2, 2,0,4, 0,0,0},
+			{9,0,0, 0,3,0, 0,0,6},
+
+			{2,0,5, 0,0,0, 8,0,3},
+			{0,0,0, 0,0,0, 0,0,0},
+			{0,0,6, 7,0,3, 1,0,0}
+		};
+	/**
+	 * Number of Sudoku examples available in Store.
+	 */
+	public static final int NUMBER_OF_PUZZLE_EXAMPLES = 59;
+	/**
+	 * Gets Sudoku example for the Sudoku Store.
+	 * @param exampleNumber     Example number.
+	 * @return                  Sudoku example is exists, otherwise null.
+	 * @see SudokuPuzzles#NUMBER_OF_PUZZLE_EXAMPLES
+	 */
+	public static final int[][] getPuzzleExample(int exampleNumber) {
+		switch(exampleNumber) {
+		case 1: return SudokuPuzzles.PUZZLE_EXAMPLE_01;
+		case 2: return SudokuPuzzles.PUZZLE_EXAMPLE_02;
+		case 3: return SudokuPuzzles.PUZZLE_EXAMPLE_03;
+		case 4: return SudokuPuzzles.PUZZLE_EXAMPLE_04;
+		case 5: return SudokuPuzzles.PUZZLE_EXAMPLE_05;
+		case 6: return SudokuPuzzles.PUZZLE_EXAMPLE_06;
+		case 7: return SudokuPuzzles.PUZZLE_EXAMPLE_07;
+		case 8: return SudokuPuzzles.PUZZLE_EXAMPLE_08;
+		case 9: return SudokuPuzzles.PUZZLE_EXAMPLE_09;
+		case 10: return SudokuPuzzles.PUZZLE_EXAMPLE_10;
+		case 11: return SudokuPuzzles.PUZZLE_EXAMPLE_11;
+		case 12: return SudokuPuzzles.PUZZLE_EXAMPLE_12;
+		case 13: return SudokuPuzzles.PUZZLE_EXAMPLE_13;
+		case 14: return SudokuPuzzles.PUZZLE_EXAMPLE_14;
+		case 15: return SudokuPuzzles.PUZZLE_EXAMPLE_15;
+		case 16: return SudokuPuzzles.PUZZLE_EXAMPLE_16;
+		case 17: return SudokuPuzzles.PUZZLE_EXAMPLE_17;
+		case 18: return SudokuPuzzles.PUZZLE_EXAMPLE_18;
+		case 19: return SudokuPuzzles.PUZZLE_EXAMPLE_19;
+		case 20: return SudokuPuzzles.PUZZLE_EXAMPLE_20;
+		case 21: return SudokuPuzzles.PUZZLE_EXAMPLE_21;
+		case 22: return SudokuPuzzles.PUZZLE_EXAMPLE_22;
+		case 23: return SudokuPuzzles.PUZZLE_EXAMPLE_23;
+		case 24: return SudokuPuzzles.PUZZLE_EXAMPLE_24;
+		case 25: return SudokuPuzzles.PUZZLE_EXAMPLE_25;
+		case 26: return SudokuPuzzles.PUZZLE_EXAMPLE_26;
+		case 27: return SudokuPuzzles.PUZZLE_EXAMPLE_27;
+		case 28: return SudokuPuzzles.PUZZLE_EXAMPLE_28;
+		case 29: return SudokuPuzzles.PUZZLE_EXAMPLE_29;
+		case 30: return SudokuPuzzles.PUZZLE_EXAMPLE_30;
+		case 31: return SudokuPuzzles.PUZZLE_EXAMPLE_31;
+		case 32: return SudokuPuzzles.PUZZLE_EXAMPLE_32;
+		case 33: return SudokuPuzzles.PUZZLE_EXAMPLE_33;
+		case 34: return SudokuPuzzles.PUZZLE_EXAMPLE_34;
+		case 35: return SudokuPuzzles.PUZZLE_EXAMPLE_35;
+		case 36: return SudokuPuzzles.PUZZLE_EXAMPLE_36;
+		case 37: return SudokuPuzzles.PUZZLE_EXAMPLE_37;
+		case 38: return SudokuPuzzles.PUZZLE_EXAMPLE_38;
+		case 39: return SudokuPuzzles.PUZZLE_EXAMPLE_39;
+		case 40: return SudokuPuzzles.PUZZLE_EXAMPLE_40;
+		case 41: return SudokuPuzzles.PUZZLE_EXAMPLE_41;
+		case 42: return SudokuPuzzles.PUZZLE_EXAMPLE_42;
+		case 43: return SudokuPuzzles.PUZZLE_EXAMPLE_43;
+		case 44: return SudokuPuzzles.PUZZLE_EXAMPLE_44;
+		case 45: return SudokuPuzzles.PUZZLE_EXAMPLE_45;
+		case 46: return SudokuPuzzles.PUZZLE_EXAMPLE_46;
+		case 47: return SudokuPuzzles.PUZZLE_EXAMPLE_47;
+		case 48: return SudokuPuzzles.PUZZLE_EXAMPLE_48;
+		case 49: return SudokuPuzzles.PUZZLE_EXAMPLE_49;
+		case 50: return SudokuPuzzles.PUZZLE_EXAMPLE_50;
+		case 51: return SudokuPuzzles.PUZZLE_EXAMPLE_51;
+		case 52: return SudokuPuzzles.PUZZLE_EXAMPLE_52;
+		case 53: return SudokuPuzzles.PUZZLE_EXAMPLE_53;
+		case 54: return SudokuPuzzles.PUZZLE_EXAMPLE_54;
+		case 55: return SudokuPuzzles.PUZZLE_EXAMPLE_55;
+		case 56: return SudokuPuzzles.PUZZLE_EXAMPLE_56;
+		case 57: return SudokuPuzzles.PUZZLE_EXAMPLE_57;
+		case 58: return SudokuPuzzles.PUZZLE_EXAMPLE_58;
+		case 59: return SudokuPuzzles.PUZZLE_EXAMPLE_59;
+		}
+		return null;
+	}
 }

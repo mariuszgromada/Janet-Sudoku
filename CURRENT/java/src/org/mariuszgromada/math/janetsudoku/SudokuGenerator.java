@@ -89,10 +89,11 @@ public class SudokuGenerator {
 	 * Board cells number derived form SudokuBoard class.
 	 */
 	private static final int BOARD_CELLS_NUMBER = SudokuBoard.BOARD_CELLS_NUMBER;
-	public int[][] generate() {
-		SudokuSolver solved = new SudokuSolver("D:\\Mariusz\\projekty\\GitHub\\Janet-Sudoku\\CURRENT\\examples\\sudoku-03.txt");
+	public int[][] generate(int e) {
+		SudokuSolver solved = new SudokuSolver(e);
 		solved.solve();
 		solvedBoard = SudokuStore.seqOfRandomBoardTransf(solved.solvedBoard);
+		//solvedBoard = solved.solvedBoard;
 		boardCells = new BoardCell[BOARD_CELLS_NUMBER];
 		int cellIndex = 0;
 		for (int i = 0; i < BOARD_SIZE; i++)
@@ -110,12 +111,9 @@ public class SudokuGenerator {
 			int j = boardCells[r].colIndex;
 			int d = solvedBoard[i][j];
 			solvedBoard[i][j] = CELL_EMPTY;
-			SudokuSolver s = new SudokuSolver();
-			s.loadBoard(solvedBoard);
-			s.findAllSolutions();
-			ArrayList<SudokuBoard> solutionsList = s.getAllSolutionsList();
-			n = solutionsList.size();
-			System.out.println(filledCells + " - " + n);
+			SudokuSolver s = new SudokuSolver(solvedBoard);
+			n = s.findAllSolutions();
+			//System.out.println(filledCells + " - " + n);
 			if (n != 1)
 				solvedBoard[i][j] = d;
 			int lastIndex = filledCells-1;
@@ -131,11 +129,11 @@ public class SudokuGenerator {
 		} while (filledCells > 0);
 		SudokuSolver s = new SudokuSolver();
 		s.loadBoard(solvedBoard);
-		System.out.print("final: " + filledCells + " empty: " + s.emptyCellsNumber + ", ");
+		//System.out.print("final: " + filledCells + " empty: " + s.emptyCellsNumber + ", ");
 		s.findAllSolutions();
 		ArrayList<SudokuBoard> solutionsList = s.getAllSolutionsList();
 		n = solutionsList.size();
-		System.out.println("solutions " + n);
+		//System.out.println("solutions " + n);
 		return solvedBoard;
 	}
 	public void updateDigitsStillFreeCounts() {
@@ -144,15 +142,20 @@ public class SudokuGenerator {
 	}
 	private void countDigitsStillFree(BoardCell boardCell) {
 		int[] digitsStillFree = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		int emptyCellsNumber = 0;
 		for (int j = 0; j < BOARD_SIZE; j++) {
 			int boardDigit = solvedBoard[boardCell.rowIndex][j];
 			if (boardDigit != CELL_EMPTY)
 				digitsStillFree[boardDigit] = DIGIT_IN_USE;
+			else if (j != boardCell.colIndex)
+				emptyCellsNumber++;
 		}
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			int boardDigit = solvedBoard[i][boardCell.colIndex];
 			if (boardDigit != CELL_EMPTY)
 				digitsStillFree[boardDigit] = DIGIT_IN_USE;
+			else if (i != boardCell.rowIndex)
+				emptyCellsNumber++;
 		}
 		SubSquare sub = SubSquare.getSubSqare(boardCell);
 		/*
@@ -163,12 +166,14 @@ public class SudokuGenerator {
 				int boardDigit = solvedBoard[i][j];
 				if (boardDigit != CELL_EMPTY)
 					digitsStillFree[boardDigit] = DIGIT_IN_USE;
+				else if ((i != boardCell.rowIndex) && (j != boardCell.colIndex))
+					emptyCellsNumber++;
 			}
 		/*
 		 * Find number of still free digits to use.
 		 */
 		digitsStillFree[boardCell.digit] = 0;
-		boardCell.digitsStillFreeNumber = 0;
+		boardCell.digitsStillFreeNumber = emptyCellsNumber;
 		for (int digit = 1; digit < 10; digit++)
 			if (digitsStillFree[digit] == DIGIT_STILL_FREE)
 				boardCell.digitsStillFreeNumber++;
