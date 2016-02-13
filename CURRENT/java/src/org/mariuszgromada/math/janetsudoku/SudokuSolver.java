@@ -755,17 +755,17 @@ public class SudokuSolver {
 				/*
 				 * Adding randomization
 				 */
-				while (emptyCells[i].digitsStillFreeNumber + emptyCells[i].randomSeed < x.digitsStillFreeNumber + x.randomSeed)
+				while ( emptyCells[i].orderPlusRndSeed() < x.orderPlusRndSeed() )
 					i++;
-				while (emptyCells[j].digitsStillFreeNumber + emptyCells[j].randomSeed > x.digitsStillFreeNumber + x.randomSeed)
+				while ( emptyCells[j].orderPlusRndSeed() > x.orderPlusRndSeed() )
 					j--;
 			} else {
 				/*
 				 * No randomization
 				 */
-				while (emptyCells[i].digitsStillFreeNumber < x.digitsStillFreeNumber)
+				while ( emptyCells[i].order() < x.order() )
 					i++;
-				while (emptyCells[j].digitsStillFreeNumber > x.digitsStillFreeNumber)
+				while ( emptyCells[j].order() > x.order() )
 					j--;
 			}
 			if (i<=j)

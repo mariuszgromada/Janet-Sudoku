@@ -110,7 +110,7 @@ public final class SudokuStore {
 	 * @see SudokuStore#seqOfRandomBoardTransf(int[][]);
 	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int);
 	 */
-	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 200;
+	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 1000;
 	/*
 	 * ======================================================
 	 *     Loading / getting board methods
@@ -1171,6 +1171,12 @@ class EmptyCell {
 			digitsStillFree[i] = SudokuSolver.DIGIT_STILL_FREE;
 		}
 		digitsStillFreeNumber = 0;
+	}
+	int order() {
+		return digitsStillFreeNumber;
+	}
+	double orderPlusRndSeed() {
+		return digitsStillFreeNumber + randomSeed;
 	}
 }
 /**
