@@ -140,7 +140,7 @@ public class SudokuSolver {
 	 */
 	int[][] solvedBoard = null;
 	/**
-	 * Board backup for generaln internal purposes.
+	 * Board backup for general internal purposes.
 	 */
 	private int[][] boardBackup = new int[BOARD_SIZE][BOARD_SIZE];
 	/**
@@ -172,7 +172,6 @@ public class SudokuSolver {
 	 * Total evaluated paths counter while finding all solutions.
 	 */
 	private int totalPathsCounter;
-
 	/**
 	 * If yes then empty cells with the same number of
 	 * still free digits will be randomized.
@@ -196,7 +195,7 @@ public class SudokuSolver {
 	 */
 	int emptyCellsNumber;
 	/**
-	 * Error message, if necessary.
+	 * Message from the solver.
 	 */
 	String messages = "";
 	/**

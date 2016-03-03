@@ -47,7 +47,8 @@
  */
 package org.mariuszgromada.math.janetsudoku;
 
-import java.util.ArrayList;
+import org.mariuszgromada.janetutils.DateTimeX;
+
 /**
  * Sudoku generator.
  *
@@ -66,6 +67,14 @@ import java.util.ArrayList;
  */
 public class SudokuGenerator {
 	/**
+	 * Board size derived form SudokuBoard class.
+	 */
+	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
+	/**
+	 * Board cells number derived form SudokuBoard class.
+	 */
+	private static final int BOARD_CELLS_NUMBER = SudokuBoard.BOARD_CELLS_NUMBER;
+	/**
 	 * Empty cell identifier.
 	 */
 	private static final int CELL_EMPTY = BoardCell.EMPTY;
@@ -77,23 +86,164 @@ public class SudokuGenerator {
 	 * Digit 0...9 can not be used in that place.
 	 */
 	static final int DIGIT_IN_USE = SudokuSolver.DIGIT_IN_USE;
-	private boolean randomizeEmptyCells = true;
-
+	/**
+	 * If yes then empty cells with the same number of
+	 * still free digits will be randomized.
+	 */
+	private boolean randomizeEmptyCells;
+	/**
+	 * Solved board that will be a basis for
+	 * the generation process
+	 */
 	int [][] solvedBoard;
+	/**
+	 * Board cells array
+	 */
 	BoardCell[] boardCells;
 	/**
-	 * Board size derived form SudokuBoard class.
+	 * Message type normal.
 	 */
-	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
+	private static final int MSG_INFO = 1;
 	/**
-	 * Board cells number derived form SudokuBoard class.
+	 * Message type error.
 	 */
-	private static final int BOARD_CELLS_NUMBER = SudokuBoard.BOARD_CELLS_NUMBER;
-	public int[][] generate(int e) {
-		SudokuSolver solved = new SudokuSolver(e);
-		solved.solve();
-		solvedBoard = SudokuStore.seqOfRandomBoardTransf(solved.solvedBoard);
-		//solvedBoard = solved.solvedBoard;
+	private static final int MSG_ERROR = -1;
+	/**
+	 * Message from the solver.
+	 */
+	String messages = "";
+	/**
+	 * Last message.
+	 */
+	String lastMessage = "";
+	/**
+	 * Last error message.
+	 */
+	String lastErrorMessage = "";
+	/**
+	 * Solving time in seconds.
+	 */
+	private double computingTime;
+	/**
+	 * Generator state.
+	 *
+	 * @see #GENERATOR_INIT_STARTED
+	 * @see #GENERATOR_INIT_FINISHED
+	 * @see #GENERATOR_INIT_FAILED
+	 * @see #GENERATOR_GEN_NOT_STARTED
+	 * @see #GENERATOR_GEN_STARTED
+	 * @see #GENERATOR_GEN_STARTED
+	 * @see #GENERATOR_GEN_FAILED
+	 */
+	private int generatorState;
+	/**
+	 * Generator init started
+	 * @see #getGeneratorState()
+	 */
+	public static final int GENERATOR_INIT_STARTED = 1;
+	/**
+	 * Generator init finished.
+	 * @see #getGeneratorState()
+	 */
+	public static final int GENERATOR_INIT_FINISHED = 2;
+	/**
+	 * Generator init failed.
+	 * @see #getGeneratorState()
+	 */
+	public static final int GENERATOR_INIT_FAILED = -1;
+	/**
+	 * Generation process not started.
+	 * @see #getGeneratorState()
+	 */
+	public static final int GENERATOR_GEN_NOT_STARTED = -2;
+	/**
+	 * Generation process started.
+	 * @see #getGeneratorState()
+	 */
+	public static final int GENERATOR_GEN_STARTED = 3;
+	/**
+	 * Generation process finished.
+	 * @see #getGeneratorState()
+	 */
+	public static final int GENERATOR_GEN_FINISHED = 4;
+	/**
+	 * Generation process failed.
+	 * @see #getGeneratorState()
+	 */
+	public static final int GENERATOR_GEN_FAILED = -3;
+	/**
+	 * Internal variables init for constructor.
+	 */
+	private void initInternalVars() {
+		generatorState = GENERATOR_INIT_STARTED;
+		randomizeEmptyCells = true;
+		computingTime = 0;
+	}
+	/**
+	 * Default constructor based on random sudoku puzzle example.
+	 */
+	public SudokuGenerator() {
+		initInternalVars();
+		int example = SudokuStore.randomNumber( SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES );
+		SudokuSolver puzzle = new SudokuSolver(example);
+		puzzle.solve();
+		solvedBoard = SudokuStore.seqOfRandomBoardTransf(puzzle.solvedBoard);
+		generatorState = GENERATOR_INIT_FINISHED;
+		addMessage("Generator initiated using sequance of random transformation on the example number: " + example + ".", MSG_INFO);
+	}
+	/**
+	 * Default constructor based on puzzle example.
+	 */
+	public SudokuGenerator(int example) {
+		initInternalVars();
+		if ( (example >= 1) && (example <= SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES) ) {
+			SudokuSolver puzzle = new SudokuSolver(example);
+			puzzle.solve();
+			solvedBoard = SudokuStore.seqOfRandomBoardTransf(puzzle.solvedBoard);
+			generatorState = GENERATOR_INIT_FINISHED;
+			addMessage("Generator initiated using sequance of random transformation on the example number: " + example + ".", MSG_INFO);
+		} else {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("Generator not initiated incorrect example number: " + example + " - should be between 1 and " + SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES + ".", MSG_ERROR);
+		}
+	}
+	/**
+	 * Default constructor based on provided solved board.
+	 */
+	public SudokuGenerator(int[][] solvedBoard) {
+		initInternalVars();
+		if (solvedBoard == null) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("Generator not initiated - null solved board.", MSG_ERROR);
+		} else if (solvedBoard.length != BOARD_SIZE) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("Generator not initiated - incorrect number of rows in solved board, is: " + solvedBoard.length + ",  expected: " + BOARD_SIZE + ".", MSG_ERROR);
+		} else if (solvedBoard[0].length != BOARD_SIZE) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("Generator not initiated - incorrect number of columns in solved board, is: " + solvedBoard[0].length + ", expected: " + BOARD_SIZE + ".", MSG_ERROR);
+		} else if (SudokuStore.checkSolvedBoard(solvedBoard) == false) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("Generator not initiated - solved board contains an error.", MSG_ERROR);
+		} else {
+			this.solvedBoard = solvedBoard;
+			generatorState = GENERATOR_INIT_FINISHED;
+			addMessage("Generator initiated using provided solved board.", MSG_INFO);
+		}
+	}
+	/**
+	 * Sudoku puzzle generator.
+	 *
+	 * @return   Sudoku puzzle if process finished correctly, otherwise null.
+	 */
+	public int[][] generate() {
+		if (generatorState != GENERATOR_INIT_FINISHED) {
+			generatorState = GENERATOR_GEN_NOT_STARTED;
+			addMessage("Generation process not started due to incorrect initialization.", MSG_ERROR);
+			return null;
+		}
+		long solvingStartTime = DateTimeX.currentTimeMillis();
+		generatorState = GENERATOR_GEN_STARTED;
+		addMessage("Generation process started.", MSG_INFO);
 		boardCells = new BoardCell[BOARD_CELLS_NUMBER];
 		int cellIndex = 0;
 		for (int i = 0; i < BOARD_SIZE; i++)
@@ -113,7 +263,6 @@ public class SudokuGenerator {
 			solvedBoard[i][j] = CELL_EMPTY;
 			SudokuSolver s = new SudokuSolver(solvedBoard);
 			n = s.findAllSolutions();
-			//System.out.println(filledCells + " - " + n);
 			if (n != 1)
 				solvedBoard[i][j] = d;
 			int lastIndex = filledCells-1;
@@ -127,19 +276,26 @@ public class SudokuGenerator {
 			updateDigitsStillFreeCounts();
 			if (filledCells > 0) sortBoardCells(0,filledCells-1);
 		} while (filledCells > 0);
-		SudokuSolver s = new SudokuSolver();
-		s.loadBoard(solvedBoard);
-		//System.out.print("final: " + filledCells + " empty: " + s.emptyCellsNumber + ", ");
-		s.findAllSolutions();
-		ArrayList<SudokuBoard> solutionsList = s.getAllSolutionsList();
-		n = solutionsList.size();
-		//System.out.println("solutions " + n);
+		long solvingEndTime = DateTimeX.currentTimeMillis();
+		computingTime = (solvingEndTime - solvingStartTime) / 1000.0;
+		generatorState = GENERATOR_GEN_FINISHED;
+		addMessage("Generation process finished, computing time: " + computingTime + " s.", MSG_INFO);
 		return solvedBoard;
 	}
-	public void updateDigitsStillFreeCounts() {
+	/**
+	 * Updating digits still free for a specific cell
+	 * while generating process.
+	 */
+	private void updateDigitsStillFreeCounts() {
 		for (int i = 0; i < BOARD_CELLS_NUMBER; i++)
 			countDigitsStillFree(boardCells[i]);
 	}
+	/**
+	 * Counts number of digits still free
+	 * for a specific cell.
+	 *
+	 * @param boardCell
+	 */
 	private void countDigitsStillFree(BoardCell boardCell) {
 		int[] digitsStillFree = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		int emptyCellsNumber = 0;
@@ -178,6 +334,11 @@ public class SudokuGenerator {
 			if (digitsStillFree[digit] == DIGIT_STILL_FREE)
 				boardCell.digitsStillFreeNumber++;
 	}
+	/**
+	 * Sorting board cells
+	 * @param l  First index
+	 * @param r  Last index
+	 */
 	private void sortBoardCells(int l, int r) {
 		int i = l;
 		int j = r;
@@ -189,17 +350,17 @@ public class SudokuGenerator {
 				/*
 				 * Adding randomization
 				 */
-				while (boardCells[i].digitsStillFreeNumber + boardCells[i].randomSeed < x.digitsStillFreeNumber + x.randomSeed)
+				while ( boardCells[i].orderPlusRndSeed() < x.orderPlusRndSeed() )
 					i++;
-				while (boardCells[j].digitsStillFreeNumber + boardCells[j].randomSeed > x.digitsStillFreeNumber + x.randomSeed)
+				while ( boardCells[j].orderPlusRndSeed() > x.orderPlusRndSeed() )
 					j--;
 			} else {
 				/*
 				 * No randomization
 				 */
-				while (boardCells[i].digitsStillFreeNumber < x.digitsStillFreeNumber)
+				while ( boardCells[i].order() < x.order() )
 					i++;
-				while (boardCells[j].digitsStillFreeNumber > x.digitsStillFreeNumber)
+				while ( boardCells[j].order() > x.order() )
 					j--;
 			}
 			if (i<=j)
@@ -215,5 +376,84 @@ public class SudokuGenerator {
 			sortBoardCells(l,j);
 		if (i < r)
 			sortBoardCells(i,r);
+	}
+	/**
+	 * By default random seed on empty cells is enabled. This parameter
+	 * affects generating process only. Random seed on
+	 * empty cells causes randomization on empty cells
+	 * within empty cells with the same number of still free digits.
+	 */
+	public void enableRndSeedOnEmptyCells() {
+		randomizeEmptyCells = true;
+	}
+	/**
+	 * By default random seed on empty cells is enabled. This parameter
+	 * affects generating process only. Random seed on
+	 * empty cells causes randomization on empty cells
+	 * within empty cells with the same number of still free digits.
+	 */
+	public void disableRndSeedOnEmptyCells() {
+		randomizeEmptyCells = false;
+	}
+	/**
+	 * Message builder.
+	 * @param msg Message.
+	 */
+	private void addMessage(String msg, int msgType) {
+		String vdt = "[" + SudokuStore.JANET_SUDOKU_NAME + "-v." + SudokuStore.JANET_SUDOKU_VERSION + "][" + DateTimeX.getCurrDateTimeStr() + "]";
+		String mt = "(msg)";
+		if (msgType == MSG_ERROR) {
+			mt = "(error)";
+			lastErrorMessage = msg;
+		}
+		messages = messages + "\n" + vdt + mt + " " + msg;
+		lastMessage = msg;
+	}
+	/**
+	 * Returns list of recorded messages.
+	 * @return List of recorded messages.
+	 */
+	public String getMessages() {
+		return messages;
+	}
+	/**
+	 * Clears list of recorded messages.
+	 */
+	public void clearMessages() {
+		messages = "";
+	}
+	/**
+	 * Gets last recorded message.
+	 * @return Last recorded message.
+	 */
+	public String getLastMessage() {
+		return lastMessage;
+	}
+	/**
+	 * Gets last recorded error message.
+	 * @return Last recorded message.
+	 */
+	public String getLastErrorMessage() {
+		return lastErrorMessage;
+	}
+	/**
+	 * Return solving time in seconds..
+	 * @return  Solving time in seconds.
+	 */
+	public double getComputingTime() {
+		return computingTime;
+	}
+	/**
+	 * Return current state of the generator
+	 * @return  {@link #GENERATOR_INIT_STARTED} or
+	 *          {@link #GENERATOR_INIT_FINISHED} or
+	 *          {@link #GENERATOR_INIT_FAILED} or
+	 *          {@link #GENERATOR_GEN_NOT_STARTED} or
+	 *          {@link #GENERATOR_GEN_STARTED} or
+	 *          {@link #GENERATOR_GEN_FINISHED} or
+	 *          {@link #GENERATOR_GEN_FAILED}.
+	 */
+	public int getGeneratorState() {
+		return generatorState;
 	}
 }

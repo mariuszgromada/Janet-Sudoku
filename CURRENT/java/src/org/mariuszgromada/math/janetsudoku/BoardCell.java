@@ -115,4 +115,18 @@ public class BoardCell {
 		randomSeed = Math.random();
 		digitsStillFreeNumber = -1;
 	}
+	/**
+	 * Package level method
+	 * @return
+	 */
+	int order() {
+		return digitsStillFreeNumber;
+	}
+	/**
+	 * Package level method
+	 * @return
+	 */
+	double orderPlusRndSeed() {
+		return digitsStillFreeNumber + randomSeed;
+	}
 }

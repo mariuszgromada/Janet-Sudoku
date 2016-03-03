@@ -194,6 +194,74 @@ public final class SudokuStore {
 		}
 		return sudokuBoard;
 	}
+	/**
+	 * Set all digits to zero.
+	 *
+	 * @param digits
+	 * @see SudokuStore#checkSolvedBoard(int[][])
+	 */
+	private static final void clearDigits(int[] digits) {
+		for (int i = 1; i < 10; i++)
+			digits[i] = 0;
+	}
+	/**
+	 * Returns found unique digits number.
+	 *
+	 * @param digits
+	 * @see SudokuStore#checkSolvedBoard(int[][])
+	 *
+	 * @return Unique digits number.
+	 */
+	private static final int sumDigits(int[] digits) {
+		int s = 0;
+		for (int i = 1; i < 10; i++)
+			s += digits[i];
+		return s;
+	}
+	/**
+	 * Checks whether solved board is correct.
+	 *
+	 * @param solvedBoard   The solved board to be verified.
+	 *
+	 * @return              True if solved board is correct, otherwise false.
+	 */
+	public static boolean checkSolvedBoard(int[][] solvedBoard) {
+		if (solvedBoard == null) return false;
+		if (solvedBoard.length != BOARD_SIZE) return false;
+		if (solvedBoard[0].length != BOARD_SIZE) return false;
+		int[] digits = new int[10];
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			clearDigits(digits);
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				int d = solvedBoard[i][j];
+				if ( (d < 1) || (d > 9) ) return false;
+				digits[d] = 1;
+			}
+			if (sumDigits(digits) != 9) return false;
+		}
+		for (int j = 0; j < BOARD_SIZE; j++) {
+			clearDigits(digits);
+			for (int i = 0; i < BOARD_SIZE; i++) {
+				int d = solvedBoard[i][j];
+				digits[d] = 1;
+			}
+			if (sumDigits(digits) != 9) return false;
+		}
+		for (int rowSeg = 0; rowSeg < BOARD_SEGMENTS_NUMBER; rowSeg++) {
+			int iSeg = boardSegmentStartIndex(rowSeg);
+			for (int colSeg = 0; colSeg < BOARD_SEGMENTS_NUMBER; colSeg++) {
+				int jSeg = boardSegmentStartIndex(colSeg);
+				clearDigits(digits);
+				for (int i = 0; i < BOARD_SUB_SQURE_SIZE; i++)
+					for (int j = 0; j < BOARD_SUB_SQURE_SIZE; j++) {
+						int d = solvedBoard[iSeg + i][jSeg + j];
+						digits[d] = 1;
+					}
+				if (sumDigits(digits) != 9) return false;
+			}
+		}
+		return true;
+	}
 	/*
 	 * ======================================================
 	 *         Allowed operation on Sudoku board
@@ -847,6 +915,19 @@ public final class SudokuStore {
 		if (n < 1)
 			return ErrorCodes.SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER;
 		return (int)Math.floor(Math.random() * n);
+	}
+	/**
+	 * Random number generator for n returning random number between 1, 2, ... n.
+	 *
+	 * @param     n    The parameter influencing random number generation process.
+	 * @return    Random number between 1, 2, ... n if n is 1 or above, otherwise
+	 *            error {@link ErrorCodes#SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER}
+	 *            is returned.
+	 */
+	public static final int randomNumber(int n) {
+		if (n < 1)
+			return ErrorCodes.SUDOKUSTORE_RANDOMNUMBER_INCORRECT_PARAMETER;
+		return (int)Math.floor(Math.random() * n) + 1;
 	}
 	/**
 	 * 9x9 Sudoku board consist either 3 row segments (3x9 each one)

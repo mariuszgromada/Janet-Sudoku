@@ -121,4 +121,11 @@ public class ErrorCodes {
 	 * @see SudokuStore#randomIndex(int)
 	 */
 	public static final int SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER = -107;
+	/**
+	 * Negative or zero parameter while calling {@link SudokuStore#randomNumber(int)}
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#randomNumber(int)
+	 */
+	public static final int SUDOKUSTORE_RANDOMNUMBER_INCORRECT_PARAMETER = -108;
 }
