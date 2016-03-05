@@ -1147,6 +1147,9 @@ public final class SudokuStore {
 	public static final void consolePrintBoard(int[][] sudokuBoard) {
 		System.out.println(boardToString(sudokuBoard));
 	}
+	public static final void consolePrintln(Object o) {
+		System.out.println("[" + JANET_SUDOKU_NAME + "-v." + SudokuStore.JANET_SUDOKU_VERSION + "] " + o);
+	}
 }
 /*
  * ======================================================

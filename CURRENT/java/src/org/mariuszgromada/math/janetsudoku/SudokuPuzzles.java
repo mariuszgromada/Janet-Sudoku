@@ -65,6 +65,22 @@ package org.mariuszgromada.math.janetsudoku;
  */
 public final class SudokuPuzzles {
 	/**
+	 * Sudoku example - number 0.
+	 */
+	public static final int[][] PUZZLE_EXAMPLE_000 = {
+			{0,9,0, 0,7,0, 0,0,0},
+			{0,0,1, 0,0,2, 0,0,8},
+			{0,2,0, 9,0,0, 3,0,0},
+
+			{0,0,8, 0,0,0, 0,4,0},
+			{0,1,0, 0,0,9, 0,0,5},
+			{0,0,5, 6,0,0, 0,0,0},
+
+			{0,0,0, 7,0,0, 4,0,0},
+			{1,0,0, 0,0,8, 0,0,9},
+			{0,0,0, 0,3,0, 0,6,0}
+		};
+	/**
 	 * Sudoku example - number 1.
 	 */
 	public static final int[][] PUZZLE_EXAMPLE_001 = {
@@ -2436,7 +2452,75 @@ public final class SudokuPuzzles {
 	/**
 	 * Number of Sudoku examples available in Store.
 	 */
-	public static final int NUMBER_OF_PUZZLE_EXAMPLES = 160;
+	public static final int NUMBER_OF_PUZZLE_EXAMPLES = 161;
+
+
+	public static final int[][] PUZZLE_NON_UNIQUE_SOLUTION = {
+			{0,8,0, 0,0,9, 7,4,3},
+			{0,5,0, 0,0,8, 0,1,0},
+			{0,1,0, 0,0,0, 0,0,0},
+
+			{8,0,0, 0,0,5, 0,0,0},
+			{0,0,0, 8,0,4, 0,0,0},
+			{0,0,0, 3,0,0, 0,0,6},
+
+			{0,0,0, 0,0,0, 0,7,0},
+			{0,3,0, 5,0,0, 0,8,0},
+			{9,7,2, 4,0,0, 0,5,0}
+	};
+
+	public static final int[][] PUZZLE_NO_SOLUTION = {
+			{0,0,0, 8,0,0, 0,0,0},
+			{4,0,0, 0,1,5, 0,3,0},
+			{0,2,9, 0,4,0, 5,1,8},
+
+			{0,4,0, 0,0,0, 1,2,0},
+			{0,0,0, 6,0,2, 0,0,0},
+			{0,3,2, 0,0,0, 0,9,0},
+
+			{6,9,3, 0,5,0, 8,7,0},
+			{0,5,0, 4,8,0, 0,0,1},
+			{0,0,0, 0,0,3, 0,0,8}
+	};
+	public static final int[][] PUZZLE_ERROR = {
+			{0,0,0, 8,0,0, 0,0,0},
+			{4,0,0, 0,1,5, 0,3,0},
+			{0,2,9, 0,4,0, 5,1,8},
+
+			{0,4,0, 0,0,0, 1,2,0},
+			{0,0,0, 6,0,2, 0,0,0},
+			{3,3,2, 0,0,0, 0,9,0},
+
+			{6,9,3, 0,5,0, 8,7,0},
+			{0,5,0, 4,8,0, 0,0,1},
+			{0,0,0, 0,0,3, 0,0,0}
+	};
+	public static final int[][] PUZZLE_EMPTY = {
+			{0,0,0, 0,0,0, 0,0,0},
+			{0,0,0, 0,0,0, 0,0,0},
+			{0,0,0, 0,0,0, 0,0,0},
+
+			{0,0,0, 0,0,0, 0,0,0},
+			{0,0,0, 0,0,0, 0,0,0},
+			{0,0,0, 0,0,0, 0,0,0},
+
+			{0,0,0, 0,0,0, 0,0,0},
+			{0,0,0, 0,0,0, 0,0,0},
+			{0,0,0, 0,0,0, 0,0,0}
+	};
+	public static final int[][] PUZZLE_SOLVED = {
+			{3,1,5, 8,2,7, 9,4,6},
+			{4,6,8, 9,1,5, 7,3,2},
+			{7,2,9, 3,4,6, 5,1,8},
+
+			{9,4,6, 5,3,8, 1,2,7},
+			{5,7,1, 6,9,2, 4,8,3},
+			{8,3,2, 1,7,4, 6,9,5},
+
+			{6,9,3, 2,5,1, 8,7,4},
+			{2,5,7, 4,8,9, 3,6,1},
+			{1,8,4, 7,6,3, 2,6,9}
+	};
 	/**
 	 * Gets Sudoku example for the Sudoku Store.
 	 * @param exampleNumber     Example number.
@@ -2445,6 +2529,7 @@ public final class SudokuPuzzles {
 	 */
 	public static final int[][] getPuzzleExample(int exampleNumber) {
 		switch(exampleNumber) {
+		case   0: return PUZZLE_EXAMPLE_000;
 		case   1: return PUZZLE_EXAMPLE_001;
 		case   2: return PUZZLE_EXAMPLE_002;
 		case   3: return PUZZLE_EXAMPLE_003;

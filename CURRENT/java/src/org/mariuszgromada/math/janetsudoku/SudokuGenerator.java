@@ -201,10 +201,10 @@ public class SudokuGenerator {
 			puzzle.solve();
 			solvedBoard = SudokuStore.seqOfRandomBoardTransf(puzzle.solvedBoard);
 			generatorState = GENERATOR_INIT_FINISHED;
-			addMessage("Generator initiated using sequance of random transformation on the example number: " + example + ".", MSG_INFO);
+			addMessage("(SudokuGenerator) Generator initiated using sequance of random transformation on the example number: " + example + ".", MSG_INFO);
 		} else {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("Generator not initiated incorrect example number: " + example + " - should be between 1 and " + SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES + ".", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generator not initiated incorrect example number: " + example + " - should be between 1 and " + SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES + ".", MSG_ERROR);
 		}
 	}
 	/**
@@ -214,20 +214,20 @@ public class SudokuGenerator {
 		initInternalVars();
 		if (solvedBoard == null) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("Generator not initiated - null solved board.", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generator not initiated - null solved board.", MSG_ERROR);
 		} else if (solvedBoard.length != BOARD_SIZE) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("Generator not initiated - incorrect number of rows in solved board, is: " + solvedBoard.length + ",  expected: " + BOARD_SIZE + ".", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generator not initiated - incorrect number of rows in solved board, is: " + solvedBoard.length + ",  expected: " + BOARD_SIZE + ".", MSG_ERROR);
 		} else if (solvedBoard[0].length != BOARD_SIZE) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("Generator not initiated - incorrect number of columns in solved board, is: " + solvedBoard[0].length + ", expected: " + BOARD_SIZE + ".", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generator not initiated - incorrect number of columns in solved board, is: " + solvedBoard[0].length + ", expected: " + BOARD_SIZE + ".", MSG_ERROR);
 		} else if (SudokuStore.checkSolvedBoard(solvedBoard) == false) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("Generator not initiated - solved board contains an error.", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generator not initiated - solved board contains an error.", MSG_ERROR);
 		} else {
 			this.solvedBoard = solvedBoard;
 			generatorState = GENERATOR_INIT_FINISHED;
-			addMessage("Generator initiated using provided solved board.", MSG_INFO);
+			addMessage("(SudokuGenerator) Generator initiated using provided solved board.", MSG_INFO);
 		}
 	}
 	/**
@@ -238,7 +238,7 @@ public class SudokuGenerator {
 	public int[][] generate() {
 		if (generatorState != GENERATOR_INIT_FINISHED) {
 			generatorState = GENERATOR_GEN_NOT_STARTED;
-			addMessage("Generation process not started due to incorrect initialization.", MSG_ERROR);
+			addMessage("(generate) Generation process not started due to incorrect initialization.", MSG_ERROR);
 			return null;
 		}
 		long solvingStartTime = DateTimeX.currentTimeMillis();
@@ -279,7 +279,7 @@ public class SudokuGenerator {
 		long solvingEndTime = DateTimeX.currentTimeMillis();
 		computingTime = (solvingEndTime - solvingStartTime) / 1000.0;
 		generatorState = GENERATOR_GEN_FINISHED;
-		addMessage("Generation process finished, computing time: " + computingTime + " s.", MSG_INFO);
+		addMessage("(generate) Generation process finished, computing time: " + computingTime + " s.", MSG_INFO);
 		return solvedBoard;
 	}
 	/**

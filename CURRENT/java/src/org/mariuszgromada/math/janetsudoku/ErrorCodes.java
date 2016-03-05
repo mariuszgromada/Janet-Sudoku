@@ -96,36 +96,43 @@ public class ErrorCodes {
 	 */
 	public static final int SUDOKUSOLVER_FINDALLSOLUTIONS_SEARCHING_NOT_STARTED = -103;
 	/**
+	 * Finding all Sudoku solutions requested, but not started.
+	 *
+	 * @see SudokuSolver
+	 * @see SudokuSolver#findAllSolutions()
+	 */
+	public static final int SUDOKUSOLVER_CHECKIFUNIQUESOLUTION_CHECKING_NOT_STARTED = -104;
+	/**
 	 * Incorrect cell definition while calling setCell method (incorrect index or incorrect digit).
 	 * @see SudokuSolver
 	 * @see SudokuSolver#setCell(int, int, int)
 	 */
-	public static final int SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION = -104;
+	public static final int SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION = -105;
 	/**
 	 * Incorrect cell definition while calling getCell method (incorrect index).
 	 * @see SudokuSolver
 	 * @see SudokuSolver#getCellDigit(int, int)
 	 */
-	public static final int SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX = -105;
+	public static final int SUDOKUSOLVER_GETCELLDIGIT_INCORRECT_INDEX = -106;
 	/**
 	 * Incorrect segment index while calling {@link SudokuStore#boardSegmentStartIndex(int)}
 	 *
 	 * @see SudokuStore
 	 * @see SudokuStore#boardSegmentStartIndex(int)
 	 */
-	public static final int SUDOKUSTORE_BOARDSEGMENTSTARTINDEX_INCORRECT_SEGMENT = -106;
+	public static final int SUDOKUSTORE_BOARDSEGMENTSTARTINDEX_INCORRECT_SEGMENT = -107;
 	/**
 	 * Negative or zero parameter while calling {@link SudokuStore#randomIndex(int)}
 	 *
 	 * @see SudokuStore
 	 * @see SudokuStore#randomIndex(int)
 	 */
-	public static final int SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER = -107;
+	public static final int SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER = -108;
 	/**
 	 * Negative or zero parameter while calling {@link SudokuStore#randomNumber(int)}
 	 *
 	 * @see SudokuStore
 	 * @see SudokuStore#randomNumber(int)
 	 */
-	public static final int SUDOKUSTORE_RANDOMNUMBER_INCORRECT_PARAMETER = -108;
+	public static final int SUDOKUSTORE_RANDOMNUMBER_INCORRECT_PARAMETER = -109;
 }
