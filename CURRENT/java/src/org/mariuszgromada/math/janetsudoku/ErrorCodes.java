@@ -1,5 +1,5 @@
 /*
- * @(#)Errors.java        0.0.1    2016-01-30
+ * @(#)ErrorCodes.java        0.0.1    2016-01-30
  *
  * You may use this software under the condition of "Simplified BSD License"
  *

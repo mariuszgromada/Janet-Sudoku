@@ -1094,6 +1094,27 @@ public final class SudokuStore {
 				newBoard[i][j] = sudokuBoard[i][j];
 		return newBoard;
 	}
+	/**
+	 * Checks whether boards are equal.
+	 * @param board1    First board.
+	 * @param board2    Second board.
+	 * @return          True if boards are equal, otherwise false
+	 *                  (false also for null boards or board having different sizes).
+	 */
+	public static final boolean boardsAreEqual(int[][] board1, int[][] board2) {
+		if (board1 == null) return false;
+		if (board2 == null) return false;
+		if (board1.length != board2.length) return false;
+		if (board1[0].length != board2[0].length) return false;
+		int rdim = board1.length;
+		int cdim = board1[0].length;
+		for (int i = 0; i < rdim; i++)
+			for (int j = 0; j < cdim; j++)
+				if (board1[i][j] != board2[i][j]) {
+					return false;
+				}
+		return true;
+	}
 	/*
 	 * ======================================================
 	 *           Board to string methods

@@ -2508,7 +2508,20 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 0,0,0}
 	};
-	public static final int[][] PUZZLE_SOLVED = {
+	public static final int[][] PUZZLE_REGTESTS = {
+			{0,0,0, 8,0,0, 0,0,0},
+			{4,0,0, 0,1,5, 0,3,0},
+			{0,2,9, 0,4,0, 5,1,8},
+
+			{0,4,0, 0,0,0, 1,2,0},
+			{0,0,0, 6,0,2, 0,0,0},
+			{0,3,2, 0,0,0, 0,9,0},
+
+			{6,9,3, 0,5,0, 8,7,0},
+			{0,5,0, 4,8,0, 0,0,1},
+			{0,0,0, 0,0,3, 0,0,0}
+	};
+	public static final int[][] PUZZLE_REGTESTS_SOLUTION = {
 			{3,1,5, 8,2,7, 9,4,6},
 			{4,6,8, 9,1,5, 7,3,2},
 			{7,2,9, 3,4,6, 5,1,8},
@@ -2519,7 +2532,7 @@ public final class SudokuPuzzles {
 
 			{6,9,3, 2,5,1, 8,7,4},
 			{2,5,7, 4,8,9, 3,6,1},
-			{1,8,4, 7,6,3, 2,6,9}
+			{1,8,4, 7,6,3, 2,5,9}
 	};
 	/**
 	 * Gets Sudoku example for the Sudoku Store.
