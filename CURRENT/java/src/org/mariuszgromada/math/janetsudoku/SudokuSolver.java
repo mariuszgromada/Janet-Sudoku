@@ -771,6 +771,13 @@ public class SudokuSolver {
 			boardState = BOARD_STATE_ERROR;
 			return BOARD_STATE_ERROR;
 		}
+
+		if (SudokuStore.checkPuzzle(sudokuBoard) != true) {
+			addMessage("(findEmptyCells) Board contains an abvious error - duplicated digits.", MSG_ERROR);
+			boardState = BOARD_STATE_ERROR;
+			return BOARD_STATE_ERROR;
+		}
+
 		return BOARD_STATE_READY;
 	}
 	/**

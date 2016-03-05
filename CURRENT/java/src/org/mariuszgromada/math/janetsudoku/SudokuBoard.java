@@ -102,7 +102,7 @@ public class SudokuBoard {
 	/**
 	 * Sudoku board is ready to start solving process.
 	 */
-	public static final int BOARD_STATE_ERROR = -1;
+	public static final int BOARD_STATE_ERROR = ErrorCodes.SUDOKUSOLVER_BOARD_ERROR;
 	/**
 	 * Path number gives the information on how many routes
 	 * were verified until solutions was found.
