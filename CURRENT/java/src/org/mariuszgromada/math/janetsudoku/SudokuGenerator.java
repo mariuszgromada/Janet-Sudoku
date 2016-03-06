@@ -67,6 +67,36 @@ import org.mariuszgromada.janetutils.DateTimeX;
  */
 public class SudokuGenerator {
 	/**
+	 * Indicator if generation should
+	 * start from randomly generated board.
+	 */
+	public static final char PARAM_GEN_RND_BOARD = '1';
+	/**
+	 * Indicator showing that initial board should be solved
+	 * before generation process will be started.
+	 */
+	public static final char PARAM_DO_NOT_SOLVE = '2';
+	/**
+	 * Indicator showing that initial board should not be
+	 * randomly transformed before generation process will be started.
+	 */
+	public static final char PARAM_DO_NOT_TRANSFORM = '3';
+	/**
+	 * Indicator if generation should
+	 * start from randomly generated board.
+	 */
+	private boolean generateRandomBoard;
+	/**
+	 * Indicator showing that initial board should not be
+	 * randomly transformed before generation process will be started.
+	 */
+	private boolean transformBeforeGeneration;
+	/**
+	 * Indicator showing that initial board should be solved
+	 * before generation process will be started.
+	 */
+	private boolean solveBeforeGeneration;
+	/**
 	 * Board size derived form SudokuBoard class.
 	 */
 	private static final int BOARD_SIZE = SudokuBoard.BOARD_SIZE;
@@ -81,25 +111,24 @@ public class SudokuGenerator {
 	/**
 	 * Marker if analyzed digit 0...9 is still not used.
 	 */
-	static final int DIGIT_STILL_FREE = SudokuSolver.DIGIT_STILL_FREE;
+	private static final int DIGIT_STILL_FREE = BoardCell.DIGIT_STILL_FREE;
 	/**
 	 * Digit 0...9 can not be used in that place.
 	 */
-	static final int DIGIT_IN_USE = SudokuSolver.DIGIT_IN_USE;
+	private static final int DIGIT_IN_USE = BoardCell.DIGIT_IN_USE;
 	/**
-	 * If yes then empty cells with the same number of
-	 * still free digits will be randomized.
+	 * If yes then filled cells with the same impact will be randomized.
 	 */
-	private boolean randomizeEmptyCells;
+	private boolean randomizeFilledCells;
 	/**
-	 * Solved board that will be a basis for
+	 * Initial board that will be a basis for
 	 * the generation process
 	 */
-	int [][] solvedBoard;
+	private int [][] initialBoard;
 	/**
 	 * Board cells array
 	 */
-	BoardCell[] boardCells;
+	private BoardCell[] boardCells;
 	/**
 	 * Message type normal.
 	 */
@@ -111,15 +140,15 @@ public class SudokuGenerator {
 	/**
 	 * Message from the solver.
 	 */
-	String messages = "";
+	private String messages = "";
 	/**
 	 * Last message.
 	 */
-	String lastMessage = "";
+	private String lastMessage = "";
 	/**
 	 * Last error message.
 	 */
-	String lastErrorMessage = "";
+	private String lastErrorMessage = "";
 	/**
 	 * Solving time in seconds.
 	 */
@@ -176,58 +205,150 @@ public class SudokuGenerator {
 	 */
 	private void initInternalVars() {
 		generatorState = GENERATOR_INIT_STARTED;
-		randomizeEmptyCells = true;
+		randomizeFilledCells = true;
 		computingTime = 0;
 	}
 	/**
-	 * Default constructor based on random sudoku puzzle example.
+	 * Set parameters provided by the user.
+	 *
+	 * @param parameters  parameters list
+	 * @see #PARAM_GEN_RND_BOARD
+	 * @see #PARAM_DO_NOT_SOLVE
 	 */
-	public SudokuGenerator() {
+	private void setParameters(char... parameters) {
+		generateRandomBoard = false;
+		solveBeforeGeneration = true;
+		transformBeforeGeneration = true;
+		if (parameters != null) {
+			if (parameters.length > 0) {
+				for (char p : parameters) {
+					switch(p) {
+					case PARAM_GEN_RND_BOARD:
+						generateRandomBoard = true;
+						break;
+					case PARAM_DO_NOT_SOLVE:
+						solveBeforeGeneration = false;
+						break;
+					case PARAM_DO_NOT_TRANSFORM:
+						transformBeforeGeneration = false;
+						break;
+					}
+				}
+			}
+		}
+	}
+	/**
+	 * Board initialization method.
+	 * @param initBoard        Initial board.
+	 * @param info             The string to pass to the msg builder.
+	 */
+	private void boardInit(int [][] initBoard, String info) {
+		if ( (initBoard == null) && (generateRandomBoard == true) ) {
+			SudokuSolver puzzle = new SudokuSolver(SudokuPuzzles.PUZZLE_EMPTY);
+			puzzle.solve();
+			if (puzzle.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
+				initialBoard = puzzle.solvedBoard;
+				addMessage("(SudokuGenerator) Generator initialized using random board (" + info + ").", MSG_INFO);
+				generatorState = GENERATOR_INIT_FINISHED;
+				return;
+			} else {
+				addMessage("(SudokuGenerator) Generator initialization using random board (" + info + ") failed. Board with error?", MSG_ERROR);
+				addMessage(puzzle.getLastErrorMessage(), MSG_ERROR);
+				generatorState = GENERATOR_GEN_FAILED;
+				return;
+			}
+		}
+		if (SudokuStore.checkPuzzle(initBoard) == false) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("(SudokuGenerator) Generator initialization (" + info + ") failed. Board with error?", MSG_ERROR);
+			return;
+		}
+		if (solveBeforeGeneration == true) {
+			SudokuSolver puzzle = new SudokuSolver(initBoard);
+			puzzle.solve();
+			if (puzzle.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
+				initialBoard = puzzle.solvedBoard;
+				addMessage("(SudokuGenerator) Generator initialized usign provided board + finding solution (" + info + ").", MSG_INFO);
+				generatorState = GENERATOR_INIT_FINISHED;
+				return;
+			} else {
+				addMessage("(SudokuGenerator) Generator initialization usign provided board + finding solution (" + info + ") failed. Board with error?", MSG_ERROR);
+				addMessage(puzzle.getLastErrorMessage(), MSG_ERROR);
+				generatorState = GENERATOR_GEN_FAILED;
+				return;
+			}
+		}
+		int[][] board = initBoard;
+		SudokuSolver puzzle = new SudokuSolver(board);
+		if (puzzle.checkIfUniqueSolution() == SudokuSolver.SOLUTION_UNIQUE) {
+			initialBoard = board;
+			addMessage("(SudokuGenerator) Generator initialized usign provided board (" + info + ").", MSG_INFO);
+			generatorState = GENERATOR_INIT_FINISHED;
+			return;
+		} else {
+			addMessage("(SudokuGenerator) Generator initialization usign provided board (" + info + ") failed. Solution not exists or is non unique.", MSG_ERROR);
+			addMessage(puzzle.getLastErrorMessage(), MSG_ERROR);
+			generatorState = GENERATOR_GEN_FAILED;
+			return;
+		}
+	}
+	/**
+	 * Default constructor based on random Sudoku puzzle example.
+	 */
+	public SudokuGenerator(char... parameters) {
+		setParameters(parameters);
 		initInternalVars();
-		int example = SudokuStore.randomNumber( SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES );
-		SudokuSolver puzzle = new SudokuSolver(example);
-		puzzle.solve();
-		solvedBoard = SudokuStore.seqOfRandomBoardTransf(puzzle.solvedBoard);
-		generatorState = GENERATOR_INIT_FINISHED;
-		addMessage("Generator initiated using sequance of random transformation on the example number: " + example + ".", MSG_INFO);
+		if (generateRandomBoard == true) {
+			boardInit(null, "random board");
+		} else {
+			int example = SudokuStore.randomIndex( SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES );
+			int[][] board = SudokuStore.getPuzzleExample(example);
+			if (transformBeforeGeneration == true)
+				boardInit(SudokuStore.seqOfRandomBoardTransf(board), "transformed example: " + example);
+			else
+				boardInit(board, "example: " + example);
+		}
 	}
 	/**
 	 * Default constructor based on puzzle example.
 	 */
-	public SudokuGenerator(int example) {
+	public SudokuGenerator(int example, char... parameters) {
+		setParameters(parameters);
 		initInternalVars();
-		if ( (example >= 1) && (example <= SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES) ) {
-			SudokuSolver puzzle = new SudokuSolver(example);
-			puzzle.solve();
-			solvedBoard = SudokuStore.seqOfRandomBoardTransf(puzzle.solvedBoard);
-			generatorState = GENERATOR_INIT_FINISHED;
-			addMessage("(SudokuGenerator) Generator initiated using sequance of random transformation on the example number: " + example + ".", MSG_INFO);
+		if ( (example >= 0) && (example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES) ) {
+			int[][] board = SudokuStore.getPuzzleExample(example);
+			if (transformBeforeGeneration == true)
+				boardInit(SudokuStore.seqOfRandomBoardTransf(board), "transformed example: " + example);
+			else
+				boardInit(board, "example: " + example);
 		} else {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("(SudokuGenerator) Generator not initiated incorrect example number: " + example + " - should be between 1 and " + SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES + ".", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generator not initialized incorrect example number: " + example + " - should be between 1 and " + SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES + ".", MSG_ERROR);
 		}
 	}
 	/**
-	 * Default constructor based on provided solved board.
+	 * Default constructor based on provided initial board.
 	 */
-	public SudokuGenerator(int[][] solvedBoard) {
+	public SudokuGenerator(int[][] initialBoard, char... parameters) {
+		setParameters(parameters);
 		initInternalVars();
-		if (solvedBoard == null) {
+		if (initialBoard == null) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("(SudokuGenerator) Generator not initiated - null solved board.", MSG_ERROR);
-		} else if (solvedBoard.length != BOARD_SIZE) {
+			addMessage("(SudokuGenerator) Generator not initialized - null initial board.", MSG_ERROR);
+		} else if (initialBoard.length != BOARD_SIZE) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("(SudokuGenerator) Generator not initiated - incorrect number of rows in solved board, is: " + solvedBoard.length + ",  expected: " + BOARD_SIZE + ".", MSG_ERROR);
-		} else if (solvedBoard[0].length != BOARD_SIZE) {
+			addMessage("(SudokuGenerator) Generator not initialized - incorrect number of rows in initial board, is: " + initialBoard.length + ",  expected: " + BOARD_SIZE + ".", MSG_ERROR);
+		} else if (initialBoard[0].length != BOARD_SIZE) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("(SudokuGenerator) Generator not initiated - incorrect number of columns in solved board, is: " + solvedBoard[0].length + ", expected: " + BOARD_SIZE + ".", MSG_ERROR);
-		} else if (SudokuStore.checkSolvedBoard(solvedBoard) == false) {
+			addMessage("(SudokuGenerator) Generator not initialized - incorrect number of columns in initial board, is: " + initialBoard[0].length + ", expected: " + BOARD_SIZE + ".", MSG_ERROR);
+		} else if (SudokuStore.checkPuzzle(initialBoard) == false) {
 			generatorState = GENERATOR_INIT_FAILED;
-			addMessage("(SudokuGenerator) Generator not initiated - solved board contains an error.", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generator not initialized - initial board contains an error.", MSG_ERROR);
 		} else {
-			this.solvedBoard = solvedBoard;
-			generatorState = GENERATOR_INIT_FINISHED;
-			addMessage("(SudokuGenerator) Generator initiated using provided solved board.", MSG_INFO);
+			if (transformBeforeGeneration == true)
+				boardInit( SudokuStore.seqOfRandomBoardTransf(initialBoard), "transformed board provided by the user");
+			else
+				boardInit(initialBoard, "board provided by the user");
 		}
 	}
 	/**
@@ -238,33 +359,44 @@ public class SudokuGenerator {
 	public int[][] generate() {
 		if (generatorState != GENERATOR_INIT_FINISHED) {
 			generatorState = GENERATOR_GEN_NOT_STARTED;
-			addMessage("(generate) Generation process not started due to incorrect initialization.", MSG_ERROR);
+			addMessage("(SudokuGenerator) Generation process not started due to incorrect initialization.", MSG_ERROR);
 			return null;
 		}
 		long solvingStartTime = DateTimeX.currentTimeMillis();
 		generatorState = GENERATOR_GEN_STARTED;
-		addMessage("Generation process started.", MSG_INFO);
+		addMessage("(SudokuGenerator) Generation process started.", MSG_INFO);
+		if (randomizeFilledCells == true)
+			addMessage("(SudokuGenerator) >>> Will randomize filled cells within cells with the same impact.", MSG_INFO);
 		boardCells = new BoardCell[BOARD_CELLS_NUMBER];
 		int cellIndex = 0;
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++) {
-			boardCells[cellIndex] = new BoardCell(i, j, solvedBoard[i][j]);
-			cellIndex++;
+			int d = initialBoard[i][j];
+			if (d != CELL_EMPTY) {
+				boardCells[cellIndex] = new BoardCell(i, j, d);
+				cellIndex++;
+			}
 		}
-		int filledCells = BOARD_CELLS_NUMBER;
+		int filledCells = cellIndex;
+		for (int i = 0; i < BOARD_SIZE; i++)
+			for (int j = 0; j < BOARD_SIZE; j++) {
+			int d = initialBoard[i][j];
+			if (d == CELL_EMPTY) {
+				boardCells[cellIndex] = new BoardCell(i, j, d);
+				cellIndex++;
+			}
+		}
 		updateDigitsStillFreeCounts();
 		sortBoardCells(0,filledCells-1);
-		int n = 0;
 		do {
 			int r = 0;
 			int i = boardCells[r].rowIndex;
 			int j = boardCells[r].colIndex;
-			int d = solvedBoard[i][j];
-			solvedBoard[i][j] = CELL_EMPTY;
-			SudokuSolver s = new SudokuSolver(solvedBoard);
-			n = s.findAllSolutions();
-			if (n != 1)
-				solvedBoard[i][j] = d;
+			int d = initialBoard[i][j];
+			initialBoard[i][j] = CELL_EMPTY;
+			SudokuSolver s = new SudokuSolver(initialBoard);
+			if (s.checkIfUniqueSolution() != SudokuSolver.SOLUTION_UNIQUE)
+				initialBoard[i][j] = d;
 			int lastIndex = filledCells-1;
 			if (r < lastIndex) {
 				BoardCell b1 = boardCells[r];
@@ -279,8 +411,8 @@ public class SudokuGenerator {
 		long solvingEndTime = DateTimeX.currentTimeMillis();
 		computingTime = (solvingEndTime - solvingStartTime) / 1000.0;
 		generatorState = GENERATOR_GEN_FINISHED;
-		addMessage("(generate) Generation process finished, computing time: " + computingTime + " s.", MSG_INFO);
-		return solvedBoard;
+		addMessage("(SudokuGenerator) Generation process finished, computing time: " + computingTime + " s.", MSG_INFO);
+		return initialBoard;
 	}
 	/**
 	 * Updating digits still free for a specific cell
@@ -300,14 +432,14 @@ public class SudokuGenerator {
 		int[] digitsStillFree = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		int emptyCellsNumber = 0;
 		for (int j = 0; j < BOARD_SIZE; j++) {
-			int boardDigit = solvedBoard[boardCell.rowIndex][j];
+			int boardDigit = initialBoard[boardCell.rowIndex][j];
 			if (boardDigit != CELL_EMPTY)
 				digitsStillFree[boardDigit] = DIGIT_IN_USE;
 			else if (j != boardCell.colIndex)
 				emptyCellsNumber++;
 		}
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			int boardDigit = solvedBoard[i][boardCell.colIndex];
+			int boardDigit = initialBoard[i][boardCell.colIndex];
 			if (boardDigit != CELL_EMPTY)
 				digitsStillFree[boardDigit] = DIGIT_IN_USE;
 			else if (i != boardCell.rowIndex)
@@ -319,7 +451,7 @@ public class SudokuGenerator {
 		 */
 		for (int i = sub.rowMin; i < sub.rowMax; i++)
 			for (int j = sub.colMin; j < sub.colMax; j++) {
-				int boardDigit = solvedBoard[i][j];
+				int boardDigit = initialBoard[i][j];
 				if (boardDigit != CELL_EMPTY)
 					digitsStillFree[boardDigit] = DIGIT_IN_USE;
 				else if ((i != boardCell.rowIndex) && (j != boardCell.colIndex))
@@ -346,7 +478,7 @@ public class SudokuGenerator {
 		BoardCell w;
 		x = boardCells[(l+r)/2];
 		do {
-			if (randomizeEmptyCells == true) {
+			if (randomizeFilledCells == true) {
 				/*
 				 * Adding randomization
 				 */
@@ -378,22 +510,22 @@ public class SudokuGenerator {
 			sortBoardCells(i,r);
 	}
 	/**
-	 * By default random seed on empty cells is enabled. This parameter
+	 * By default random seed on filled cells is enabled. This parameter
 	 * affects generating process only. Random seed on
-	 * empty cells causes randomization on empty cells
-	 * within empty cells with the same number of still free digits.
+	 * filled cells causes randomization on filled cells
+	 * within the same impact.
 	 */
-	public void enableRndSeedOnEmptyCells() {
-		randomizeEmptyCells = true;
+	public void enableRndSeedOnFilledCells() {
+		randomizeFilledCells = true;
 	}
 	/**
-	 * By default random seed on empty cells is enabled. This parameter
-	 * affects generating process only. Random seed on
-	 * empty cells causes randomization on empty cells
-	 * within empty cells with the same number of still free digits.
+	 * By default random seed on filled cells is enabled. This parameter
+	 * affects generating process only. Lack of random seed on
+	 * filled cells causes no randomization on filled cells
+	 * within the same impact.
 	 */
-	public void disableRndSeedOnEmptyCells() {
-		randomizeEmptyCells = false;
+	public void disableRndSeedOnFilledCells() {
+		randomizeFilledCells = false;
 	}
 	/**
 	 * Message builder.

@@ -1331,7 +1331,7 @@ class EmptyCell {
 	 */
 	public void setAllDigitsStillFree() {
 		for (int i = 0; i < SudokuBoard.BOARD_MAX_INDEX; i++) {
-			digitsStillFree[i] = SudokuSolver.DIGIT_STILL_FREE;
+			digitsStillFree[i] = BoardCell.DIGIT_STILL_FREE;
 		}
 		digitsStillFreeNumber = 0;
 	}

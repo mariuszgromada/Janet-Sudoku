@@ -54,7 +54,7 @@ import org.mariuszgromada.math.janetsudoku.SudokuSolver;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
 
 /**
- * Multithreading regression tests for the SudokuSolver class.
+ * Regression tests for the SudokuSolver class.
  *
  * @author         <b>Mariusz Gromada</b><br/>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>

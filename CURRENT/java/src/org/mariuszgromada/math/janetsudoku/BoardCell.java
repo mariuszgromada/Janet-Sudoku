@@ -95,6 +95,17 @@ public class BoardCell {
 	/**
 	 * Default constructor - uninitialized entry.
 	 */
+	/**
+	 * Marker if analyzed digit 0...9 is still not used.
+	 */
+	static final int DIGIT_STILL_FREE = 1;
+	/**
+	 * Digit 0...9 can not be used in that place.
+	 */
+	static final int DIGIT_IN_USE = 2;
+	/**
+	 * Cell is not pointing to any cells on the board.
+	 */
 	public BoardCell() {
 		rowIndex = INDEX_NULL;
 		colIndex = INDEX_NULL;

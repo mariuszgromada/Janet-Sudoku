@@ -137,15 +137,15 @@ public class SudokuSolver {
 	/**
 	 * Marker if analyzed digit 0...9 is still not used.
 	 */
-	static final int DIGIT_STILL_FREE = 1;
+	private static final int DIGIT_STILL_FREE = BoardCell.DIGIT_STILL_FREE;
 	/**
 	 * Digit 0...9 can not be used in that place.
 	 */
-	static final int DIGIT_IN_USE = 2;
+	private static final int DIGIT_IN_USE = BoardCell.DIGIT_IN_USE;
 	/**
 	 * Cell is not pointing to any cells on the board.
 	 */
-	static final int INDEX_NULL = BoardCell.INDEX_NULL;
+	private static final int INDEX_NULL = BoardCell.INDEX_NULL;
 	/**
 	 * Sudoku board used while solving process.
 	 */
@@ -169,11 +169,11 @@ public class SudokuSolver {
 	/**
 	 * Solving status indicator.
 	 */
-	int boardState;
+	private int boardState;
 	/**
 	 * Solving status indicator.
 	 */
-	int solvingState;
+	private int solvingState;
 	/**
 	 * Solving time in seconds.
 	 */
@@ -200,27 +200,27 @@ public class SudokuSolver {
 	/**
 	 * Empty cells on the Sudoku board
 	 */
-	EmptyCell[] emptyCells = new EmptyCell[BOARD_CELLS_NUMBER];
+	private EmptyCell[] emptyCells = new EmptyCell[BOARD_CELLS_NUMBER];
 	/**
 	 * Pointers to the empty cells.
 	 */
-	EmptyCell[][] emptyCellsPointer = new EmptyCell[BOARD_SIZE][BOARD_SIZE];
+	private EmptyCell[][] emptyCellsPointer = new EmptyCell[BOARD_SIZE][BOARD_SIZE];
 	/**
 	 * Number of empty cells on the Sudoku board.
 	 */
-	int emptyCellsNumber;
+	private int emptyCellsNumber;
 	/**
 	 * Message from the solver.
 	 */
-	String messages = "";
+	private String messages = "";
 	/**
 	 * Last message.
 	 */
-	String lastMessage = "";
+	private String lastMessage = "";
 	/**
 	 * Last error message.
 	 */
-	String lastErrorMessage = "";
+	private String lastErrorMessage = "";
 	private int solutionNumber;
 	/*
 	 * =====================================================
