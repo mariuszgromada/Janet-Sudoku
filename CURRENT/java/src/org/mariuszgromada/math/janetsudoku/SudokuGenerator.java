@@ -302,7 +302,7 @@ public class SudokuGenerator {
 			boardInit(null, "random board");
 		} else {
 			int example = SudokuStore.randomIndex( SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES );
-			int[][] board = SudokuStore.getPuzzleExample(example);
+			int[][] board = SudokuStore.boardCopy( SudokuStore.getPuzzleExample(example) );
 			if (transformBeforeGeneration == true)
 				boardInit(SudokuStore.seqOfRandomBoardTransf(board), "transformed example: " + example);
 			else
@@ -316,7 +316,7 @@ public class SudokuGenerator {
 		setParameters(parameters);
 		initInternalVars();
 		if ( (example >= 0) && (example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES) ) {
-			int[][] board = SudokuStore.getPuzzleExample(example);
+			int[][] board = SudokuStore.boardCopy( SudokuStore.getPuzzleExample(example) );
 			if (transformBeforeGeneration == true)
 				boardInit(SudokuStore.seqOfRandomBoardTransf(board), "transformed example: " + example);
 			else
@@ -345,10 +345,11 @@ public class SudokuGenerator {
 			generatorState = GENERATOR_INIT_FAILED;
 			addMessage("(SudokuGenerator) Generator not initialized - initial board contains an error.", MSG_ERROR);
 		} else {
+			int[][] board = SudokuStore.boardCopy(initialBoard);
 			if (transformBeforeGeneration == true)
-				boardInit( SudokuStore.seqOfRandomBoardTransf(initialBoard), "transformed board provided by the user");
+				boardInit( SudokuStore.seqOfRandomBoardTransf(board), "transformed board provided by the user");
 			else
-				boardInit(initialBoard, "board provided by the user");
+				boardInit(board, "board provided by the user");
 		}
 	}
 	/**

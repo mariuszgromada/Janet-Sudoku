@@ -126,6 +126,7 @@ public final class SudokuStore {
 	public static final int[][] getPuzzleExample(int exampleNumber) {
 		return SudokuPuzzles.getPuzzleExample(exampleNumber);
 	}
+
 	/**
 	 * Loads Sudoku board form text file.
 	 *

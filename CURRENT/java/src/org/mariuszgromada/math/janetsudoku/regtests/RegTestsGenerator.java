@@ -240,7 +240,7 @@ class GeneratorTests {
 	/**
 	 * Number of regression tests;
 	 */
-	static final int NUMBER_OF_TESTS = 2;
+	static final int NUMBER_OF_TESTS = 4;
 	/**
 	 * Test scenario implementation.
 	 * @param testId        Test id.
@@ -248,57 +248,110 @@ class GeneratorTests {
 	 * @return              True is test successful, otherwise false.
 	 */
 	static boolean runTest(int testId, int threadId) {
-		SudokuSolver s1, s2;
+		SudokuSolver solverGen, solverInit;
 		SudokuGenerator g;
-		int sol;
-		int solNum;
 		int solUnq;
-		int solvingState;
-		int boardState;
-		int[][] solution;
-		int[][] puzzle;
-		int[][] b1, b2, board;
-		boolean solCorr;
+		int[][] genPuzzle;
+		int[][] solvedGen, solvedInit, initBoard;
 		boolean testResult = true;
 		switch(testId) {
 		case 0:
 			for (int example = 0; example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; example++) {
 				g = new SudokuGenerator(example, SudokuGenerator.PARAM_DO_NOT_TRANSFORM);
-				puzzle = g.generate();
-				s1 = new SudokuSolver(puzzle);
-				ErrorCodes.consolePrintlnIfError(s1.solve());
-				s2 = new SudokuSolver(example);
-				ErrorCodes.consolePrintlnIfError(s2.solve());
-				solUnq = s1.checkIfUniqueSolution();
+				genPuzzle = g.generate();
+				solverGen = new SudokuSolver(genPuzzle);
+				ErrorCodes.consolePrintlnIfError(solverGen.solve());
+				solverInit = new SudokuSolver(example);
+				ErrorCodes.consolePrintlnIfError(solverInit.solve());
+				solUnq = solverGen.checkIfUniqueSolution();
 				ErrorCodes.consolePrintlnIfError(solUnq);
-				b1 = s1.getSolvedBoard();
-				b2 = s2.getSolvedBoard();
-				if ( (solUnq == SudokuSolver.SOLUTION_UNIQUE) && ( SudokuStore.boardsAreEqual(b1, b2) == true ) ) {
-					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example number, example: " + example + ", solution unique and correct: YES, time (g, s1, s2): " + g.getComputingTime() + " s., " + s1.getComputingTime() + " s., " + s2.getComputingTime() + " s.");
+				solvedGen = solverGen.getSolvedBoard();
+				solvedInit = solverInit.getSolvedBoard();
+				if ( (solUnq == SudokuSolver.SOLUTION_UNIQUE) && ( SudokuStore.boardsAreEqual(solvedGen, solvedInit) == true ) ) {
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example number, example: " + example + ", solution unique and correct: YES, time (g, s1, s2): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., " + solverInit.getComputingTime() + " s.");
 				} else {
 					testResult = false;
-					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example number, example: " + example + ", solution unique and correct: NO, time (g, s1, s2): " + g.getComputingTime() + " s., " + s1.getComputingTime() + " s., " + s2.getComputingTime() + " s.");
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example number, example: " + example + ", solution unique and correct: NO, time (g, s1, s2): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., " + solverInit.getComputingTime() + " s.");
+					System.out.println("Initial board");
+					SudokuStore.consolePrintBoard(SudokuStore.getPuzzleExample(example));
+					System.out.println("Generated puzzle");
+					SudokuStore.consolePrintBoard(genPuzzle);
+					System.out.println("Solved initial board");
+					SudokuStore.consolePrintBoard(solvedInit);
+					System.out.println("Solved generated puzzle");
+					SudokuStore.consolePrintBoard(solvedGen);
 				}
 			}
 			break;
 		case 1:
 			for (int example = 0; example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; example++) {
-				board = SudokuStore.getPuzzleExample(example);
-				g = new SudokuGenerator(board, SudokuGenerator.PARAM_DO_NOT_TRANSFORM);
-				puzzle = g.generate();
-				s1 = new SudokuSolver(puzzle);
-				ErrorCodes.consolePrintlnIfError(s1.solve());
-				s2 = new SudokuSolver(board);
-				ErrorCodes.consolePrintlnIfError(s2.solve());
-				solUnq = s1.checkIfUniqueSolution();
+				initBoard = SudokuStore.getPuzzleExample(example);
+				g = new SudokuGenerator(initBoard, SudokuGenerator.PARAM_DO_NOT_TRANSFORM, SudokuGenerator.PARAM_DO_NOT_SOLVE);
+				genPuzzle = g.generate();
+				solverGen = new SudokuSolver(genPuzzle);
+				ErrorCodes.consolePrintlnIfError(solverGen.solve());
+				solverInit = new SudokuSolver(initBoard);
+				ErrorCodes.consolePrintlnIfError(solverInit.solve());
+				solUnq = solverGen.checkIfUniqueSolution();
 				ErrorCodes.consolePrintlnIfError(solUnq);
-				b1 = s1.getSolvedBoard();
-				b2 = s2.getSolvedBoard();
-				if ( (solUnq == SudokuSolver.SOLUTION_UNIQUE) && ( SudokuStore.boardsAreEqual(b1, b2) == true ) ) {
-					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example board, example: " + example + ", solution unique and correct: YES, time (g, s1, s2): " + g.getComputingTime() + " s., " + s1.getComputingTime() + " s., " + s2.getComputingTime() + " s.");
+				solvedGen = solverGen.getSolvedBoard();
+				solvedInit = solverInit.getSolvedBoard();
+				if ( (solUnq == SudokuSolver.SOLUTION_UNIQUE) && ( SudokuStore.boardsAreEqual(solvedGen, solvedInit) == true ) ) {
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example board, example: " + example + ", solution unique and correct: YES, time (g, s1, s2): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., " + solverInit.getComputingTime() + " s.");
 				} else {
 					testResult = false;
-					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example board, example: " + example + ", solution unique and correct: NO, time (g, s1, s2): " + g.getComputingTime() + " s., " + s1.getComputingTime() + " s., " + s2.getComputingTime() + " s.");
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example board, example: " + example + ", solution unique and correct: NO, time (g, s1, s2): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., " + solverInit.getComputingTime() + " s.");
+					System.out.println("Initial board");
+					SudokuStore.consolePrintBoard(initBoard);
+					System.out.println("Generated puzzle");
+					SudokuStore.consolePrintBoard(genPuzzle);
+					System.out.println("Solved initial board");
+					SudokuStore.consolePrintBoard(solvedInit);
+					System.out.println("Solved generated puzzle");
+					SudokuStore.consolePrintBoard(solvedGen);
+				}
+			}
+			break;
+		case 2:
+			for (int example = 0; example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; example++) {
+				g = new SudokuGenerator(example);
+				genPuzzle = g.generate();
+				solverGen = new SudokuSolver(genPuzzle);
+				ErrorCodes.consolePrintlnIfError(solverGen.solve());
+				solUnq = solverGen.checkIfUniqueSolution();
+				ErrorCodes.consolePrintlnIfError(solUnq);
+				solvedGen = solverGen.getSolvedBoard();
+				if ( (solUnq == SudokuSolver.SOLUTION_UNIQUE) && ( SudokuStore.checkPuzzle(genPuzzle) == true ) ) {
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example number, example: " + example + ", solution unique and correct: YES, time (g, s): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., ");
+				} else {
+					testResult = false;
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example number, example: " + example + ", solution unique and correct: NO, time (g, s1, s2): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., ");
+					System.out.println("Generated puzzle");
+					SudokuStore.consolePrintBoard(genPuzzle);
+					System.out.println("Solved generated puzzle");
+					SudokuStore.consolePrintBoard(solvedGen);
+				}
+			}
+			break;
+		case 3:
+			for (int example = 0; example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; example++) {
+				initBoard = SudokuStore.getPuzzleExample(example);
+				g = new SudokuGenerator(initBoard, SudokuGenerator.PARAM_DO_NOT_SOLVE);
+				genPuzzle = g.generate();
+				solverGen = new SudokuSolver(genPuzzle);
+				ErrorCodes.consolePrintlnIfError(solverGen.solve());
+				solUnq = solverGen.checkIfUniqueSolution();
+				ErrorCodes.consolePrintlnIfError(solUnq);
+				solvedGen = solverGen.getSolvedBoard();
+				if ( (solUnq == SudokuSolver.SOLUTION_UNIQUE) && ( SudokuStore.checkPuzzle(genPuzzle) == true ) ) {
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example board, example: " + example + ", solution unique and correct: YES, time (g, s): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., ");
+				} else {
+					testResult = false;
+					SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by example board, example: " + example + ", solution unique and correct: NO, time (g, s1, s2): " + g.getComputingTime() + " s., " + solverGen.getComputingTime() + " s., ");
+					System.out.println("Generated puzzle");
+					SudokuStore.consolePrintBoard(genPuzzle);
+					System.out.println("Solved initial board");
+					SudokuStore.consolePrintBoard(solvedGen);
 				}
 			}
 			break;
