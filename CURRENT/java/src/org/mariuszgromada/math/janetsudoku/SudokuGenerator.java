@@ -254,7 +254,7 @@ public class SudokuGenerator {
 			} else {
 				addMessage("(SudokuGenerator) Generator initialization using random board (" + info + ") failed. Board with error?", MSG_ERROR);
 				addMessage(puzzle.getLastErrorMessage(), MSG_ERROR);
-				generatorState = GENERATOR_GEN_FAILED;
+				generatorState = GENERATOR_INIT_FAILED;
 				return;
 			}
 		}
@@ -274,7 +274,7 @@ public class SudokuGenerator {
 			} else {
 				addMessage("(SudokuGenerator) Generator initialization usign provided board + finding solution (" + info + ") failed. Board with error?", MSG_ERROR);
 				addMessage(puzzle.getLastErrorMessage(), MSG_ERROR);
-				generatorState = GENERATOR_GEN_FAILED;
+				generatorState = GENERATOR_INIT_FAILED;
 				return;
 			}
 		}
@@ -288,12 +288,18 @@ public class SudokuGenerator {
 		} else {
 			addMessage("(SudokuGenerator) Generator initialization usign provided board (" + info + ") failed. Solution not exists or is non unique.", MSG_ERROR);
 			addMessage(puzzle.getLastErrorMessage(), MSG_ERROR);
-			generatorState = GENERATOR_GEN_FAILED;
+			generatorState = GENERATOR_INIT_FAILED;
 			return;
 		}
 	}
 	/**
 	 * Default constructor based on random Sudoku puzzle example.
+	 *
+	 * @param parameters      Optional parameters.
+	 *
+	 * @see #PARAM_DO_NOT_SOLVE
+	 * @see #PARAM_DO_NOT_TRANSFORM
+	 * @see #PARAM_GEN_RND_BOARD
 	 */
 	public SudokuGenerator(char... parameters) {
 		setParameters(parameters);
@@ -311,6 +317,13 @@ public class SudokuGenerator {
 	}
 	/**
 	 * Default constructor based on puzzle example.
+	 *
+	 * @param example         Example number between 0 and {@link SudokuPuzzles#NUMBER_OF_PUZZLE_EXAMPLES}.
+	 * @param parameters      Optional parameters.
+	 *
+	 * @see #PARAM_DO_NOT_SOLVE
+	 * @see #PARAM_DO_NOT_TRANSFORM
+	 * @see #PARAM_GEN_RND_BOARD
 	 */
 	public SudokuGenerator(int example, char... parameters) {
 		setParameters(parameters);
@@ -328,6 +341,13 @@ public class SudokuGenerator {
 	}
 	/**
 	 * Default constructor based on provided initial board.
+	 *
+	 * @param initialBoard    Array with the board definition.
+	 * @param parameters      Optional parameters
+	 *
+	 * @see #PARAM_DO_NOT_SOLVE
+	 * @see #PARAM_DO_NOT_TRANSFORM
+	 * @see #PARAM_GEN_RND_BOARD
 	 */
 	public SudokuGenerator(int[][] initialBoard, char... parameters) {
 		setParameters(parameters);
@@ -346,6 +366,34 @@ public class SudokuGenerator {
 			addMessage("(SudokuGenerator) Generator not initialized - initial board contains an error.", MSG_ERROR);
 		} else {
 			int[][] board = SudokuStore.boardCopy(initialBoard);
+			if (transformBeforeGeneration == true)
+				boardInit( SudokuStore.seqOfRandomBoardTransf(board), "transformed board provided by the user");
+			else
+				boardInit(board, "board provided by the user");
+		}
+	}
+	/**
+	 * Constructor based on the sudoku board
+	 * provided in text file.
+	 *
+	 * @param boardFilePath   Path to the board definition.
+	 * @param parameters      Optional parameters
+	 *
+	 * @see #PARAM_DO_NOT_SOLVE
+	 * @see #PARAM_DO_NOT_TRANSFORM
+	 * @see #PARAM_GEN_RND_BOARD
+	 */
+	public SudokuGenerator(String boardFilePath, char... parameters) {
+		setParameters(parameters);
+		initInternalVars();
+		if (boardFilePath == null) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("(SudokuGenerator) Generator not initialized - null board file path.", MSG_ERROR);
+		} else if (boardFilePath.length() != 0) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("(SudokuGenerator) Generator not initialized - blank board file path.", MSG_ERROR);
+		} else {
+			int[][] board = SudokuStore.loadBoard(boardFilePath);
 			if (transformBeforeGeneration == true)
 				boardInit( SudokuStore.seqOfRandomBoardTransf(board), "transformed board provided by the user");
 			else

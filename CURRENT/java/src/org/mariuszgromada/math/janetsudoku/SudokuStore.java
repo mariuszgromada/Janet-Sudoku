@@ -1127,6 +1127,7 @@ public final class SudokuStore {
 	 * @return Board (only) representation.
 	 */
 	public static final String boardToString(int[][] sudokuBoard) {
+		if (sudokuBoard == null) return "NULL sudoku board.";
 		String boardStr = "";
 		boardStr = boardStr + "+-------+-------+-------+\n";
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
