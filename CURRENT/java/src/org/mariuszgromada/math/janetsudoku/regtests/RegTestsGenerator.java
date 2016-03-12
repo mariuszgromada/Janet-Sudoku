@@ -1,5 +1,5 @@
 /*
- * @(#)RegTestsSolver.java        0.0.1    2016-01-30
+ * @(#)RegTestsGenerator.java        0.0.1    2016-01-30
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -391,10 +391,10 @@ class GeneratorTests {
 			initBoard = SudokuPuzzles.PUZZLE_ERROR;
 			g = new SudokuGenerator(initBoard, SudokuGenerator.PARAM_DO_NOT_SOLVE);
 			if ( g.getGeneratorState() == SudokuGenerator.GENERATOR_INIT_FAILED ) {
-				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by empty board, solution unique and correct: YES, time (g, s): ");
+				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by PUZZLE_ERROR + PARAM_DO_NOT_SOLVE, init failed: YES.");
 			} else {
 				testResult = false;
-				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by empty board, solution unique and correct: NO, time (g, s): ");
+				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by PUZZLE_ERROR + PARAM_DO_NOT_SOLVE, init failed: NO.");
 				SudokuStore.consolePrintln("Generator state: " + g.getGeneratorState());
 				System.out.println(g.getMessages());
 			}
@@ -423,10 +423,10 @@ class GeneratorTests {
 			initBoard = SudokuPuzzles.PUZZLE_NON_UNIQUE_SOLUTION;
 			g = new SudokuGenerator(initBoard, SudokuGenerator.PARAM_DO_NOT_SOLVE);
 			if ( g.getGeneratorState() == SudokuGenerator.GENERATOR_INIT_FAILED ) {
-				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by empty board, solution unique and correct: YES, time (g, s): ");
+				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by PUZZLE_NON_UNIQUE_SOLUTION + PARAM_DO_NOT_SOLVE, init failed: YES.");
 			} else {
 				testResult = false;
-				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by empty board, solution unique and correct: NO, time (g, s): ");
+				SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + ", generate by PUZZLE_NON_UNIQUE_SOLUTION + PARAM_DO_NOT_SOLVE, init failed: NO.");
 				SudokuStore.consolePrintln("Generator state: " + g.getGeneratorState());
 				System.out.println(g.getMessages());
 			}
