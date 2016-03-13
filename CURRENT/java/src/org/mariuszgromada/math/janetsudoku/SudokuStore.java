@@ -49,6 +49,7 @@ package org.mariuszgromada.math.janetsudoku;
 
 import java.util.ArrayList;
 
+import org.mariuszgromada.janetutils.ArrayX;
 import org.mariuszgromada.janetutils.io.FileX;
 /**
  * Storehouse for various things used in library, i.e. sudoku board examples.
@@ -128,7 +129,7 @@ public final class SudokuStore {
 	}
 
 	/**
-	 * Loads Sudoku board form text file.
+	 * Loads Sudoku board from text file.
 	 *
 	 * Format:
 	 * Any character different than '1-9' and '.' is being removed.
@@ -147,10 +148,54 @@ public final class SudokuStore {
 	 */
 	public static final int[][] loadBoard(String filePath) {
 		ArrayList<String> fileLines = FileX.readFileLines2ArraList(filePath);
+		return loadBoard(fileLines);
+	}
+	/**
+	 * Loads Sudoku board from list of strings (each string as a
+	 * one row)
+	 *
+	 * Format:
+	 * Any character different than '1-9' and '.' is being removed.
+	 * Any line starting with '#' is being removed.
+	 * Any empty line is being removed.
+	 * Any final line having less than 9 characters is being removed.
+	 *
+	 * If number of final lines is less then 9 then null is returned.
+	 *
+	 * Finally 9 starting characters for first 9 lines is the
+	 * loaded board definition.
+	 *
+	 * @param boardDefinition  Board definition (list of strings).
+	 * @return  Array representing loaded Sudoku board,
+	 *          null - if problem occurred while loading.
+	 */
+	public static final int[][] loadBoard(ArrayList<String> boardDefinition) {
+		return loadBoard( ArrayX.toArray(String.class, boardDefinition) );
+	}
+	/**
+	 * Loads Sudoku board from array of strings (each string as a
+	 * one row)
+	 *
+	 * Format:
+	 * Any character different than '1-9' and '.' is being removed.
+	 * Any line starting with '#' is being removed.
+	 * Any empty line is being removed.
+	 * Any final line having less than 9 characters is being removed.
+	 *
+	 * If number of final lines is less then 9 then null is returned.
+	 *
+	 * Finally 9 starting characters for first 9 lines is the
+	 * loaded board definition.
+	 *
+	 * @param boardDefinition  Board definition (array of strings).
+	 * @return  Array representing loaded Sudoku board,
+	 *          null - if problem occurred while loading.
+	 */
+	public static final int[][] loadBoard(String[] boardDefinition) {
 		ArrayList<String> sudokuRows = new ArrayList<String>();
-		if (fileLines == null) return null;
-		if (fileLines.size() < BOARD_SIZE) return null;
-		for (String line : fileLines) {
+		if (boardDefinition == null) return null;
+		if (boardDefinition.length < BOARD_SIZE) return null;
+		for (String line : boardDefinition) {
 			if (line.length() > 0) {
 				if (line.charAt(0) != '#') {
 					String sudokuRow = "";
@@ -166,6 +211,7 @@ public final class SudokuStore {
 							(c == '7') ||
 							(c == '8') ||
 							(c == '9') ||
+							(c == '0') ||
 							(c == '.')
 						) sudokuRow = sudokuRow + c;
 					}
