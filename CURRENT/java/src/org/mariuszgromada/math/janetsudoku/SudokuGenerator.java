@@ -47,6 +47,7 @@
  */
 package org.mariuszgromada.math.janetsudoku;
 
+import java.util.ArrayList;
 import org.mariuszgromada.janetutils.DateTimeX;
 
 /**
@@ -389,11 +390,69 @@ public class SudokuGenerator {
 		if (boardFilePath == null) {
 			generatorState = GENERATOR_INIT_FAILED;
 			addMessage("(SudokuGenerator) Generator not initialized - null board file path.", MSG_ERROR);
-		} else if (boardFilePath.length() != 0) {
+		} else if (boardFilePath.length() == 0) {
 			generatorState = GENERATOR_INIT_FAILED;
 			addMessage("(SudokuGenerator) Generator not initialized - blank board file path.", MSG_ERROR);
 		} else {
 			int[][] board = SudokuStore.loadBoard(boardFilePath);
+			if (transformBeforeGeneration == true)
+				boardInit( SudokuStore.seqOfRandomBoardTransf(board), "transformed board provided by the user");
+			else
+				boardInit(board, "board provided by the user");
+		}
+	}
+	/**
+	 * Constructor based on the sudoku board
+	 * provided array of strings.
+	 *
+	 * @param boardDefinition  Board definition as array of strings
+	 *                        (each array entry as separate row).
+	 * @param parameters        Optional parameters
+	 *
+	 * @see #PARAM_DO_NOT_SOLVE
+	 * @see #PARAM_DO_NOT_TRANSFORM
+	 * @see #PARAM_GEN_RND_BOARD
+	 */
+	public SudokuGenerator(String[] boardDefinition, char... parameters) {
+		setParameters(parameters);
+		initInternalVars();
+		if (boardDefinition == null) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("(SudokuGenerator) Generator not initialized - null board definition.", MSG_ERROR);
+		} else if (boardDefinition.length == 0) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("(SudokuGenerator) Generator not initialized - blank board definition.", MSG_ERROR);
+		} else {
+			int[][] board = SudokuStore.loadBoard(boardDefinition);
+			if (transformBeforeGeneration == true)
+				boardInit( SudokuStore.seqOfRandomBoardTransf(board), "transformed board provided by the user");
+			else
+				boardInit(board, "board provided by the user");
+		}
+	}
+	/**
+	 * Constructor based on the sudoku board
+	 * provided list of strings.
+	 *
+	 * @param boardDefinition  Board definition as list of strings
+	 *                         (each list entry as separate row).
+	 * @param parameters       Optional parameters
+	 *
+	 * @see #PARAM_DO_NOT_SOLVE
+	 * @see #PARAM_DO_NOT_TRANSFORM
+	 * @see #PARAM_GEN_RND_BOARD
+	 */
+	public SudokuGenerator(ArrayList<String> boardDefinition, char... parameters) {
+		setParameters(parameters);
+		initInternalVars();
+		if (boardDefinition == null) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("(SudokuGenerator) Generator not initialized - null board definition.", MSG_ERROR);
+		} else if (boardDefinition.size() == 0) {
+			generatorState = GENERATOR_INIT_FAILED;
+			addMessage("(SudokuGenerator) Generator not initialized - blank board definition.", MSG_ERROR);
+		} else {
+			int[][] board = SudokuStore.loadBoard(boardDefinition);
 			if (transformBeforeGeneration == true)
 				boardInit( SudokuStore.seqOfRandomBoardTransf(board), "transformed board provided by the user");
 			else

@@ -258,6 +258,28 @@ public class SudokuSolver {
 		loadBoard(filePath);
 	}
 	/**
+	 * Constructor - based on file path to the Sudoku definition.
+	 * @param boardDefinition     Board definition (as array of strings,
+	 *                            each array entry as separate row).
+	 */
+	public SudokuSolver(String[] boardDefinition) {
+		clearPuzzels();
+		randomizeEmptyCells = true;
+		randomizeFreeDigits = true;
+		loadBoard(sudokuBoard);
+	}
+	/**
+	 * Constructor - based on file path to the Sudoku definition.
+	 * @param boardDefinition     Board definition (as list of strings,
+	 *                            each list entry as separate row).
+	 */
+	public SudokuSolver(ArrayList<String> boardDefinition) {
+		clearPuzzels();
+		randomizeEmptyCells = true;
+		randomizeFreeDigits = true;
+		loadBoard(boardDefinition);
+	}
+	/**
 	 * Constructor - based on array representing Sudoku board.
 	 * @param sudokuBoard    9x9 array representing Sudoku board/
 	 */
@@ -314,6 +336,52 @@ public class SudokuSolver {
 				sudokuBoard[i][j] = loadedBoard[i][j];
 		boardState = BOARD_STATE_LOADED;
 		addMessage("(loadBoard) Sudoku loaded, file: " + filePath, MSG_INFO);
+		return findEmptyCells();
+	}
+	/**
+	 * Loads Sudoku from array of strings.
+	 *
+	 * @param boardDefinition  Board definition as array of strings
+	 *                        (each array entry as separate row).
+	 * @return {@link ErrorCodes#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
+	 *         {@link SudokuBoard#BOARD_STATE_LOADED}.
+	 */
+	public int loadBoard(String[] boardDefinition) {
+		int[][] loadedBoard = SudokuStore.loadBoard(boardDefinition);
+		if (loadedBoard == null) {
+			addMessage("(loadBoard) Loading from array of strings failed.", MSG_ERROR);
+			return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+		}
+		if (boardState != BOARD_STATE_EMPTY)
+			clearPuzzels();
+		for (int i = 0; i < BOARD_SIZE; i++)
+			for (int j = 0; j < BOARD_SIZE; j++)
+				sudokuBoard[i][j] = loadedBoard[i][j];
+		boardState = BOARD_STATE_LOADED;
+		addMessage("(loadBoard) Sudoku loaded from array of strings. ", MSG_INFO);
+		return findEmptyCells();
+	}
+	/**
+	 * Loads Sudoku from array of strings.
+	 *
+	 * @param boardDefinition  Board definition as list of strings
+	 *                        (each list entry as separate row).
+	 * @return {@link ErrorCodes#SUDOKUSOLVER_LOADBOARD_LOADING_FAILED} or
+	 *         {@link SudokuBoard#BOARD_STATE_LOADED}.
+	 */
+	public int loadBoard(ArrayList<String> boardDefinition) {
+		int[][] loadedBoard = SudokuStore.loadBoard(boardDefinition);
+		if (loadedBoard == null) {
+			addMessage("(loadBoard) Loading from list of strings failed.", MSG_ERROR);
+			return ErrorCodes.SUDOKUSOLVER_LOADBOARD_LOADING_FAILED;
+		}
+		if (boardState != BOARD_STATE_EMPTY)
+			clearPuzzels();
+		for (int i = 0; i < BOARD_SIZE; i++)
+			for (int j = 0; j < BOARD_SIZE; j++)
+				sudokuBoard[i][j] = loadedBoard[i][j];
+		boardState = BOARD_STATE_LOADED;
+		addMessage("(loadBoard) Sudoku loaded from list of strings. ", MSG_INFO);
 		return findEmptyCells();
 	}
 	/**
