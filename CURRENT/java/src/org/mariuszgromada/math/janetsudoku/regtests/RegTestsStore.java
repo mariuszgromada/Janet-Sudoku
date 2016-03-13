@@ -233,10 +233,6 @@ class StoreTests {
 		}
 	}
 	/**
-	 * Number of regression tests;
-	 */
-	static final int NUMBER_OF_TESTS = 9;
-	/**
 	 * Test scenario implementation.
 	 * @param testId        Test id.
 	 * @param threadId      Thread id.
@@ -245,21 +241,21 @@ class StoreTests {
 	static boolean runTest(int testId, int threadId) {
 		boolean testResult = true;
 		String testDesc = "", resultDesc = "";
+		int[][] a = {
+				{8,0,0,0,3,0,0,4,0},
+				{0,0,0,0,0,9,0,0,5},
+				{0,5,1,0,0,6,0,3,0},
+				{0,0,5,0,4,0,0,0,9},
+				{9,0,0,1,0,2,0,0,4},
+				{2,0,0,0,0,0,3,0,0},
+				{0,3,0,7,0,0,6,8,1},
+				{1,0,0,9,0,0,0,0,0},
+				{0,7,0,0,8,0,0,0,0}
+				};
 		switch(testId) {
 		case 0:
 			testDesc = "Boards equality test.";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = {
 						{8,0,0,0,3,0,0,4,0},
 						{0,0,0,0,0,9,0,0,5},
@@ -282,17 +278,6 @@ class StoreTests {
 		case 1:
 			testDesc = "Boards inequality test #1.";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = {
 						{8,0,0,0,3,0,0,4,0},
 						{0,0,0,0,0,9,0,0,5},
@@ -315,17 +300,6 @@ class StoreTests {
 		case 2:
 			testDesc = "Boards inequality test #2.";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = {
 						{8,0,0,0,3,0,0,4,0},
 						{0,0,0,0,0,9,0,0,5},
@@ -349,17 +323,6 @@ class StoreTests {
 		case 3:
 			testDesc = "Boards inequality test #3.";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = {
 						{8,0,0,0,3,0,0,4,0,1},
 						{0,0,0,0,0,9,0,0,5,1},
@@ -382,17 +345,6 @@ class StoreTests {
 		case 4:
 			testDesc = "Boards inequality test #4.";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = null;
 				if (SudokuStore.boardsAreEqual(a, b) == false) {
 					resultDesc = "Expecting not equal - are not equal.";
@@ -405,9 +357,9 @@ class StoreTests {
 		case 5:
 			testDesc = "Boards inequality test #5.";
 			{
-				int[][] a = null;
+				int[][] c = null;
 				int[][] b = null;
-				if (SudokuStore.boardsAreEqual(a, b) == false) {
+				if (SudokuStore.boardsAreEqual(c, b) == false) {
 					resultDesc = "Expecting not equal - are not equal.";
 				} else {
 					resultDesc = "Expecting not equal - are equal.";
@@ -418,17 +370,6 @@ class StoreTests {
 		case 6:
 			testDesc = "swapColsInSegment (0, 0, 1)";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = {
 						{0,8,0,0,3,0,0,4,0},
 						{0,0,0,0,0,9,0,0,5},
@@ -452,17 +393,6 @@ class StoreTests {
 		case 7:
 			testDesc = "swapColsInSegment (1, 2, 1)";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = {
 						{8,0,0,0,0,3,0,4,0},
 						{0,0,0,0,9,0,0,0,5},
@@ -486,17 +416,6 @@ class StoreTests {
 		case 8:
 			testDesc = "swapColsInSegment (2, 0, 2)";
 			{
-				int[][] a = {
-						{8,0,0,0,3,0,0,4,0},
-						{0,0,0,0,0,9,0,0,5},
-						{0,5,1,0,0,6,0,3,0},
-						{0,0,5,0,4,0,0,0,9},
-						{9,0,0,1,0,2,0,0,4},
-						{2,0,0,0,0,0,3,0,0},
-						{0,3,0,7,0,0,6,8,1},
-						{1,0,0,9,0,0,0,0,0},
-						{0,7,0,0,8,0,0,0,0}
-						};
 				int[][] b = {
 						{8,0,0,0,3,0,0,4,0},
 						{0,0,0,0,0,9,5,0,0},
@@ -517,6 +436,271 @@ class StoreTests {
 				}
 			}
 			break;
+		case 9:
+			testDesc = "swapRowsInSegment (0, 0, 1)";
+			{
+				int[][] b = {
+						{0,0,0,0,0,9,0,0,5},
+						{8,0,0,0,3,0,0,4,0},
+						{0,5,1,0,0,6,0,3,0},
+						{0,0,5,0,4,0,0,0,9},
+						{9,0,0,1,0,2,0,0,4},
+						{2,0,0,0,0,0,3,0,0},
+						{0,3,0,7,0,0,6,8,1},
+						{1,0,0,9,0,0,0,0,0},
+						{0,7,0,0,8,0,0,0,0}
+						};
+				int[][] c = SudokuStore.swapRowsInSegment(a, 0, 0, 1);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 10:
+			testDesc = "swapRowsInSegment (1, 2, 1)";
+			{
+				int[][] b = {
+						{8,0,0,0,3,0,0,4,0},
+						{0,0,0,0,0,9,0,0,5},
+						{0,5,1,0,0,6,0,3,0},
+						{0,0,5,0,4,0,0,0,9},
+						{2,0,0,0,0,0,3,0,0},
+						{9,0,0,1,0,2,0,0,4},
+						{0,3,0,7,0,0,6,8,1},
+						{1,0,0,9,0,0,0,0,0},
+						{0,7,0,0,8,0,0,0,0}
+						};
+				int[][] c = SudokuStore.swapRowsInSegment(a, 1, 2, 1);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 11:
+			testDesc = "swapRowsInSegment (2, 0, 2)";
+			{
+				int[][] b = {
+						{8,0,0,0,3,0,0,4,0},
+						{0,0,0,0,0,9,0,0,5},
+						{0,5,1,0,0,6,0,3,0},
+						{0,0,5,0,4,0,0,0,9},
+						{9,0,0,1,0,2,0,0,4},
+						{2,0,0,0,0,0,3,0,0},
+						{0,7,0,0,8,0,0,0,0},
+						{1,0,0,9,0,0,0,0,0},
+						{0,3,0,7,0,0,6,8,1}
+						};
+				int[][] c = SudokuStore.swapRowsInSegment(a, 2, 0, 2);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 12:
+			testDesc = "permuteColsInSegment (0, 2, 1, 0)";
+			{
+				int[] p = {2, 1, 0};
+				int[][] b = {
+						{0,0,8,0,3,0,0,4,0},
+						{0,0,0,0,0,9,0,0,5},
+						{1,5,0,0,0,6,0,3,0},
+						{5,0,0,0,4,0,0,0,9},
+						{0,0,9,1,0,2,0,0,4},
+						{0,0,2,0,0,0,3,0,0},
+						{0,3,0,7,0,0,6,8,1},
+						{0,0,1,9,0,0,0,0,0},
+						{0,7,0,0,8,0,0,0,0}
+						};
+				int[][] c = SudokuStore.permuteColsInSegment(a, 0, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 13:
+			testDesc = "permuteColsInSegment (1, 1, 2, 0)";
+			{
+				int[] p = {1, 2, 0};
+				int[][] b = {
+						{8,0,0,3,0,0,0,4,0},
+						{0,0,0,0,9,0,0,0,5},
+						{0,5,1,0,6,0,0,3,0},
+						{0,0,5,4,0,0,0,0,9},
+						{9,0,0,0,2,1,0,0,4},
+						{2,0,0,0,0,0,3,0,0},
+						{0,3,0,0,0,7,6,8,1},
+						{1,0,0,0,0,9,0,0,0},
+						{0,7,0,8,0,0,0,0,0}
+						};
+				int[][] c = SudokuStore.permuteColsInSegment(a, 1, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+					SudokuStore.consolePrintBoard(a);
+					SudokuStore.consolePrintBoard(c);
+				}
+			}
+			break;
+		case 14:
+			testDesc = "permuteColsInSegment (2, 0, 2, 1)";
+			{
+				int[] p = {0, 2, 1};
+				int[][] b = {
+						{8,0,0,0,3,0,0,0,4},
+						{0,0,0,0,0,9,0,5,0},
+						{0,5,1,0,0,6,0,0,3},
+						{0,0,5,0,4,0,0,9,0},
+						{9,0,0,1,0,2,0,4,0},
+						{2,0,0,0,0,0,3,0,0},
+						{0,3,0,7,0,0,6,1,8},
+						{1,0,0,9,0,0,0,0,0},
+						{0,7,0,0,8,0,0,0,0}
+						};
+				int[][] c = SudokuStore.permuteColsInSegment(a, 2, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 15:
+			testDesc = "permuteRowsInSegment (0, 2, 1, 0)";
+			{
+				int[] p = {2, 1, 0};
+				int[][] b = {
+						{0,5,1,0,0,6,0,3,0},
+						{0,0,0,0,0,9,0,0,5},
+						{8,0,0,0,3,0,0,4,0},
+						{0,0,5,0,4,0,0,0,9},
+						{9,0,0,1,0,2,0,0,4},
+						{2,0,0,0,0,0,3,0,0},
+						{0,3,0,7,0,0,6,8,1},
+						{1,0,0,9,0,0,0,0,0},
+						{0,7,0,0,8,0,0,0,0}
+						};
+				int[][] c = SudokuStore.permuteRowsInSegment(a, 0, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 16:
+			testDesc = "permuteRowsInSegment (1, 1, 2, 0)";
+			{
+				int[] p = {1, 2, 0};
+				int[][] b = {
+						{8,0,0,0,3,0,0,4,0},
+						{0,0,0,0,0,9,0,0,5},
+						{0,5,1,0,0,6,0,3,0},
+						{9,0,0,1,0,2,0,0,4},
+						{2,0,0,0,0,0,3,0,0},
+						{0,0,5,0,4,0,0,0,9},
+						{0,3,0,7,0,0,6,8,1},
+						{1,0,0,9,0,0,0,0,0},
+						{0,7,0,0,8,0,0,0,0}
+						};
+				int[][] c = SudokuStore.permuteRowsInSegment(a, 1, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+					SudokuStore.consolePrintBoard(a);
+					SudokuStore.consolePrintBoard(c);
+				}
+			}
+			break;
+		case 17:
+			testDesc = "permuteRowsInSegment (2, 0, 2, 1)";
+			{
+				int[] p = {0, 2, 1};
+				int[][] b = {
+						{8,0,0,0,3,0,0,4,0},
+						{0,0,0,0,0,9,0,0,5},
+						{0,5,1,0,0,6,0,3,0},
+						{0,0,5,0,4,0,0,0,9},
+						{9,0,0,1,0,2,0,0,4},
+						{2,0,0,0,0,0,3,0,0},
+						{0,3,0,7,0,0,6,8,1},
+						{0,7,0,0,8,0,0,0,0},
+						{1,0,0,9,0,0,0,0,0}
+						};
+				int[][] c = SudokuStore.permuteRowsInSegment(a, 2, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 18:
+			testDesc = "permuteColSegments (1, 2, 0)";
+			{
+				int[] p = {1, 2, 0};
+				int[][] b = {
+						{0,3,0,0,4,0,8,0,0},
+						{0,0,9,0,0,5,0,0,0},
+						{0,0,6,0,3,0,0,5,1},
+						{0,4,0,0,0,9,0,0,5},
+						{1,0,2,0,0,4,9,0,0},
+						{0,0,0,3,0,0,2,0,0},
+						{7,0,0,6,8,1,0,3,0},
+						{9,0,0,0,0,0,1,0,0},
+						{0,8,0,0,0,0,0,7,0}
+						};
+				int[][] c = SudokuStore.permuteColSegments(a, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 19:
+			testDesc = "permuteRowSegments (1, 2, 0)";
+			{
+				int[] p = {1, 2, 0};
+				int[][] b = {
+						{0,0,5,0,4,0,0,0,9},
+						{9,0,0,1,0,2,0,0,4},
+						{2,0,0,0,0,0,3,0,0},
+						{0,3,0,7,0,0,6,8,1},
+						{1,0,0,9,0,0,0,0,0},
+						{0,7,0,0,8,0,0,0,0},
+						{8,0,0,0,3,0,0,4,0},
+						{0,0,0,0,0,9,0,0,5},
+						{0,5,1,0,0,6,0,3,0}
+						};
+				int[][] c = SudokuStore.permuteRowSegments(a, p);
+				if (SudokuStore.boardsAreEqual(b, c) == true) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
 		}
 		if (testResult == true)
 			SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + " " + testDesc + " " + resultDesc + " >>>>>>>>>>>>>>>>>>>>>> SudokuStore, result: OK");
@@ -524,4 +708,8 @@ class StoreTests {
 			SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + " " + testDesc + " " + resultDesc + " >>>>>>>>>>>>>>>>>>>>>> SudokuStore, result: ERROR");
 		return testResult;
 	}
+	/**
+	 * Number of regression tests;
+	 */
+	static final int NUMBER_OF_TESTS = 20;
 }

@@ -639,8 +639,8 @@ public final class SudokuStore {
 			segmentStart[seg] = boardSegmentStartIndex(seg);
 		for (int seg = 0; seg < BOARD_SEGMENTS_NUMBER; seg++)
 			for (int i = 0; i < BOARD_SUB_SQURE_SIZE; i++) {
-				int curRowIndex = segmentStart[seg] + i;
-				int newRowIndex = segmentStart[ permutation[seg] ] + i;
+				int curRowIndex = segmentStart[ permutation[seg] ] + i;
+				int newRowIndex = segmentStart[seg] + i;
 				for (int j = 0; j < BOARD_SIZE; j++) {
 					permutatedBoard[newRowIndex][j] = sudokuBoard[curRowIndex][j];
 				}
@@ -678,8 +678,8 @@ public final class SudokuStore {
 			segmentStart[seg] = boardSegmentStartIndex(seg);
 		for (int seg = 0; seg < BOARD_SEGMENTS_NUMBER; seg++)
 			for (int j = 0; j < BOARD_SUB_SQURE_SIZE; j++) {
-				int curColIndex = segmentStart[seg] + j;
-				int newColIndex = segmentStart[ permutation[seg] ] + j;
+				int curColIndex = segmentStart[ permutation[seg] ] + j;
+				int newColIndex = segmentStart[seg] + j;
 				for (int i = 0; i < BOARD_SIZE; i++) {
 					permutatedBoard[i][newColIndex] = sudokuBoard[i][curColIndex];
 				}
@@ -719,8 +719,8 @@ public final class SudokuStore {
 		if ( (rowSeg < 0) || (rowSeg > 2) ) return permutatedBoard;
 		int segStart =  boardSegmentStartIndex(rowSeg);
 		for (int i = 0; i < BOARD_SUB_SQURE_SIZE; i++) {
-			int curRowIndex = segStart + i;
-			int newRowIndex = segStart + permutation[i];
+			int curRowIndex = segStart + permutation[i];
+			int newRowIndex = segStart + i;
 			for (int j = 0; j < BOARD_SIZE; j++) {
 				permutatedBoard[newRowIndex][j] = sudokuBoard[curRowIndex][j];
 			}
@@ -795,8 +795,8 @@ public final class SudokuStore {
 		if ( (colSeg < 0) || (colSeg > 2) ) return permutatedBoard;
 		int segStart =  boardSegmentStartIndex(colSeg);
 		for (int j = 0; j < BOARD_SUB_SQURE_SIZE; j++) {
-			int curColIndex = segStart + j;
-			int newColIndex = segStart + permutation[j];
+			int curColIndex = segStart + permutation[j];
+			int newColIndex = segStart + j;
 			for (int i = 0; i < BOARD_SIZE; i++) {
 				permutatedBoard[i][newColIndex] = sudokuBoard[i][curColIndex];
 			}
