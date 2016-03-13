@@ -51,6 +51,8 @@ import java.util.ArrayList;
 
 import org.mariuszgromada.janetutils.ArrayX;
 import org.mariuszgromada.janetutils.io.FileX;
+import org.mariuszgromada.janetutils.DateTimeX;
+
 /**
  * Storehouse for various things used in library, i.e. sudoku board examples.
  *
@@ -1193,13 +1195,18 @@ public final class SudokuStore {
 	 * ======================================================
 	 */
 	/**
-	 * Returns string board (only) representation.
-	 * @param  sudokuBoard   Array representing Sudoku puzzles.
+	 * Returns string representation of the board.
+	 * @param  sudokuBoard     Array representing Sudoku puzzles.
+	 * @param  headComment     Comment to be added at the head.
+	 * @param  tailComment     Comment to be added at the tail.
 	 * @return Board (only) representation.
 	 */
-	public static final String boardToString(int[][] sudokuBoard) {
-		if (sudokuBoard == null) return "NULL sudoku board.";
+	private static final String convBoardToString(int[][] sudokuBoard, String headComment, String tailComment) {
 		String boardStr = "";
+		if (headComment != null)
+			if (headComment.length() > 0)
+					boardStr = boardStr + "# " + headComment + "\n\n";
+		if (sudokuBoard == null) return "NULL sudoku board.";
 		boardStr = boardStr + "+-------+-------+-------+\n";
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
 			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
@@ -1215,8 +1222,38 @@ public final class SudokuStore {
 			}
 			boardStr = boardStr + "|\n";
 		}
-		boardStr = boardStr + "+-------+-------+-------+\n";
+		boardStr = boardStr + "+-------+-------+-------+\n\n";
+		if (tailComment != null)
+			if (tailComment.length() > 0)
+					boardStr = boardStr + "# " + tailComment;
 		return boardStr;
+	}
+	/**
+	 * Returns string representation of the board.
+	 * @param  sudokuBoard   Array representing Sudoku puzzles.
+	 * @return Board (only) representation.
+	 */
+	public static final String boardToString(int[][] sudokuBoard) {
+		return convBoardToString(sudokuBoard, "Sudoku puzzle", JANET_SUDOKU_NAME + "-v." + SudokuStore.JANET_SUDOKU_VERSION + ", " + DateTimeX.getCurrDateTimeStr());
+	}
+	/**
+	 * Returns string representation of the board + provided comment.
+	 * @param sudokuBoard     Sudoku board.
+	 * @param headComment     Comment to be added at the head.
+	 * @return                String representation of the sudoku board.
+	 */
+	public static final String boardToString(int[][] sudokuBoard, String headComment) {
+		return convBoardToString(sudokuBoard, headComment, "");
+	}
+	/**
+	 * Returns string representation of the board + provided comment.
+	 * @param  sudokuBoard     Sudoku board.
+	 * @param  headComment     Comment to be added at the head.
+	 * @param  tailComment     Comment to be added at the tail.
+	 * @return                 String representation of the sudoku board.
+	 */
+	public static final String boardToString(int[][] sudokuBoard, String headComment, String tailComment) {
+		return convBoardToString(sudokuBoard, headComment, tailComment);
 	}
 	/**
 	 * Returns string representation of empty cells (only).
@@ -1243,7 +1280,7 @@ public final class SudokuStore {
 		return boardStr;
 	}
 	/**
-	 * Returns string board and empty cells representation.
+	 * Returns string representation of the board and empty cells.
 	 * @param  sudokuBoard   Array representing Sudoku puzzles.
 	 * @param  emptyCells    Array representing empty cells of Sudoku puzzles.
 	 * @return Board and empty cells representation.
@@ -1277,7 +1314,7 @@ public final class SudokuStore {
 		return boardStr;
 	}
 	/**
-	 * Returns string representation of path to the solution.
+	 * Returns string representation of the 'path' leading to the solution.
 	 * @param solutionBoardCells  Array representing sequence of board cells.
 	 * @return                      String representation of sequence of board cells.
 	 */
@@ -1296,9 +1333,17 @@ public final class SudokuStore {
 		solutionPath = solutionPath + " --------------- \n";
 		return solutionPath;
 	}
+	/**
+	 * Prints Sudoku board to the console.
+	 * @param sudokuBoard     Sudoku board to be printed
+	 */
 	public static final void consolePrintBoard(int[][] sudokuBoard) {
 		System.out.println(boardToString(sudokuBoard));
 	}
+	/**
+	 * Prints object to the console.
+	 * @param o    Object to be printed.
+	 */
 	public static final void consolePrintln(Object o) {
 		System.out.println("[" + JANET_SUDOKU_NAME + "-v." + SudokuStore.JANET_SUDOKU_VERSION + "] " + o);
 	}
