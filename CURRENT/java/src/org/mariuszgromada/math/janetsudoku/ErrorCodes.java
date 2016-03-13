@@ -140,14 +140,12 @@ public class ErrorCodes {
 	 * @see SudokuSolver
 	 */
 	public static final int SUDOKUSOLVER_BOARD_ERROR = -110;
-
-
 	/**
 	 * Sudoku board loading failed.
 	 *
 	 * @see SudokuSolver
 	 * @see SudokuSolver#loadBoard(int)
-	 * #see SudokuSolver#loadBoard(int[][])
+	 * @see SudokuSolver#loadBoard(int[][])
 	 * @see SudokuSolver#loadBoard(String)
 	 */
 	public static final String SUDOKUSOLVER_LOADBOARD_LOADING_FAILED_MSG =  "Failed loading sudoku board.";

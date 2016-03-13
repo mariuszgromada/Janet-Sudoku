@@ -978,7 +978,6 @@ public final class SudokuPuzzles {
 		};
 	/**
 	 * Sudoku example - number 57.
-	 * Difficulty: Evil
 	 */
 	public static final int[][] PUZZLE_EXAMPLE_057 = {
 			{0,0,0, 1,9,6, 3,0,0},
@@ -995,7 +994,6 @@ public final class SudokuPuzzles {
 		};
 	/**
 	 * Sudoku example - number 58.
-	 * Difficulty: Very difficult
 	 */
 	public static final int[][] PUZZLE_EXAMPLE_058 = {
 			{0,0,7, 0,0,0, 4,0,9},
@@ -1026,7 +1024,9 @@ public final class SudokuPuzzles {
 			{0,9,0, 0,4,0, 0,2,0},
 			{0,0,4, 0,0,0, 5,0,0}
 		};
-
+	/**
+	 * Sudoku example - number 60.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_060 = {
 			{0,0,1, 6,8,0, 0,0,0},
 			{0,0,3, 0,0,0, 0,1,0},
@@ -1040,7 +1040,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 7,0,8, 0,0,0},
 			{3,0,0, 0,0,9, 0,0,7}
 	};
-
+	/**
+	 * Sudoku example - number 61.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_061 = {
 			{0,0,0, 7,0,0, 8,0,0},
 			{0,6,0, 0,1,0, 0,0,0},
@@ -1054,7 +1056,9 @@ public final class SudokuPuzzles {
 			{0,8,5, 0,2,0, 0,0,0},
 			{0,0,0, 0,0,7, 0,0,3}
 	};
-
+	/**
+	 * Sudoku example - number 62.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_062 = {
 			{4,0,0, 0,0,0, 0,0,0},
 			{0,0,0, 3,4,0, 2,0,0},
@@ -1068,7 +1072,9 @@ public final class SudokuPuzzles {
 			{0,0,8, 0,0,0, 0,0,0},
 			{0,0,6, 0,0,0, 0,1,7}
 	};
-
+	/**
+	 * Sudoku example - number 63.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_063 = {
 			{9,0,0, 0,0,1, 0,0,0},
 			{0,0,0, 0,0,0, 0,3,7},
@@ -1082,7 +1088,9 @@ public final class SudokuPuzzles {
 			{0,0,4, 0,0,0, 6,0,0},
 			{0,0,0, 0,5,3, 0,1,2}
 	};
-
+	/**
+	 * Sudoku example - number 64.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_064 = {
 			{0,0,0, 0,0,0, 1,7,0},
 			{5,3,6, 0,0,0, 0,0,0},
@@ -1096,7 +1104,9 @@ public final class SudokuPuzzles {
 			{7,0,0, 0,5,0, 0,0,9},
 			{0,0,0, 0,0,0, 2,8,7}
 	};
-
+	/**
+	 * Sudoku example - number 65.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_065 = {
 			{7,0,0, 0,9,0, 0,1,0},
 			{0,3,6, 0,0,0, 0,7,0},
@@ -1110,7 +1120,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,9, 0,0,0},
 			{0,0,2, 0,7,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 66.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_066 = {
 			{0,1,0, 0,0,6, 0,0,0},
 			{0,0,0, 0,0,3, 0,8,0},
@@ -1124,7 +1136,9 @@ public final class SudokuPuzzles {
 			{2,0,0, 5,0,0, 0,0,0},
 			{0,7,0, 0,0,0, 0,0,2}
 	};
-
+	/**
+	 * Sudoku example - number 67.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_067 = {
 			{0,0,0, 0,0,0, 8,0,0},
 			{0,0,0, 0,0,0, 7,2,0},
@@ -1138,7 +1152,9 @@ public final class SudokuPuzzles {
 			{0,9,0, 0,4,0, 0,0,5},
 			{0,0,1, 0,0,0, 0,6,0}
 	};
-
+	/**
+	 * Sudoku example - number 68.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_068 = {
 			{0,0,0, 2,0,0, 0,0,0},
 			{4,0,0, 0,0,0, 0,0,0},
@@ -1152,7 +1168,9 @@ public final class SudokuPuzzles {
 			{0,0,2, 0,0,1, 0,9,0},
 			{0,5,0, 0,0,9, 0,0,3}
 	};
-
+	/**
+	 * Sudoku example - number 69.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_069 = {
 			{9,0,0, 0,0,1, 0,0,0},
 			{0,0,0, 0,0,0, 0,3,7},
@@ -1166,7 +1184,9 @@ public final class SudokuPuzzles {
 			{0,0,4, 0,0,0, 6,0,0},
 			{0,0,0, 0,5,3, 0,1,2}
 	};
-
+	/**
+	 * Sudoku example - number 70.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_070 = {
 			{0,9,0, 0,0,0, 0,4,0},
 			{0,0,0, 2,0,0, 8,0,0},
@@ -1180,7 +1200,9 @@ public final class SudokuPuzzles {
 			{2,0,3, 0,0,0, 0,0,7},
 			{0,0,1, 0,0,0, 0,0,4}
 	};
-
+	/**
+	 * Sudoku example - number 71.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_071 = {
 			{2,0,0, 0,9,0, 0,0,0},
 			{0,0,9, 0,0,0, 0,4,1},
@@ -1194,7 +1216,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,8,5, 0,0,7},
 			{6,0,0, 0,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 72.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_072 = {
 			{9,0,0, 5,0,0, 6,0,0},
 			{0,6,0, 3,0,0, 0,0,0},
@@ -1208,7 +1232,9 @@ public final class SudokuPuzzles {
 			{0,0,7, 0,0,0, 0,9,4},
 			{0,0,5, 0,0,0, 0,7,0}
 	};
-
+	/**
+	 * Sudoku example - number 73.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_073 = {
 			{0,0,0, 0,0,8, 0,0,2},
 			{0,0,3, 0,0,0, 0,0,5},
@@ -1222,7 +1248,9 @@ public final class SudokuPuzzles {
 			{0,4,0, 6,0,0, 0,0,0},
 			{6,9,0, 0,0,0, 0,7,4}
 	};
-
+	/**
+	 * Sudoku example - number 74.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_074 = {
 			{0,2,0, 0,0,9, 0,0,0},
 			{7,0,0, 0,0,0, 0,0,2},
@@ -1236,7 +1264,9 @@ public final class SudokuPuzzles {
 			{4,0,1, 3,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 3,9,4}
 	};
-
+	/**
+	 * Sudoku example - number 75.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_075 = {
 			{0,0,0, 9,0,2, 1,0,0},
 			{0,0,6, 4,0,0, 0,0,0},
@@ -1250,7 +1280,9 @@ public final class SudokuPuzzles {
 			{9,7,0, 0,0,0, 0,0,3},
 			{2,0,0, 0,0,0, 0,5,0}
 	};
-
+	/**
+	 * Sudoku example - number 76.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_076 = {
 			{0,0,0, 0,8,1, 0,0,0},
 			{0,0,0, 0,9,0, 0,6,0},
@@ -1264,7 +1296,9 @@ public final class SudokuPuzzles {
 			{4,0,7, 0,0,0, 1,0,0},
 			{0,0,0, 1,0,9, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 77.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_077 = {
 			{5,0,0, 3,0,0, 0,0,0},
 			{0,0,0, 0,5,0, 0,0,7},
@@ -1278,7 +1312,9 @@ public final class SudokuPuzzles {
 			{0,9,0, 0,0,1, 0,2,0},
 			{0,0,0, 0,0,0, 1,3,0}
 	};
-
+	/**
+	 * Sudoku example - number 78.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_078 = {
 			{0,2,0, 0,0,5, 0,0,0},
 			{0,9,0, 0,0,0, 0,1,0},
@@ -1292,7 +1328,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 6,0,9, 0,0,2},
 			{6,0,4, 0,0,0, 0,0,8}
 	};
-
+	/**
+	 * Sudoku example - number 79.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_079 = {
 			{0,3,5, 0,0,0, 0,0,0},
 			{0,0,0, 0,7,0, 0,5,3},
@@ -1306,7 +1344,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 4,2,8},
 			{0,0,0, 9,1,7, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 80.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_080 = {
 			{0,9,8, 0,0,0, 0,0,6},
 			{0,0,0, 0,0,0, 8,0,0},
@@ -1320,7 +1360,9 @@ public final class SudokuPuzzles {
 			{6,0,0, 0,0,7, 0,0,0},
 			{0,0,0, 8,0,5, 0,0,2}
 	};
-
+	/**
+	 * Sudoku example - number 81.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_081 = {
 			{0,0,0, 1,7,8, 0,0,0},
 			{2,0,9, 0,0,0, 0,8,0},
@@ -1334,7 +1376,9 @@ public final class SudokuPuzzles {
 			{0,4,7, 0,0,6, 0,0,0},
 			{0,0,8, 0,0,1, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 82.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_082 = {
 			{0,0,0, 0,0,8, 0,0,0},
 			{2,3,0, 0,0,0, 0,0,0},
@@ -1348,7 +1392,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 4,0,9, 0,0,0},
 			{6,0,0, 0,0,1, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 83.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_083 = {
 			{0,0,4, 0,0,6, 0,7,0},
 			{0,0,0, 0,0,0, 0,8,9},
@@ -1362,7 +1408,9 @@ public final class SudokuPuzzles {
 			{0,6,0, 0,3,0, 0,0,0},
 			{0,0,5, 0,2,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 84.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_084 = {
 			{3,0,0, 0,0,0, 0,0,9},
 			{0,0,0, 0,6,0, 5,0,0},
@@ -1376,7 +1424,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 9,0,2, 0,0,3},
 			{0,0,0, 8,0,0, 0,0,5}
 	};
-
+	/**
+	 * Sudoku example - number 85.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_085 = {
 			{0,0,0, 0,0,0, 9,2,7},
 			{3,0,0, 0,0,1, 0,0,0},
@@ -1390,7 +1440,9 @@ public final class SudokuPuzzles {
 			{5,0,3, 0,6,4, 0,0,0},
 			{8,0,0, 0,0,0, 0,0,3}
 	};
-
+	/**
+	 * Sudoku example - number 86.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_086 = {
 			{0,0,0, 5,0,0, 0,0,0},
 			{1,0,0, 0,0,4, 0,0,6},
@@ -1404,7 +1456,9 @@ public final class SudokuPuzzles {
 			{0,0,5, 0,0,0, 9,1,0},
 			{0,0,0, 0,0,7, 2,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 87.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_087 = {
 			{5,0,0, 0,0,4, 0,0,9},
 			{0,0,0, 0,8,9, 0,0,5},
@@ -1418,7 +1472,9 @@ public final class SudokuPuzzles {
 			{0,8,0, 9,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 0,1,6}
 	};
-
+	/**
+	 * Sudoku example - number 88.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_088 = {
 			{5,0,6, 0,0,0, 0,0,0},
 			{0,0,0, 3,0,1, 0,0,0},
@@ -1432,7 +1488,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 0,8,0},
 			{0,2,0, 5,0,9, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 89.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_089 = {
 			{0,0,0, 0,0,5, 1,6,0},
 			{0,9,0, 0,0,0, 4,0,0},
@@ -1446,7 +1504,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 0,5,0},
 			{0,0,8, 4,0,2, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 90.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_090 = {
 			{0,2,0, 0,0,9, 0,0,0},
 			{7,0,0, 0,0,0, 0,0,2},
@@ -1460,7 +1520,9 @@ public final class SudokuPuzzles {
 			{4,0,1, 3,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 3,9,4}
 	};
-
+	/**
+	 * Sudoku example - number 91.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_091 = {
 			{1,8,0, 0,0,2, 0,0,0},
 			{0,0,6, 0,0,0, 7,0,0},
@@ -1474,7 +1536,9 @@ public final class SudokuPuzzles {
 			{8,0,2, 0,0,0, 0,6,0},
 			{0,4,0, 0,5,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 92.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_092 = {
 			{0,1,8, 0,0,6, 0,0,0},
 			{0,0,5, 0,0,0, 8,4,0},
@@ -1488,7 +1552,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,8,0, 0,0,0},
 			{0,0,0, 0,0,0, 2,8,4}
 	};
-
+	/**
+	 * Sudoku example - number 93.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_093 = {
 			{8,0,0, 0,0,6, 0,9,4},
 			{5,0,0, 0,0,0, 0,8,2},
@@ -1502,7 +1568,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,5,0, 6,0,8},
 			{0,9,0, 0,3,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 94.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_094 = {
 			{0,1,0, 0,0,0, 0,0,2},
 			{0,5,2, 0,3,0, 0,0,0},
@@ -1516,7 +1584,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 6,0,0},
 			{4,6,9, 0,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 95.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_095 = {
 			{0,0,0, 0,0,0, 5,2,0},
 			{0,0,5, 6,4,0, 0,0,0},
@@ -1530,7 +1600,9 @@ public final class SudokuPuzzles {
 			{6,0,0, 0,0,0, 0,0,0},
 			{3,0,0, 0,0,1, 0,0,5}
 	};
-
+	/**
+	 * Sudoku example - number 96.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_096 = {
 			{0,3,0, 0,0,0, 9,0,0},
 			{0,0,0, 0,2,4, 6,0,0},
@@ -1544,7 +1616,9 @@ public final class SudokuPuzzles {
 			{0,0,6, 0,0,0, 0,4,7},
 			{0,0,0, 2,0,1, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 97.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_097 = {
 			{0,8,0, 7,0,0, 0,0,1},
 			{0,9,0, 0,0,0, 0,3,6},
@@ -1558,7 +1632,9 @@ public final class SudokuPuzzles {
 			{4,0,0, 0,0,0, 0,0,0},
 			{8,0,0, 6,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 98.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_098 = {
 			{0,0,0, 9,0,2, 1,0,0},
 			{0,0,6, 4,0,0, 0,0,0},
@@ -1572,7 +1648,9 @@ public final class SudokuPuzzles {
 			{9,7,0, 0,0,0, 0,0,3},
 			{2,0,0, 0,0,0, 0,5,0}
 	};
-
+	/**
+	 * Sudoku example - number 99.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_099 = {
 			{0,0,0, 0,8,1, 0,0,0},
 			{0,0,0, 0,9,0, 0,6,0},
@@ -1586,7 +1664,9 @@ public final class SudokuPuzzles {
 			{4,0,7, 0,0,0, 1,0,0},
 			{0,0,0, 1,0,9, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 100.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_100 = {
 			{5,0,0, 3,0,0, 0,0,0},
 			{0,0,0, 0,5,0, 0,0,7},
@@ -1600,7 +1680,9 @@ public final class SudokuPuzzles {
 			{0,9,0, 0,0,1, 0,2,0},
 			{0,0,0, 0,0,0, 1,3,0}
 	};
-
+	/**
+	 * Sudoku example - number 101.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_101 = {
 			{0,2,0, 0,0,5, 0,0,0},
 			{0,9,0, 0,0,0, 0,1,0},
@@ -1614,7 +1696,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 6,0,9, 0,0,2},
 			{6,0,4, 0,0,0, 0,0,8}
 	};
-
+	/**
+	 * Sudoku example - number 102.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_102 = {
 			{0,3,5, 0,0,0, 0,0,0},
 			{0,0,0, 0,7,0, 0,5,3},
@@ -1628,7 +1712,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 4,2,8},
 			{0,0,0, 9,1,7, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 103.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_103 = {
 			{0,9,8, 0,0,0, 0,0,6},
 			{0,0,0, 0,0,0, 8,0,0},
@@ -1642,7 +1728,9 @@ public final class SudokuPuzzles {
 			{6,0,0, 0,0,7, 0,0,0},
 			{0,0,0, 8,0,5, 0,0,2}
 	};
-
+	/**
+	 * Sudoku example - number 104.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_104 = {
 			{0,0,0, 1,7,8, 0,0,0},
 			{2,0,9, 0,0,0, 0,8,0},
@@ -1656,7 +1744,9 @@ public final class SudokuPuzzles {
 			{0,4,7, 0,0,6, 0,0,0},
 			{0,0,8, 0,0,1, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 105.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_105 = {
 			{0,0,0, 0,0,8, 0,0,0},
 			{2,3,0, 0,0,0, 0,0,0},
@@ -1670,7 +1760,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 4,0,9, 0,0,0},
 			{6,0,0, 0,0,1, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 106.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_106 = {
 			{0,0,4, 0,0,6, 0,7,0},
 			{0,0,0, 0,0,0, 0,8,9},
@@ -1684,7 +1776,9 @@ public final class SudokuPuzzles {
 			{0,6,0, 0,3,0, 0,0,0},
 			{0,0,5, 0,2,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 107.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_107 = {
 			{3,0,0, 0,0,0, 0,0,9},
 			{0,0,0, 0,6,0, 5,0,0},
@@ -1698,7 +1792,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 9,0,2, 0,0,3},
 			{0,0,0, 8,0,0, 0,0,5}
 	};
-
+	/**
+	 * Sudoku example - number 108.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_108 = {
 			{0,0,0, 0,0,0, 9,2,7},
 			{3,0,0, 0,0,1, 0,0,0},
@@ -1712,7 +1808,9 @@ public final class SudokuPuzzles {
 			{5,0,3, 0,6,4, 0,0,0},
 			{8,0,0, 0,0,0, 0,0,3}
 	};
-
+	/**
+	 * Sudoku example - number 109.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_109 = {
 			{0,0,0, 5,0,0, 0,0,0},
 			{1,0,0, 0,0,4, 0,0,6},
@@ -1726,7 +1824,9 @@ public final class SudokuPuzzles {
 			{0,0,5, 0,0,0, 9,1,0},
 			{0,0,0, 0,0,7, 2,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 110.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_110 = {
 			{5,0,0, 0,0,4, 0,0,9},
 			{0,0,0, 0,8,9, 0,0,5},
@@ -1740,7 +1840,9 @@ public final class SudokuPuzzles {
 			{0,8,0, 9,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 0,1,6}
 	};
-
+	/**
+	 * Sudoku example - number 111.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_111 = {
 			{5,0,6, 0,0,0, 0,0,0},
 			{0,0,0, 3,0,1, 0,0,0},
@@ -1754,7 +1856,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 0,8,0},
 			{0,2,0, 5,0,9, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 112.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_112 = {
 			{0,0,0, 0,0,5, 1,6,0},
 			{0,9,0, 0,0,0, 4,0,0},
@@ -1768,7 +1872,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 0,5,0},
 			{0,0,8, 4,0,2, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 113.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_113 = {
 			{0,2,0, 0,0,9, 0,0,0},
 			{7,0,0, 0,0,0, 0,0,2},
@@ -1782,7 +1888,9 @@ public final class SudokuPuzzles {
 			{4,0,1, 3,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 3,9,4}
 	};
-
+	/**
+	 * Sudoku example - number 114.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_114 = {
 			{1,8,0, 0,0,2, 0,0,0},
 			{0,0,6, 0,0,0, 7,0,0},
@@ -1796,7 +1904,9 @@ public final class SudokuPuzzles {
 			{8,0,2, 0,0,0, 0,6,0},
 			{0,4,0, 0,5,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 115.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_115 = {
 			{0,1,8, 0,0,6, 0,0,0},
 			{0,0,5, 0,0,0, 8,4,0},
@@ -1810,7 +1920,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,8,0, 0,0,0},
 			{0,0,0, 0,0,0, 2,8,4}
 	};
-
+	/**
+	 * Sudoku example - number 116.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_116 = {
 			{8,0,0, 0,0,6, 0,9,4},
 			{5,0,0, 0,0,0, 0,8,2},
@@ -1824,7 +1936,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,5,0, 6,0,8},
 			{0,9,0, 0,3,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 117.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_117 = {
 			{0,1,0, 0,0,0, 0,0,2},
 			{0,5,2, 0,3,0, 0,0,0},
@@ -1838,7 +1952,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 6,0,0},
 			{4,6,9, 0,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 118.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_118 = {
 			{0,0,0, 0,0,0, 5,2,0},
 			{0,0,5, 6,4,0, 0,0,0},
@@ -1852,7 +1968,9 @@ public final class SudokuPuzzles {
 			{6,0,0, 0,0,0, 0,0,0},
 			{3,0,0, 0,0,1, 0,0,5}
 	};
-
+	/**
+	 * Sudoku example - number 119.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_119 = {
 			{0,3,0, 0,0,0, 9,0,0},
 			{0,0,0, 0,2,4, 6,0,0},
@@ -1866,7 +1984,9 @@ public final class SudokuPuzzles {
 			{0,0,6, 0,0,0, 0,4,7},
 			{0,0,0, 2,0,1, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 120.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_120 = {
 			{0,8,0, 7,0,0, 0,0,1},
 			{0,9,0, 0,0,0, 0,3,6},
@@ -1880,7 +2000,9 @@ public final class SudokuPuzzles {
 			{4,0,0, 0,0,0, 0,0,0},
 			{8,0,0, 6,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 121.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_121 = {
 			{0,0,4, 0,0,0, 0,2,0},
 			{0,0,0, 7,6,0, 0,9,0},
@@ -1894,7 +2016,9 @@ public final class SudokuPuzzles {
 			{6,2,0, 0,0,0, 0,0,0},
 			{7,0,0, 9,0,2, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 122.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_122 = {
 			{7,2,5, 0,0,0, 0,0,0},
 			{0,0,0, 6,0,0, 0,0,0},
@@ -1908,7 +2032,9 @@ public final class SudokuPuzzles {
 			{3,0,0, 0,0,0, 9,0,0},
 			{5,0,0, 0,0,0, 7,0,8}
 	};
-
+	/**
+	 * Sudoku example - number 123.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_123 = {
 			{0,2,0, 0,0,0, 0,7,5},
 			{1,0,0, 5,0,0, 0,0,0},
@@ -1922,7 +2048,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,4, 0,0,0},
 			{0,0,0, 0,6,0, 5,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 124.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_124 = {
 			{0,0,8, 0,0,0, 9,0,0},
 			{0,5,3, 0,0,6, 0,0,0},
@@ -1936,7 +2064,9 @@ public final class SudokuPuzzles {
 			{0,9,0, 0,0,0, 8,5,0},
 			{0,0,0, 0,6,4, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 125.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_125 = {
 			{0,3,0, 0,8,0, 0,4,0},
 			{0,0,2, 0,4,0, 0,0,0},
@@ -1950,7 +2080,9 @@ public final class SudokuPuzzles {
 			{9,0,0, 0,0,4, 0,0,0},
 			{0,0,0, 0,0,0, 0,1,9}
 	};
-
+	/**
+	 * Sudoku example - number 126.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_126 = {
 			{0,0,0, 0,0,5, 0,6,0},
 			{0,0,0, 0,0,7, 3,0,0},
@@ -1964,7 +2096,9 @@ public final class SudokuPuzzles {
 			{5,4,0, 0,1,0, 0,0,0},
 			{0,0,0, 4,0,0, 8,0,3}
 	};
-
+	/**
+	 * Sudoku example - number 127.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_127 = {
 			{0,0,5, 4,0,0, 0,0,0},
 			{0,8,0, 0,0,0, 0,0,0},
@@ -1978,7 +2112,9 @@ public final class SudokuPuzzles {
 			{8,5,0, 0,7,0, 0,0,0},
 			{0,0,0, 0,0,0, 0,4,8}
 	};
-
+	/**
+	 * Sudoku example - number 128.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_128 = {
 			{0,7,0, 0,2,0, 0,0,0},
 			{0,0,0, 0,0,7, 6,0,0},
@@ -1992,7 +2128,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 1,0,0, 0,0,3},
 			{0,3,1, 0,0,0, 5,0,6}
 	};
-
+	/**
+	 * Sudoku example - number 129.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_129 = {
 			{0,7,0, 0,0,0, 0,0,3},
 			{2,6,0, 0,0,0, 0,0,0},
@@ -2006,7 +2144,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 1,4,6, 0,0,0},
 			{0,0,1, 0,0,8, 0,0,2}
 	};
-
+	/**
+	 * Sudoku example - number 130.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_130 = {
 			{0,2,0, 0,0,0, 0,8,0},
 			{4,0,0, 0,0,0, 0,1,0},
@@ -2020,7 +2160,9 @@ public final class SudokuPuzzles {
 			{0,0,6, 0,0,0, 1,0,0},
 			{0,0,0, 0,0,6, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 131.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_131 = {
 			{0,0,0, 0,7,0, 8,9,0},
 			{0,0,2, 0,0,0, 4,0,3},
@@ -2034,7 +2176,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,9,0, 1,0,0},
 			{0,0,0, 0,4,0, 0,6,0}
 	};
-
+	/**
+	 * Sudoku example - number 132.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_132 = {
 			{0,6,0, 0,5,7, 0,0,0},
 			{0,1,0, 0,0,0, 0,0,6},
@@ -2048,7 +2192,9 @@ public final class SudokuPuzzles {
 			{8,0,0, 0,0,0, 0,5,0},
 			{0,0,4, 9,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 133.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_133 = {
 			{0,0,3, 9,0,0, 6,0,0},
 			{0,2,6, 0,0,0, 0,0,0},
@@ -2062,7 +2208,9 @@ public final class SudokuPuzzles {
 			{4,0,1, 0,0,0, 0,6,0},
 			{3,0,0, 0,2,0, 5,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 134.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_134 = {
 			{4,0,0, 0,1,0, 0,0,0},
 			{0,0,9, 0,0,0, 0,0,1},
@@ -2076,7 +2224,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 1,0,8, 3,0,0},
 			{1,0,0, 0,0,0, 6,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 135.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_135 = {
 			{0,0,8, 2,0,0, 0,0,0},
 			{0,0,0, 0,0,3, 1,0,0},
@@ -2090,7 +2240,9 @@ public final class SudokuPuzzles {
 			{4,0,0, 0,0,1, 7,0,0},
 			{9,0,2, 0,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 136.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_136 = {
 			{0,7,8, 0,9,0, 0,0,0},
 			{0,0,0, 0,2,0, 0,5,7},
@@ -2104,7 +2256,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,1, 5,0,0},
 			{0,8,0, 0,0,0, 7,0,1}
 	};
-
+	/**
+	 * Sudoku example - number 137.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_137 = {
 			{0,7,0, 0,0,0, 0,8,4},
 			{0,0,0, 5,0,8, 0,0,1},
@@ -2118,7 +2272,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,9,0, 0,3,0},
 			{5,0,0, 7,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 138.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_138 = {
 			{0,0,8, 0,0,0, 6,9,0},
 			{0,0,0, 0,0,0, 8,3,0},
@@ -2132,7 +2288,9 @@ public final class SudokuPuzzles {
 			{5,9,0, 0,0,0, 0,0,0},
 			{0,0,0, 7,6,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 139.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_139 = {
 			{0,6,0, 0,0,0, 0,9,0},
 			{0,0,2, 0,0,0, 6,3,0},
@@ -2146,7 +2304,9 @@ public final class SudokuPuzzles {
 			{7,0,0, 0,0,0, 5,0,4},
 			{0,0,0, 3,5,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 140.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_140 = {
 			{7,0,0, 0,0,0, 9,8,0},
 			{0,0,2, 8,0,0, 0,0,0},
@@ -2160,7 +2320,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,1,0, 0,3,0},
 			{1,8,5, 0,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 141.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_141 = {
 			{0,0,0, 0,5,0, 0,3,0},
 			{3,6,0, 0,2,0, 0,0,0},
@@ -2174,7 +2336,9 @@ public final class SudokuPuzzles {
 			{4,0,6, 0,0,9, 0,0,0},
 			{0,0,0, 6,0,5, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 142.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_142 = {
 			{8,0,0, 1,0,2, 0,0,0},
 			{5,0,0, 0,0,0, 0,2,0},
@@ -2188,7 +2352,9 @@ public final class SudokuPuzzles {
 			{9,3,0, 0,0,0, 0,0,0},
 			{0,6,0, 0,0,0, 7,0,4}
 	};
-
+	/**
+	 * Sudoku example - number 143.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_143 = {
 			{0,6,0, 0,0,0, 0,9,1},
 			{0,0,0, 0,9,3, 0,0,0},
@@ -2202,7 +2368,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 8,6,0},
 			{0,0,6, 0,0,4, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 144.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_144 = {
 			{3,0,1, 0,0,0, 0,0,0},
 			{0,0,0, 0,6,0, 1,0,9},
@@ -2216,7 +2384,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 3,0,5, 0,7,0},
 			{5,0,0, 0,0,7, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 145.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_145 = {
 			{0,0,0, 0,6,0, 0,0,5},
 			{1,7,0, 0,0,0, 0,8,9},
@@ -2230,7 +2400,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,1,2, 0,4,0},
 			{8,0,0, 0,0,9, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 146.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_146 = {
 			{0,0,0, 3,0,0, 0,0,0},
 			{0,0,0, 0,0,1, 2,0,8},
@@ -2244,7 +2416,9 @@ public final class SudokuPuzzles {
 			{0,0,3, 0,5,2, 0,0,0},
 			{0,7,0, 0,0,0, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 147.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_147 = {
 			{0,0,0, 0,2,9, 0,3,0},
 			{0,0,9, 0,0,0, 0,4,0},
@@ -2258,7 +2432,9 @@ public final class SudokuPuzzles {
 			{0,8,0, 0,6,0, 5,0,0},
 			{0,1,0, 0,0,2, 0,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 148.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_148 = {
 			{0,6,0, 0,0,0, 0,0,2},
 			{3,4,0, 0,0,0, 0,9,6},
@@ -2272,7 +2448,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,1,0, 0,0,5},
 			{0,0,2, 0,0,0, 7,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 149.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_149 = {
 			{0,0,0, 9,0,0, 0,1,0},
 			{0,7,0, 0,0,0, 0,6,9},
@@ -2286,7 +2464,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 6,3,0, 0,0,0},
 			{2,8,0, 0,0,0, 6,0,0}
 	};
-
+	/**
+	 * Sudoku example - number 150.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_150 = {
 			{0,0,0, 0,0,0, 3,0,6},
 			{0,4,0, 8,0,9, 0,0,0},
@@ -2300,7 +2480,9 @@ public final class SudokuPuzzles {
 			{1,0,0, 5,6,0, 0,0,0},
 			{5,0,0, 0,4,0, 0,3,0}
 	};
-
+	/**
+	 * Sudoku example - number 151.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_151 = {
 			{0,0,5, 0,3,0, 0,0,0},
 			{7,0,9, 0,0,0, 0,6,0},
@@ -2314,7 +2496,9 @@ public final class SudokuPuzzles {
 			{0,2,0, 0,0,0, 8,0,0},
 			{0,0,0, 0,7,0, 0,5,0}
 	};
-
+	/**
+	 * Sudoku example - number 152.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_152 = {
 			{0,0,5, 0,4,0, 0,0,0},
 			{7,0,0, 0,0,0, 1,0,5},
@@ -2328,7 +2512,9 @@ public final class SudokuPuzzles {
 			{0,8,2, 0,0,0, 0,6,3},
 			{0,0,0, 1,0,0, 5,0,9}
 	};
-
+	/**
+	 * Sudoku example - number 153.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_153 = {
 			{0,1,0, 4,0,0, 0,0,0},
 			{0,0,4, 0,6,0, 0,2,0},
@@ -2342,8 +2528,9 @@ public final class SudokuPuzzles {
 			{0,5,0, 0,2,0, 0,8,0},
 			{2,0,0, 9,0,0, 6,0,5}
 	};
-
-
+	/**
+	 * Sudoku example - number 154.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_154 = {
 			{3,0,0, 7,0,0, 0,0,0},
 			{0,2,0, 0,5,0, 0,4,0},
@@ -2357,8 +2544,9 @@ public final class SudokuPuzzles {
 			{0,0,9, 0,8,0, 5,0,0},
 			{0,6,0, 4,0,0, 0,3,0}
 	};
-
-
+	/**
+	 * Sudoku example - number 155.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_155 = {
 			{0,0,2, 5,4,0, 0,0,1},
 			{0,3,0, 0,0,1, 0,0,0},
@@ -2372,8 +2560,9 @@ public final class SudokuPuzzles {
 			{0,0,5, 0,0,0, 3,6,0},
 			{0,4,0, 0,0,0, 0,0,0}
 	};
-
-
+	/**
+	 * Sudoku example - number 156.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_156 = {
 			{0,0,0, 0,3,0, 5,0,2},
 			{2,0,0, 0,0,0, 8,7,0},
@@ -2387,8 +2576,9 @@ public final class SudokuPuzzles {
 			{0,5,0, 0,0,8, 9,4,0},
 			{0,0,1, 6,0,0, 0,3,0}
 	};
-
-
+	/**
+	 * Sudoku example - number 157.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_157 = {
 			{0,0,2, 5,0,0, 4,0,0},
 			{0,5,0, 0,9,0, 0,7,0},
@@ -2402,8 +2592,9 @@ public final class SudokuPuzzles {
 			{6,9,0, 0,0,0, 1,0,0},
 			{5,0,0, 1,0,0, 0,0,2}
 	};
-
-
+	/**
+	 * Sudoku example - number 158.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_158 = {
 			{0,0,0, 0,7,0, 2,0,0},
 			{0,0,0, 0,0,3, 0,7,9},
@@ -2417,8 +2608,9 @@ public final class SudokuPuzzles {
 			{2,0,0, 0,3,0, 0,6,0},
 			{0,5,0, 6,0,0, 0,0,0}
 	};
-
-
+	/**
+	 * Sudoku example - number 159.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_159 = {
 			{0,0,0, 6,0,0, 7,2,4},
 			{0,0,2, 0,0,0, 1,0,0},
@@ -2432,8 +2624,9 @@ public final class SudokuPuzzles {
 			{4,0,0, 1,0,0, 0,3,0},
 			{0,0,0, 0,8,5, 9,0,6}
 	};
-
-
+	/**
+	 * Sudoku example - number 160.
+	 */
 	public static final int[][] PUZZLE_EXAMPLE_160 = {
 			{0,0,0, 0,0,6, 0,0,0},
 			{0,0,9, 0,8,0, 0,3,0},
@@ -2447,14 +2640,13 @@ public final class SudokuPuzzles {
 			{6,0,0, 0,3,0, 0,2,0},
 			{0,7,0, 0,0,0, 0,1,0}
 	};
-
-
 	/**
 	 * Number of Sudoku examples available in Store.
 	 */
 	public static final int NUMBER_OF_PUZZLE_EXAMPLES = 161;
-
-
+	/**
+	 * Puzzle with non-unique solution.
+	 */
 	public static final int[][] PUZZLE_NON_UNIQUE_SOLUTION = {
 			{0,8,0, 0,0,9, 7,4,3},
 			{0,5,0, 0,0,8, 0,1,0},
@@ -2468,7 +2660,9 @@ public final class SudokuPuzzles {
 			{0,3,0, 5,0,0, 0,8,0},
 			{9,7,2, 4,0,0, 0,5,0}
 	};
-
+	/**
+	 * Puzzle without solution.
+	 */
 	public static final int[][] PUZZLE_NO_SOLUTION = {
 			{0,0,0, 8,0,0, 0,0,0},
 			{4,0,0, 0,1,5, 0,3,0},
@@ -2482,6 +2676,9 @@ public final class SudokuPuzzles {
 			{0,5,0, 4,8,0, 0,0,1},
 			{0,0,0, 0,0,3, 0,0,2}
 	};
+	/**
+	 * Puzzle containing obvious error.
+	 */
 	public static final int[][] PUZZLE_ERROR = {
 			{0,0,0, 8,0,0, 0,0,0},
 			{4,0,0, 0,1,5, 0,3,0},
@@ -2495,6 +2692,9 @@ public final class SudokuPuzzles {
 			{0,5,0, 4,8,0, 0,0,1},
 			{0,0,0, 0,0,3, 0,0,0}
 	};
+	/**
+	 * Blank puzzle.
+	 */
 	public static final int[][] PUZZLE_EMPTY = {
 			{0,0,0, 0,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 0,0,0},
@@ -2508,6 +2708,9 @@ public final class SudokuPuzzles {
 			{0,0,0, 0,0,0, 0,0,0},
 			{0,0,0, 0,0,0, 0,0,0}
 	};
+	/**
+	 * Puzzle used in regression tests.
+	 */
 	public static final int[][] PUZZLE_REGTESTS = {
 			{0,0,0, 8,0,0, 0,0,0},
 			{4,0,0, 0,1,5, 0,3,0},
@@ -2521,6 +2724,9 @@ public final class SudokuPuzzles {
 			{0,5,0, 4,8,0, 0,0,1},
 			{0,0,0, 0,0,3, 0,0,0}
 	};
+	/**
+	 * Puzzle solution used in regression tests.
+	 */
 	public static final int[][] PUZZLE_REGTESTS_SOLUTION = {
 			{3,1,5, 8,2,7, 9,4,6},
 			{4,6,8, 9,1,5, 7,3,2},
@@ -2706,6 +2912,14 @@ public final class SudokuPuzzles {
 		}
 		return null;
 	}
+	/**
+	 * Returns pre-calculated puzzle example difficulty rating based on
+	 * the average number of steps-back performed while recursive
+	 * solving sudoku board.
+	 *
+	 * @param exampleNumber
+	 * @return Puzzle example difficulty rating if example exist, otherwise -1.
+	 */
 	public static final double getPuzzleExampleRating(int exampleNumber) {
 		switch(exampleNumber) {
 		case 1: return 0.4883;

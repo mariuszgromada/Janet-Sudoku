@@ -127,7 +127,17 @@ public final class SudokuStore {
 	public static final int[][] getPuzzleExample(int exampleNumber) {
 		return SudokuPuzzles.getPuzzleExample(exampleNumber);
 	}
-
+	/**
+	 * Returns pre-calculated puzzle example difficulty rating based on
+	 * the average number of steps-back performed while recursive
+	 * solving sudoku board.
+	 *
+	 * @param exampleNumber
+	 * @return Puzzle example difficulty rating if example exists, otherwise -1.
+	 */
+	public static final double getPuzzleExampleRating(int exampleNumber) {
+		return SudokuPuzzles.getPuzzleExampleRating(exampleNumber);
+	}
 	/**
 	 * Loads Sudoku board from text file.
 	 *

@@ -46,6 +46,7 @@
  *                              "Yes, up to isomorphism."
  */
 package org.mariuszgromada.math.janetsudoku.regtests;
+import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
 
 /**
@@ -1619,8 +1620,96 @@ class StoreTests {
 				} else {
 					resultDesc = "Expecting equal - are not equal.";
 					testResult = false;
-					SudokuStore.consolePrintBoard(a);
-					SudokuStore.consolePrintBoard(b);
+				}
+			}
+			break;
+		case 66:
+			testDesc = "getPuzzleExample";
+			{
+				int i;
+				for (i = 0; i < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; i++) {
+					int[][] b = SudokuStore.getPuzzleExample(i);
+					if (SudokuStore.checkPuzzle(b) == false) {
+						testResult = false;
+						break;
+					}
+				}
+				if (testResult == true) {
+					resultDesc = "All puzzle examples avaiable and correct.";
+				} else {
+					resultDesc = "Error in puzzle example nr: " + i;
+				}
+			}
+			break;
+		case 67:
+			testDesc = "getPuzzleExample";
+			{
+				int i;
+				for (i = 0; i < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; i++) {
+					double r = SudokuStore.getPuzzleExampleRating(i);
+					if (r < 0) {
+						testResult = false;
+						break;
+					}
+				}
+				if (testResult == true) {
+					resultDesc = "All examples with pre-calculated rating.";
+				} else {
+					resultDesc = "No pre-calculated rating for example nr: " + i;
+				}
+			}
+			break;
+		case 68:
+			testDesc = "randomNumber";
+			{
+				int j = 0;
+				for (int i = 0; i < 100000; i++) {
+					j = SudokuStore.randomNumber(20);
+					if ( (j < 1) || (j > 20) ) {
+						testResult = false;
+						break;
+					}
+				}
+				if (testResult == true) {
+					resultDesc = "Expecting between 1 and 20 - all generated are between 1 and 20.";
+				} else {
+					resultDesc = "Expecting between 1 and 20 - generated number: " + j;
+				}
+			}
+			break;
+		case 69:
+			testDesc = "randomIndex";
+			{
+				int j = 0;
+				for (int i = 0; i < 100000; i++) {
+					j = SudokuStore.randomIndex(20);
+					if ( (j < 0) || (j > 19) ) {
+						testResult = false;
+						break;
+					}
+				}
+				if (testResult == true) {
+					resultDesc = "Expecting between 0 and 19 - all generated are between 0 and 19.";
+				} else {
+					resultDesc = "Expecting between 0 and 19 - generated number: " + j;
+				}
+			}
+			break;
+		case 70:
+			testDesc = "generatePermutation";
+			{
+				for (int i = 0; i < 1000; i++) {
+					int n = SudokuStore.randomNumber(1000);
+					int[] p = SudokuStore.generatePermutation(n);
+					if ( SudokuStore.isValidPermutation(p) == false ) {
+						testResult = false;
+						break;
+					}
+				}
+				if (testResult == true) {
+					resultDesc = "Expecting valid permutation - is valid.";
+				} else {
+					resultDesc = "Expecting valid permutation - is not valid.";
 				}
 			}
 			break;
@@ -1634,5 +1723,5 @@ class StoreTests {
 	/**
 	 * Number of regression tests;
 	 */
-	static final int NUMBER_OF_TESTS = 66;
+	static final int NUMBER_OF_TESTS = 71;
 }
