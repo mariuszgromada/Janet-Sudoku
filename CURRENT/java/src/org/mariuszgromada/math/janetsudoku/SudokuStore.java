@@ -602,6 +602,14 @@ public final class SudokuStore {
 	 *                 Permutation methods
 	 * ======================================================
 	 */
+	/**
+	 * Sudoku board permutation.
+	 * @param sudokuBoard     Sudoku board to be permuted.
+	 * @param permutation     Permutation (ie. 5, 2, 8, 9, 1, 3, 6, 4, 7)
+	 * @return                If board is null then null,
+	 *                        If permutation is not valid the original board.
+	 *                        Otherwise permuted board.
+	 */
 	public static final int[][] permuteBoard(int[][] sudokuBoard, int[] permutation) {
 		if (sudokuBoard == null) return null;
 		if (isValidPermutation(permutation, BOARD_SIZE) == false) return boardCopy(sudokuBoard);
@@ -616,6 +624,13 @@ public final class SudokuStore {
 			}
 		return permutatedBoard;
 	}
+	/**
+	 * Random permutation of sudoku board.
+	 *
+	 * @param sudokuBoard     Sudoku board to be permuted.
+	 * @return                If sudoku board is  ot null then permuted board,
+	 *                        otherwise null.
+	 */
 	public static final int[][] permuteBoard(int[][] sudokuBoard) {
 		if (sudokuBoard == null) return null;
 		return permuteBoard(sudokuBoard, generatePermutation(BOARD_SIZE));
