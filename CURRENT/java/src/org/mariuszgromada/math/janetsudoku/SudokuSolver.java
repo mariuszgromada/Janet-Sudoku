@@ -444,6 +444,7 @@ public class SudokuSolver {
 			addMessage("(setCell) Incorrect digit definition - is: " + digit + ", should be between 1 and 9, or " + CELL_EMPTY + " for empty cell", MSG_ERROR);
 			return ErrorCodes.SUDOKUSOLVER_SETCELL_INCORRECT_DEFINITION;
 		}
+		sudokuBoard[rowIndex][colIndex] = digit;
 		return findEmptyCells();
 	}
 	/**
