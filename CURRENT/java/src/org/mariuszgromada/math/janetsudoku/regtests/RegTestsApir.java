@@ -68,7 +68,7 @@ import org.mariuszgromada.math.janetsudoku.SudokuStore;
  *
  * @see SudokuSolver
  */
-public class RegTestsApi {
+public class RegTestsApir {
 	/**
 	 * Runs SudokuStore regression tests with default number of threads.
 	 * @return    Number of tests with errors.
