@@ -141,6 +141,34 @@ public class ErrorCodes {
 	 */
 	public static final int SUDOKUSOLVER_BOARD_ERROR = -110;
 	/**
+	 * Obvious puzzle error.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final int SUDOKUSTORE_CALCULATEPUZZLERATING_PUZZLE_ERROR = -111;
+	/**
+	 * Puzzle solution does not exist.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final int SUDOKUSTORE_CALCULATEPUZZLERATING_NO_SOLUTION = -112;
+	/**
+	 * Puzzle has non-unique solution.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final int SUDOKUSTORE_CALCULATEPUZZLERATING_NON_UNIQUE_SOLUTION = -113;
+	/**
+	 * Threads join failed.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final int SUDOKUSTORE_CALCULATEPUZZLERATING_THREADS_JOIN_FAILED = -114;
+	/**
 	 * Sudoku board loading failed.
 	 *
 	 * @see SudokuSolver
@@ -215,6 +243,35 @@ public class ErrorCodes {
 	 * @see SudokuSolver
 	 */
 	public static final String SUDOKUSOLVER_BOARD_ERROR_MSG = "Sudoku board contains an error.";
+	/**
+	 * Puzzle contains obvious puzzle error.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final String SUDOKUSTORE_CALCULATEPUZZLERATING_PUZZLE_ERROR_MSG = "Puzzle contains obvious puzzle error.";
+	/**
+	 * Puzzle solution does not exist.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final String SUDOKUSTORE_CALCULATEPUZZLERATING_NO_SOLUTION_MSG = "Puzzle solution does not exist.";
+	/**
+	 * Puzzle has non-unique solution.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final String SUDOKUSTORE_CALCULATEPUZZLERATING_NON_UNIQUE_SOLUTION_MSG = "Puzzle has non-unique solution.";
+	/**
+	 * Threads join failed.
+	 *
+	 * @see SudokuStore
+	 * @see SudokuStore#calculatePuzzleRating(int[][])
+	 */
+	public static final String SUDOKUSTORE_CALCULATEPUZZLERATING_THREADS_JOIN_FAILED_MSG = "Threads join failed.";
+
 
 	/**
 	 * Error code unknown
@@ -241,6 +298,10 @@ public class ErrorCodes {
 		case SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER: return SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER_MSG;
 		case SUDOKUSTORE_RANDOMNUMBER_INCORRECT_PARAMETER: return SUDOKUSTORE_RANDOMNUMBER_INCORRECT_PARAMETER_MSG;
 		case SUDOKUSOLVER_BOARD_ERROR: return SUDOKUSOLVER_BOARD_ERROR_MSG;
+		case SUDOKUSTORE_CALCULATEPUZZLERATING_PUZZLE_ERROR: return SUDOKUSTORE_CALCULATEPUZZLERATING_PUZZLE_ERROR_MSG;
+		case SUDOKUSTORE_CALCULATEPUZZLERATING_NO_SOLUTION: return SUDOKUSTORE_CALCULATEPUZZLERATING_NO_SOLUTION_MSG;
+		case SUDOKUSTORE_CALCULATEPUZZLERATING_NON_UNIQUE_SOLUTION: return SUDOKUSTORE_CALCULATEPUZZLERATING_NON_UNIQUE_SOLUTION_MSG;
+		case SUDOKUSTORE_CALCULATEPUZZLERATING_THREADS_JOIN_FAILED: return SUDOKUSTORE_CALCULATEPUZZLERATING_THREADS_JOIN_FAILED_MSG;
 		}
 		return ERROR_CODE_UNKNOWN_MSG;
 	}

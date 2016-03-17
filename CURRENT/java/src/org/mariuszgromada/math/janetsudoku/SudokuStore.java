@@ -114,6 +114,15 @@ public final class SudokuStore {
 	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int);
 	 */
 	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 1000;
+	/**
+	 * Threads number.
+	 */
+	private static final int THREADS_NUMBER = Runtime.getRuntime().availableProcessors();
+	/**
+	 * Default number of iterations while calculating
+	 * puzzle rating.
+	 */
+	private static final int RATING_DEF_NUM_OF_ITERATIONS = 1000;
 	/*
 	 * ======================================================
 	 *     Loading / getting board methods
@@ -139,6 +148,92 @@ public final class SudokuStore {
 	 */
 	public static final double getPuzzleExampleRating(int exampleNumber) {
 		return SudokuPuzzles.getPuzzleExampleRating(exampleNumber);
+	}
+	/**
+	 * Calculates difficulty of Sudoku puzzle. Returned difficulty level is an average
+	 * of number of closed routes while performing recursive steps in order to find solution.
+	 * This is multi-threading procedure.
+	 *
+	 * @param sudokuPuzzle   Sudoku puzzle to be rated.
+	 * @return               If puzzle does not contain an error then difficulty rating is returned.
+	 *                       If puzzle contains obvious error then {@link ErrorCodes#SUDOKUSTORE_CALCULATEPUZZLERATING_PUZZLE_ERROR}.
+	 *                       If puzzle has no solutions then {@link ErrorCodes#SUDOKUSTORE_CALCULATEPUZZLERATING_NO_SOLUTION}.
+	 *                       If solution is non-unique then {@link ErrorCodes#SUDOKUSTORE_CALCULATEPUZZLERATING_NON_UNIQUE_SOLUTION}.
+	 */
+	public static final int calculatePuzzleRating(int[][] sudokuPuzzle) {
+		if (checkPuzzle(sudokuPuzzle) == false)
+			return ErrorCodes.SUDOKUSTORE_CALCULATEPUZZLERATING_PUZZLE_ERROR;
+		SudokuSolver s = new SudokuSolver(sudokuPuzzle);
+		int solType = s.checkIfUniqueSolution();
+		if (solType == SudokuSolver.SOLUTION_NOT_EXISTS)
+			return ErrorCodes.SUDOKUSTORE_CALCULATEPUZZLERATING_NO_SOLUTION;
+		if (solType == SudokuSolver.SOLUTION_NON_UNIQUE)
+			return ErrorCodes.SUDOKUSTORE_CALCULATEPUZZLERATING_NON_UNIQUE_SOLUTION;
+		/*
+		 * Multi-threading implementation
+		 */
+		int threadIterNum = RATING_DEF_NUM_OF_ITERATIONS / THREADS_NUMBER;
+		int[][] results = new int[THREADS_NUMBER][threadIterNum];
+		/**
+		 * Runner implementation.
+		 */
+		class Runner implements Runnable {
+			/**
+			 * Thread id.
+			 */
+			int threadId;
+			/**
+			 * Number of iterations.
+			 */
+			int iterNum;
+			/**
+			 * Default constructor.
+			 * @param threadId       Thread id.
+			 * @param assigments     Test assigned to that thread.
+			 */
+			Runner(int threadId, int iterNum) {
+				this.threadId = threadId;
+				this.iterNum = iterNum;
+			}
+			/**
+			 * Synchronized method to store test results.
+			 * @param t          Test id.
+			 * @param result     TEst result.
+			 */
+			private void setTestResult(int i, int result) {
+				synchronized(results) {
+					results[threadId][i] = result;
+				}
+			}
+			@Override
+			public void run() {
+				for (int i = 0; i < iterNum; i++) {
+					SudokuSolver s = new SudokuSolver(sudokuPuzzle);
+					s.solve();
+					setTestResult(i, s.getClosedRoutesNumber());
+				}
+			}
+		}
+		Runner[] runners = new Runner[THREADS_NUMBER];
+		Thread[] threads = new Thread[THREADS_NUMBER];
+		for (int t = 0; t < THREADS_NUMBER; t++) {
+			runners[t] = new Runner(t, threadIterNum);
+			threads[t] = new Thread(runners[t]);
+		}
+		for (int t = 0; t < THREADS_NUMBER; t++)
+			threads[t].start();
+		for (int t = 0; t < THREADS_NUMBER; t++)
+			try {
+				threads[t].join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				return ErrorCodes.SUDOKUSTORE_CALCULATEPUZZLERATING_THREADS_JOIN_FAILED;
+			}
+		int sum = 0;
+		for (int t = 0; t < THREADS_NUMBER; t++)
+			for (int i = 0; i < threadIterNum; i++)
+				sum+=results[t][i];
+		return sum / (THREADS_NUMBER * threadIterNum);
 	}
 	/**
 	 * Loads Sudoku board from text file.

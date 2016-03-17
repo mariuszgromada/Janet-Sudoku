@@ -135,7 +135,7 @@ class ApiTests {
 	/**
 	 * Workers and threads.
 	 */
-	private TestThread[] workers;
+	private TestRunner[] runners;
 	private Thread[] threads;
 	/**
 	 * Table containing test results.
@@ -148,7 +148,7 @@ class ApiTests {
 	ApiTests(int threadsNumber) {
 		THREADS_NUMBER = threadsNumber;
 		threads = new Thread[THREADS_NUMBER];
-		workers = new TestThread[THREADS_NUMBER];
+		runners = new TestRunner[THREADS_NUMBER];
 		testsResults = new boolean[NUMBER_OF_TESTS];
 		int[] testsIds = new int[NUMBER_OF_TESTS];
 		for (int i = 0; i < NUMBER_OF_TESTS; i++)
@@ -180,8 +180,8 @@ class ApiTests {
 				assigments[j] = testsIds[t];
 				t++;
 			}
-			workers[i] = new TestThread(i, assigments);
-			threads[i] = new Thread(workers[i]);
+			runners[i] = new TestRunner(i, assigments);
+			threads[i] = new Thread(runners[i]);
 		}
 	}
 	/**
@@ -200,7 +200,7 @@ class ApiTests {
 	/**
 	 * Runner implementation.
 	 */
-	class TestThread implements Runnable {
+	class TestRunner implements Runnable {
 		/**
 		 * Thread id.
 		 */
@@ -214,7 +214,7 @@ class ApiTests {
 		 * @param threadId       Thread id.
 		 * @param assigments     Test assigned to that thread.
 		 */
-		TestThread(int threadId, int[] assigments) {
+		TestRunner(int threadId, int[] assigments) {
 			this.assigments = assigments;
 			this.threadId = threadId;
 		}
@@ -340,7 +340,7 @@ class ApiTests {
 				s.setCell(6,8,0);
 				s.setCell(7,8,1);
 				s.setCell(8,8,0);
-				int[][] b = s.getSudokuBoard();
+				int[][] b = s.getBoard();
 
 				if ( (SudokuStore.boardsAreEqual(a, b) == true) ) {
 					resultDesc = "Expecting equal - are equal.";
@@ -361,8 +361,22 @@ class ApiTests {
 						int d = s1.getCellDigit(i, j);
 						s2.setCell(i, j, d);
 					}
-				int[][] b = s2.getSudokuBoard();
+				int[][] b = s2.getBoard();
 				if ( (SudokuStore.boardsAreEqual(a, b) == true) ) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 2:
+			testDesc = "SudokuSolver.getBoardCopy()";
+			{
+				SudokuSolver s = new SudokuSolver(a);
+				int[][] b = s.getBoard();
+				int[][] c = s.getBoardCopy();
+				if ( (SudokuStore.boardsAreEqual(b, c) == true) ) {
 					resultDesc = "Expecting equal - are equal.";
 				} else {
 					resultDesc = "Expecting equal - are not equal.";
@@ -380,5 +394,5 @@ class ApiTests {
 	/**
 	 * Number of regression tests;
 	 */
-	static final int NUMBER_OF_TESTS = 2;
+	static final int NUMBER_OF_TESTS = 3;
 }

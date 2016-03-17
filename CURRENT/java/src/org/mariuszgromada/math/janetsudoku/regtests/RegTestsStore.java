@@ -134,7 +134,7 @@ class StoreTests {
 	/**
 	 * Workers and threads.
 	 */
-	private TestThread[] workers;
+	private TestRunner[] runners;
 	private Thread[] threads;
 	/**
 	 * Table containing test results.
@@ -147,7 +147,7 @@ class StoreTests {
 	StoreTests(int threadsNumber) {
 		THREADS_NUMBER = threadsNumber;
 		threads = new Thread[THREADS_NUMBER];
-		workers = new TestThread[THREADS_NUMBER];
+		runners = new TestRunner[THREADS_NUMBER];
 		testsResults = new boolean[NUMBER_OF_TESTS];
 		int[] testsIds = new int[NUMBER_OF_TESTS];
 		for (int i = 0; i < NUMBER_OF_TESTS; i++)
@@ -179,8 +179,8 @@ class StoreTests {
 				assigments[j] = testsIds[t];
 				t++;
 			}
-			workers[i] = new TestThread(i, assigments);
-			threads[i] = new Thread(workers[i]);
+			runners[i] = new TestRunner(i, assigments);
+			threads[i] = new Thread(runners[i]);
 		}
 	}
 	/**
@@ -199,7 +199,7 @@ class StoreTests {
 	/**
 	 * Runner implementation.
 	 */
-	class TestThread implements Runnable {
+	class TestRunner implements Runnable {
 		/**
 		 * Thread id.
 		 */
@@ -213,7 +213,7 @@ class StoreTests {
 		 * @param threadId       Thread id.
 		 * @param assigments     Test assigned to that thread.
 		 */
-		TestThread(int threadId, int[] assigments) {
+		TestRunner(int threadId, int[] assigments) {
 			this.assigments = assigments;
 			this.threadId = threadId;
 		}
@@ -1642,7 +1642,7 @@ class StoreTests {
 			}
 			break;
 		case 67:
-			testDesc = "getPuzzleExample";
+			testDesc = "getPuzzleExampleRating";
 			{
 				int i;
 				for (i = 0; i < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; i++) {

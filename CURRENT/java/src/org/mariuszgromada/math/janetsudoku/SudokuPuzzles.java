@@ -2922,6 +2922,7 @@ public final class SudokuPuzzles {
 	 */
 	public static final double getPuzzleExampleRating(int exampleNumber) {
 		switch(exampleNumber) {
+		case 0: return 16508.0;
 		case 1: return 0.4883;
 		case 2: return 51.2331;
 		case 3: return 55.591;

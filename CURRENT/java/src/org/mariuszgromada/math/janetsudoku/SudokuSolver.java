@@ -87,7 +87,7 @@ public class SudokuSolver {
 	 * Solution does not exist.
 	 * @see #checkIfUniqueSolution()
 	 */
-	public static final int SOLUTION_NOT_EXISTS = 1;
+	public static final int SOLUTION_NOT_EXISTS = -1;
 	/**
 	 * Solution exists and is unique.
 	 * @see #checkIfUniqueSolution()
@@ -1032,7 +1032,7 @@ public class SudokuSolver {
 	 * Gets array representing Sudoku board.
 	 * @return Array representing Sudoku board.
 	 */
-	public int[][] getSudokuBoard() {
+	public int[][] getBoard() {
 		return sudokuBoard;
 	}
 	/**
