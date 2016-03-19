@@ -1,5 +1,5 @@
 /*
- * @(#)SudokuGenerator.java        0.0.1    2016-02-01
+ * @(#)SudokuGenerator.java        1.0.0    2016-03-19
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -64,7 +64,7 @@ import org.mariuszgromada.janetutils.DateTimeX;
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
- * @version        0.0.1
+ * @version        1.0.0
  */
 public class SudokuGenerator {
 	/**
@@ -125,7 +125,7 @@ public class SudokuGenerator {
 	 * Initial board that will be a basis for
 	 * the generation process
 	 */
-	private int [][] initialBoard;
+	private int[][] sudokuBoard;
 	/**
 	 * Board cells array
 	 */
@@ -248,7 +248,7 @@ public class SudokuGenerator {
 			SudokuSolver puzzle = new SudokuSolver(SudokuPuzzles.PUZZLE_EMPTY);
 			puzzle.solve();
 			if (puzzle.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
-				initialBoard = puzzle.solvedBoard;
+				sudokuBoard = puzzle.solvedBoard;
 				addMessage("(SudokuGenerator) Generator initialized using random board (" + info + ").", MSG_INFO);
 				generatorState = GENERATOR_INIT_FINISHED;
 				return;
@@ -268,7 +268,7 @@ public class SudokuGenerator {
 			SudokuSolver puzzle = new SudokuSolver(initBoard);
 			puzzle.solve();
 			if (puzzle.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
-				initialBoard = puzzle.solvedBoard;
+				sudokuBoard = puzzle.solvedBoard;
 				addMessage("(SudokuGenerator) Generator initialized usign provided board + finding solution (" + info + ").", MSG_INFO);
 				generatorState = GENERATOR_INIT_FINISHED;
 				return;
@@ -282,7 +282,7 @@ public class SudokuGenerator {
 		int[][] board = initBoard;
 		SudokuSolver puzzle = new SudokuSolver(board);
 		if (puzzle.checkIfUniqueSolution() == SudokuSolver.SOLUTION_UNIQUE) {
-			initialBoard = board;
+			sudokuBoard = board;
 			addMessage("(SudokuGenerator) Generator initialized usign provided board (" + info + ").", MSG_INFO);
 			generatorState = GENERATOR_INIT_FINISHED;
 			return;
@@ -479,7 +479,7 @@ public class SudokuGenerator {
 		int cellIndex = 0;
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++) {
-			int d = initialBoard[i][j];
+			int d = sudokuBoard[i][j];
 			if (d != CELL_EMPTY) {
 				boardCells[cellIndex] = new BoardCell(i, j, d);
 				cellIndex++;
@@ -488,7 +488,7 @@ public class SudokuGenerator {
 		int filledCells = cellIndex;
 		for (int i = 0; i < BOARD_SIZE; i++)
 			for (int j = 0; j < BOARD_SIZE; j++) {
-			int d = initialBoard[i][j];
+			int d = sudokuBoard[i][j];
 			if (d == CELL_EMPTY) {
 				boardCells[cellIndex] = new BoardCell(i, j, d);
 				cellIndex++;
@@ -500,11 +500,11 @@ public class SudokuGenerator {
 			int r = 0;
 			int i = boardCells[r].rowIndex;
 			int j = boardCells[r].colIndex;
-			int d = initialBoard[i][j];
-			initialBoard[i][j] = CELL_EMPTY;
-			SudokuSolver s = new SudokuSolver(initialBoard);
+			int d = sudokuBoard[i][j];
+			sudokuBoard[i][j] = CELL_EMPTY;
+			SudokuSolver s = new SudokuSolver(sudokuBoard);
 			if (s.checkIfUniqueSolution() != SudokuSolver.SOLUTION_UNIQUE)
-				initialBoard[i][j] = d;
+				sudokuBoard[i][j] = d;
 			int lastIndex = filledCells-1;
 			if (r < lastIndex) {
 				BoardCell b1 = boardCells[r];
@@ -520,7 +520,64 @@ public class SudokuGenerator {
 		computingTime = (solvingEndTime - solvingStartTime) / 1000.0;
 		generatorState = GENERATOR_GEN_FINISHED;
 		addMessage("(SudokuGenerator) Generation process finished, computing time: " + computingTime + " s.", MSG_INFO);
-		return initialBoard;
+		return sudokuBoard;
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String);
+	 * @see SudokuStore#boardToString(int[][])
+	 */
+	public boolean saveBoard(String filePath) {
+		boolean savingStatus = SudokuStore.saveBoard(sudokuBoard, filePath);
+		if (savingStatus == true)
+			addMessage("(saveBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String, String)
+	 * @see SudokuStore#boardToString(int[][], String)
+	 */
+	public boolean saveBoard(String filePath, String headComment) {
+		boolean savingStatus = SudokuStore.saveBoard(sudokuBoard, filePath, headComment);
+		if (savingStatus == true)
+			addMessage("(saveBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @param tailComment    Comment to be added at the tail.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String, String, String)
+	 * @see SudokuStore#boardToString(int[][], String, String)
+	 */
+	public boolean saveBoard(String filePath, String headComment, String tailComment) {
+		boolean savingStatus = SudokuStore.saveBoard(sudokuBoard, filePath, headComment, tailComment);
+		if (savingStatus == true)
+			addMessage("(saveBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
 	}
 	/**
 	 * Updating digits still free for a specific cell
@@ -540,14 +597,14 @@ public class SudokuGenerator {
 		int[] digitsStillFree = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		int emptyCellsNumber = 0;
 		for (int j = 0; j < BOARD_SIZE; j++) {
-			int boardDigit = initialBoard[boardCell.rowIndex][j];
+			int boardDigit = sudokuBoard[boardCell.rowIndex][j];
 			if (boardDigit != CELL_EMPTY)
 				digitsStillFree[boardDigit] = DIGIT_IN_USE;
 			else if (j != boardCell.colIndex)
 				emptyCellsNumber++;
 		}
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			int boardDigit = initialBoard[i][boardCell.colIndex];
+			int boardDigit = sudokuBoard[i][boardCell.colIndex];
 			if (boardDigit != CELL_EMPTY)
 				digitsStillFree[boardDigit] = DIGIT_IN_USE;
 			else if (i != boardCell.rowIndex)
@@ -559,7 +616,7 @@ public class SudokuGenerator {
 		 */
 		for (int i = sub.rowMin; i < sub.rowMax; i++)
 			for (int j = sub.colMin; j < sub.colMax; j++) {
-				int boardDigit = initialBoard[i][j];
+				int boardDigit = sudokuBoard[i][j];
 				if (boardDigit != CELL_EMPTY)
 					digitsStillFree[boardDigit] = DIGIT_IN_USE;
 				else if ((i != boardCell.rowIndex) && (j != boardCell.colIndex))

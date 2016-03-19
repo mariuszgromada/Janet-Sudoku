@@ -1,5 +1,5 @@
 /*
- * @(#)RegTestsApi.java        0.0.1    2016-01-30
+ * @(#)RegTestsApi.java        1.0.0    2016-03-19
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -46,7 +46,11 @@
  *                              "Yes, up to isomorphism."
  */
 package org.mariuszgromada.math.janetsudoku.regtests;
+import java.util.ArrayList;
+
+import org.mariuszgromada.math.janetsudoku.BoardCell;
 import org.mariuszgromada.math.janetsudoku.SudokuBoard;
+import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
 import org.mariuszgromada.math.janetsudoku.SudokuSolver;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
 
@@ -64,7 +68,7 @@ import org.mariuszgromada.math.janetsudoku.SudokuStore;
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
- * @version        0.0.1
+ * @version        1.0.0
  *
  * @see SudokuSolver
  */
@@ -384,6 +388,62 @@ class ApiTests {
 				}
 			}
 			break;
+		case 3:
+			testDesc = "SudokuSolver.getSolutionBoardCells()";
+			{
+				SudokuSolver s = new SudokuSolver(a);
+				s.solve();
+				int[][] b = s.getSolvedBoard();
+				int[][] c = SudokuStore.boardCopy(a);
+				BoardCell[] sol = s.getSolutionBoardCells();
+				for (BoardCell bc : sol)
+					c[bc.rowIndex][bc.colIndex] = bc.digit;
+
+				if ( (SudokuStore.boardsAreEqual(b, c) == true) ) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+			break;
+		case 4:
+			testDesc = "SudokuSolver.getAllBoardCells()";
+			{
+				SudokuSolver s = new SudokuSolver(a);
+				int[][] b = s.getBoardCopy();
+				int[][] c = new int[SudokuBoard.BOARD_SIZE][SudokuBoard.BOARD_SIZE];
+				BoardCell[] bc = s.getAllBoardCells();
+				for (BoardCell cell : bc) {
+					c[cell.rowIndex][cell.colIndex] = cell.digit;
+				}
+				if ( (SudokuStore.boardsAreEqual(b, c) == true) ) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+					testResult = false;
+				}
+			}
+		case 5:
+			testDesc = "SudokuSolver.getAllSolutionsList()";
+			{
+				SudokuSolver s = new SudokuSolver( SudokuPuzzles.PUZZLE_NON_UNIQUE_SOLUTION );
+				s.findAllSolutions();
+				ArrayList<SudokuBoard> solList;
+				solList = s.getAllSolutionsList();
+				for (SudokuBoard sb : solList) {
+					if (SudokuStore.checkSolvedBoard( sb.board ) == false) {
+						testResult = false;
+						break;
+					}
+				}
+				if ( testResult == true ) {
+					resultDesc = "Expecting each solution valid - each is valid.";
+				} else {
+					resultDesc = "Expecting each solution valid - found not valid.";
+				}
+			}
+			break;
 		}
 		if (testResult == true)
 			SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + " " + testDesc + " " + resultDesc + " >>> ApiTests, result: OK");
@@ -394,5 +454,5 @@ class ApiTests {
 	/**
 	 * Number of regression tests;
 	 */
-	static final int NUMBER_OF_TESTS = 3;
+	static final int NUMBER_OF_TESTS = 6;
 }

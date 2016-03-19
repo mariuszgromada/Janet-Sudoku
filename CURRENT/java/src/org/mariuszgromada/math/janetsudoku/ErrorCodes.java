@@ -1,5 +1,5 @@
 /*
- * @(#)ErrorCodes.java        0.0.1    2016-01-30
+ * @(#)ErrorCodes.java        1.0.0    2016-03-19
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -62,7 +62,7 @@ package org.mariuszgromada.math.janetsudoku;
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
- * @version        0.0.1
+ * @version        1.0.0
  */
 public class ErrorCodes {
 	/**

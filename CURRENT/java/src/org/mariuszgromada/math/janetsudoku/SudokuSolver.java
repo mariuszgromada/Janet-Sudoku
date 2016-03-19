@@ -1,5 +1,5 @@
 /*
- * @(#)SudokuSolver.java        0.0.1    2016-02-01
+ * @(#)SudokuSolver.java        1.0.0    2016-03-19
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 import org.mariuszgromada.janetutils.ArrayX;
 import org.mariuszgromada.janetutils.DateTimeX;
+import org.mariuszgromada.janetutils.io.FileX;
 
 /**
  * Sudoku board, with predefined Sudoku examples and possibility to load
@@ -68,7 +69,7 @@ import org.mariuszgromada.janetutils.DateTimeX;
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
- * @version        0.0.1
+ * @version        1.0.0
  */
 public class SudokuSolver {
 	/**
@@ -421,6 +422,120 @@ public class SudokuSolver {
 		boardState = BOARD_STATE_LOADED;
 		addMessage("(loadBoard) Sudoku loaded from array!", MSG_INFO);
 		return findEmptyCells();
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String);
+	 * @see SudokuStore#boardToString(int[][])
+	 */
+	public boolean saveBoard(String filePath) {
+		boolean savingStatus = SudokuStore.saveBoard(sudokuBoard, filePath);
+		if (savingStatus == true)
+			addMessage("(saveBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String, String)
+	 * @see SudokuStore#boardToString(int[][], String)
+	 */
+	public boolean saveBoard(String filePath, String headComment) {
+		boolean savingStatus = SudokuStore.saveBoard(sudokuBoard, filePath, headComment);
+		if (savingStatus == true)
+			addMessage("(saveBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @param tailComment    Comment to be added at the tail.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String, String, String)
+	 * @see SudokuStore#boardToString(int[][], String, String)
+	 */
+	public boolean saveBoard(String filePath, String headComment, String tailComment) {
+		boolean savingStatus = SudokuStore.saveBoard(sudokuBoard, filePath, headComment, tailComment);
+		if (savingStatus == true)
+			addMessage("(saveBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
+	}
+	/**
+	 * Saves solved board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String);
+	 * @see SudokuStore#boardToString(int[][])
+	 */
+	public boolean saveSolvedBoard(String filePath) {
+		boolean savingStatus = SudokuStore.saveBoard(solvedBoard, filePath);
+		if (savingStatus == true)
+			addMessage("(saveSolvedBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveSolvedBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
+	}
+	/**
+	 * Saves solved board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String, String)
+	 * @see SudokuStore#boardToString(int[][], String)
+	 */
+	public boolean saveSolvedBoard(String filePath, String headComment) {
+		boolean savingStatus = SudokuStore.saveBoard(solvedBoard, filePath, headComment);
+		if (savingStatus == true)
+			addMessage("(saveSolvedBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveSolvedBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
+	}
+	/**
+	 * Saves solved board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @param tailComment    Comment to be added at the tail.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#saveBoard(int[][], String, String, String)
+	 * @see SudokuStore#boardToString(int[][], String, String)
+	 */
+	public boolean saveSolvedBoard(String filePath, String headComment, String tailComment) {
+		boolean savingStatus = SudokuStore.saveBoard(solvedBoard, filePath, headComment, tailComment);
+		if (savingStatus == true)
+			addMessage("(saveSolvedBoard) Saving successful, file: " + filePath, MSG_INFO);
+		else
+			addMessage("(saveSolvedBoard) Saving failed, file: " + filePath, MSG_ERROR);
+		return savingStatus;
 	}
 	/**
 	 * Manually set cell value.
@@ -1080,7 +1195,7 @@ public class SudokuSolver {
 		BoardCell[] boardCells = new BoardCell[BOARD_CELLS_NUMBER];
 		int cellIndex = 0;
 		for (int i = 0; i < BOARD_SIZE; i++)
-			for (int j = 0; i < BOARD_SIZE; j++) {
+			for (int j = 0; j < BOARD_SIZE; j++) {
 				boardCells[cellIndex] = new BoardCell(i, j, sudokuBoard[i][j]);
 				cellIndex++;
 			}

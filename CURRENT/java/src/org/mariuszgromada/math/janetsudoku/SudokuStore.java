@@ -1,5 +1,5 @@
 /*
- * @(#)SudokuStore.java        0.0.1    2016-02-01
+ * @(#)SudokuStore.java        1.0.0    2016-03-19
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -67,13 +67,13 @@ import org.mariuszgromada.janetutils.DateTimeX;
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
- * @version        0.0.1
+ * @version        1.0.0
  */
 public final class SudokuStore {
 	/**
 	 * Sudoku solver version.
 	 */
-	public static final String JANET_SUDOKU_VERSION = "0.0.1";
+	public static final String JANET_SUDOKU_VERSION = "1.0.0";
 	/**
 	 * Sudoku solver name.
 	 */
@@ -347,6 +347,48 @@ public final class SudokuStore {
 			}
 		}
 		return sudokuBoard;
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#boardToString(int[][])
+	 */
+	public static final boolean saveBoard(int[][] sudokuBoard, String filePath) {
+		String boardString = SudokuStore.boardToString(sudokuBoard);
+		return FileX.writeFile(filePath, boardString);
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#boardToString(int[][], String)
+	 */
+	public static final boolean saveBoard(int[][] sudokuBoard, String filePath, String headComment) {
+		String boardString = SudokuStore.boardToString(sudokuBoard, headComment);
+		return FileX.writeFile(filePath, boardString);
+	}
+	/**
+	 * Saves board to the text file.
+	 *
+	 * @param sudokuBoard    Sudoku board to be saved.
+	 * @param filePath       Path to the file.
+	 * @param headComment    Comment to be added at the head.
+	 * @param tailComment    Comment to be added at the tail.
+	 * @return               True if saving was successful, otherwise false.
+	 *
+	 * @see SudokuStore#boardToString(int[][], String, String)
+	 */
+	public static final boolean saveBoard(int[][] sudokuBoard, String filePath, String headComment, String tailComment) {
+		String boardString = SudokuStore.boardToString(sudokuBoard, headComment, tailComment);
+		return FileX.writeFile(filePath, boardString);
 	}
 	/**
 	 * Set all digits to zero.
