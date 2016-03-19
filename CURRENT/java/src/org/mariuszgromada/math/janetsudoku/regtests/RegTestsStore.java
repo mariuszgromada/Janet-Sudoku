@@ -1713,6 +1713,29 @@ class StoreTests {
 				}
 			}
 			break;
+		case 71:
+			testDesc = "calculatePuzzleRating";
+			{
+				int e = SudokuStore.randomIndex( SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES );
+				int[][] b = SudokuStore.getPuzzleExample(e);
+				double precalculatedRating = SudokuStore.getPuzzleExampleRating(e);
+				double currentRating = SudokuStore.calculatePuzzleRating(b);
+				double delta = Math.abs(precalculatedRating - currentRating);
+				if (precalculatedRating != 0) {
+					if ( (delta / precalculatedRating) > 0.15)
+						testResult = false;
+				} else {
+					if (delta > 10)
+						testResult = false;
+				}
+				resultDesc = "Example: " + e + ", Precalculated = " + precalculatedRating + ", Current = " + currentRating + ", Delta = " + delta;
+				if (testResult == true) {
+					resultDesc = resultDesc + " ... Difference is acceptable.";
+				} else {
+					resultDesc = resultDesc + " ... Difference is to high.";
+				}
+			}
+			break;
 		}
 		if (testResult == true)
 			SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + " " + testDesc + " " + resultDesc + " >>> SudokuStore, result: OK");
@@ -1723,5 +1746,5 @@ class StoreTests {
 	/**
 	 * Number of regression tests;
 	 */
-	static final int NUMBER_OF_TESTS = 71;
+	static final int NUMBER_OF_TESTS = 72;
 }
