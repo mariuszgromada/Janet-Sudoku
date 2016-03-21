@@ -1181,7 +1181,7 @@ public final class SudokuStore {
 	 *            is returned.
 	 */
 	public static final int randomIndex(int n) {
-		if (n < 1)
+		if (n < 0)
 			return ErrorCodes.SUDOKUSTORE_RANDOMINDEX_INCORRECT_PARAMETER;
 		return (int)Math.floor(Math.random() * n);
 	}

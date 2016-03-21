@@ -48,6 +48,7 @@
 package org.mariuszgromada.math.janetsudoku.regtests;
 import java.util.ArrayList;
 
+import org.mariuszgromada.janetutils.DateTimeX;
 import org.mariuszgromada.math.janetsudoku.BoardCell;
 import org.mariuszgromada.math.janetsudoku.SudokuBoard;
 import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
@@ -89,7 +90,7 @@ public class RegTestsApi {
 		int numberOfTests = ApiTests.NUMBER_OF_TESTS;
 		int resultsError = 0;
 		int resultsOk = 0;
-		long startTime = System.currentTimeMillis();
+		long startTime = DateTimeX.currentTimeMillis();
 		ApiTests at = new ApiTests(threadsNumber);
 		at.start();
 		boolean[] testResults = at.testsResults;
@@ -99,7 +100,7 @@ public class RegTestsApi {
 			else
 				resultsError++;
 		}
-		long endtTime = System.currentTimeMillis();
+		long endtTime = DateTimeX.currentTimeMillis();
 		double computingTime = (endtTime - startTime)/1000.0;
 		SudokuStore.consolePrintln("=============================================================");
 		SudokuStore.consolePrintln("Number of API test: " + numberOfTests + ", OK: " + resultsOk + ", ERRORS: " + resultsError + ", computing time: " + computingTime);

@@ -47,6 +47,7 @@
  */
 package org.mariuszgromada.math.janetsudoku.regtests;
 
+import org.mariuszgromada.janetutils.DateTimeX;
 import org.mariuszgromada.math.janetsudoku.ErrorCodes;
 import org.mariuszgromada.math.janetsudoku.SudokuBoard;
 import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
@@ -88,7 +89,7 @@ public class RegTestsSolver {
 		int numberOfTests = SolverTests.NUMBER_OF_TESTS;
 		int resultsError = 0;
 		int resultsOk = 0;
-		long startTime = System.currentTimeMillis();
+		long startTime = DateTimeX.currentTimeMillis();
 		SolverTests st = new SolverTests(threadsNumber);
 		st.start();
 		boolean[] testResults = st.testsResults;
@@ -98,7 +99,7 @@ public class RegTestsSolver {
 			else
 				resultsError++;
 		}
-		long endtTime = System.currentTimeMillis();
+		long endtTime = DateTimeX.currentTimeMillis();
 		double computingTime = (endtTime - startTime)/1000.0;
 		SudokuStore.consolePrintln("=============================================================");
 		SudokuStore.consolePrintln("Number of SudokuSolver test: " + numberOfTests + ", OK: " + resultsOk + ", ERRORS: " + resultsError + ", computing time: " + computingTime);

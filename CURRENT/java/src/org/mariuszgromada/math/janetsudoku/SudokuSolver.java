@@ -51,7 +51,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 import org.mariuszgromada.janetutils.ArrayX;
 import org.mariuszgromada.janetutils.DateTimeX;
-import org.mariuszgromada.janetutils.io.FileX;
 
 /**
  * Sudoku board, with predefined Sudoku examples and possibility to load

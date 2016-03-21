@@ -46,6 +46,7 @@
  *                              "Yes, up to isomorphism."
  */
 package org.mariuszgromada.math.janetsudoku.regtests;
+import org.mariuszgromada.janetutils.DateTimeX;
 import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
 
@@ -84,7 +85,7 @@ public class RegTestsStore {
 		int numberOfTests = StoreTests.NUMBER_OF_TESTS;
 		int resultsError = 0;
 		int resultsOk = 0;
-		long startTime = System.currentTimeMillis();
+		long startTime = DateTimeX.currentTimeMillis();
 		StoreTests st = new StoreTests(threadsNumber);
 		st.start();
 		boolean[] testResults = st.testsResults;
@@ -94,7 +95,7 @@ public class RegTestsStore {
 			else
 				resultsError++;
 		}
-		long endtTime = System.currentTimeMillis();
+		long endtTime = DateTimeX.currentTimeMillis();
 		double computingTime = (endtTime - startTime)/1000.0;
 		SudokuStore.consolePrintln("=============================================================");
 		SudokuStore.consolePrintln("Number of SudokuStore test: " + numberOfTests + ", OK: " + resultsOk + ", ERRORS: " + resultsError + ", computing time: " + computingTime);
