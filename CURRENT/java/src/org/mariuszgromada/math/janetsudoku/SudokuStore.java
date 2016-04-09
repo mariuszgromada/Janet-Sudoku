@@ -57,7 +57,7 @@ import org.mariuszgromada.math.janetsudoku.utils.FileX;
 /**
  * Storehouse for various things used in library, i.e. sudoku board examples.
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -102,17 +102,17 @@ public final class SudokuStore {
 	/**
 	 * Number of available random board transformations.
 	 *
-	 * @see SudokuStore#randomBoardTransf(int[][]);
-	 * @see SudokuStore#seqOfRandomBoardTransf(int[][]);
-	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int);
+	 * @see SudokuStore#randomBoardTransf(int[][])
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][])
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int)
 	 */
 	public static final int AVAILABLE_RND_BOARD_TRANSF = 17;
 	/**
 	 * Default sequence length of random board transformations.
 	 *
-	 * @see SudokuStore#randomBoardTransf(int[][]);
-	 * @see SudokuStore#seqOfRandomBoardTransf(int[][]);
-	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int);
+	 * @see SudokuStore#randomBoardTransf(int[][])
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][])
+	 * @see SudokuStore#seqOfRandomBoardTransf(int[][], int)
 	 */
 	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 1000;
 	/**
@@ -122,7 +122,7 @@ public final class SudokuStore {
 	/**
 	 * Threads number.
 	 */
-	private static final int THREADS_NUMBER = Runtime.getRuntime().availableProcessors();
+	public static final int THREADS_NUMBER = Runtime.getRuntime().availableProcessors();
 	/**
 	 * Default number of iterations while calculating
 	 * puzzle rating.
@@ -157,7 +157,7 @@ public final class SudokuStore {
 	 * the average number of steps-back performed while recursive
 	 * solving sudoku board.
 	 *
-	 * @param exampleNumber
+	 * @param exampleNumber   The example number {@link SudokuPuzzles#NUMBER_OF_PUZZLE_EXAMPLES}
 	 * @return Puzzle example difficulty rating if example exists, otherwise -1.
 	 */
 	public static final double getPuzzleExampleRating(int exampleNumber) {
@@ -234,15 +234,17 @@ public final class SudokuStore {
 			runners[t] = new Runner(t, threadIterNum);
 			threads[t] = new Thread(runners[t]);
 		}
-		for (int t = 0; t < THREADS_NUMBER; t++)
+		for (int t = 0; t < THREADS_NUMBER; t++) {
 			threads[t].start();
-		for (int t = 0; t < THREADS_NUMBER; t++)
+		}
+		for (int t = 0; t < THREADS_NUMBER; t++) {
 			try {
 				threads[t].join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				return ErrorCodes.SUDOKUSTORE_CALCULATEPUZZLERATING_THREADS_JOIN_FAILED;
 			}
+		}
 		int sum = 0;
 		for (int t = 0; t < THREADS_NUMBER; t++)
 			for (int i = 0; i < threadIterNum; i++)
@@ -612,10 +614,10 @@ public final class SudokuStore {
 		return reflectedBoard;
 	}
 	/**
-	 * Diagonal (Top-Left -> Bottom-Right) reflection of the Sudoku board.
+	 * Diagonal (Top-Left -&gt; Bottom-Right) reflection of the Sudoku board.
 	 *
 	 * @param sudokuBoard Array representing Sudoku board.
-	 * @return Diagonally (Top-Left -> Bottom-Right) reflection of the Sudoku board. reflected Sudoku board.
+	 * @return Diagonally (Top-Left -&gt; Bottom-Right) reflection of the Sudoku board. reflected Sudoku board.
 	 */
 	public static final int[][] transposeTlBr(int[][] sudokuBoard) {
 		if (sudokuBoard == null) return null;
@@ -626,10 +628,10 @@ public final class SudokuStore {
 		return reflectedBoard;
 	}
 	/**
-	 * Diagonal (Top-Right -> Bottom-Left) reflection of the Sudoku board.
+	 * Diagonal (Top-Right -&gt; Bottom-Left) reflection of the Sudoku board.
 	 *
 	 * @param sudokuBoard Array representing Sudoku board.
-	 * @return Diagonally Top-Right -> Bottom-Left) reflection of the Sudoku board. reflected Sudoku board.
+	 * @return Diagonally Top-Right -&gt; Bottom-Left) reflection of the Sudoku board. reflected Sudoku board.
 	 */
 	public static final int[][] transposeTrBl(int[][] sudokuBoard) {
 		if (sudokuBoard == null) return null;
@@ -1137,7 +1139,7 @@ public final class SudokuStore {
 	 * @param sudokuBoard        Sudoku board to be transformed.
 	 * @return                   Sudoku board resulting from transformation.
 	 *
-	 * @see #randomBoardTransf(int[][], int);
+	 * @see #randomBoardTransf(int[][], int)
 	 */
 	public static final int[][] randomBoardTransf(int[][] sudokuBoard) {
 		if (sudokuBoard == null) return null;
@@ -1153,7 +1155,7 @@ public final class SudokuStore {
 	 *                          If seqLengh is lower than 1 then exact copy of
 	 *                          Sudoku board is returned.
 	 *
-	 * @see #randomBoardTransf(int[][], int);
+	 * @see #randomBoardTransf(int[][], int)
 	 */
 	public static final int[][] seqOfRandomBoardTransf(int[][] sudokuBoard, int seqLength) {
 		if (sudokuBoard == null) return null;
@@ -1174,7 +1176,7 @@ public final class SudokuStore {
 	 *                          If seqLengh is lower than 1 then exact copy of
 	 *                          Sudoku board is returned.
 	 *
-	 * @see #randomBoardTransf(int[][], int);
+	 * @see #randomBoardTransf(int[][], int)
 	 */
 	public static final int[][] seqOfRandomBoardTransf(int[][] sudokuBoard) {
 		if (sudokuBoard == null) return null;
@@ -1237,7 +1239,7 @@ public final class SudokuStore {
 	 * 0, 1, ..., n-1 for n-length permutation.
 	 *
 	 * @param     n   The permutation length.
-	 * @return    If n > 0 permutation array is returned
+	 * @return    If n &gt; 0 permutation array is returned
 	 *            containing n randomly distributed elements
 	 *            with values: 0, 1, ..., n-1. If n is zero or
 	 *            negative null is returned.

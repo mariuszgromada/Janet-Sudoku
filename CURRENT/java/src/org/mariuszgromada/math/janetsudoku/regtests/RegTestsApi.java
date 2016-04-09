@@ -59,7 +59,7 @@ import org.mariuszgromada.math.janetsudoku.utils.FileX;
 /**
  * Regression tests for public API provided by Janet-Sudoku.
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -80,7 +80,7 @@ public class RegTestsApi {
 	 * @return    Number of tests with errors.
 	 */
 	public static int start() {
-		return start( Runtime.getRuntime().availableProcessors() );
+		return start(SudokuStore.THREADS_NUMBER);
 	}
 	/**
 	 * Runs SudokuStore regression tests.
@@ -426,6 +426,7 @@ class ApiTests {
 					testResult = false;
 				}
 			}
+			break;
 		case 5:
 			testDesc = "SudokuSolver.getAllSolutionsList()";
 			{

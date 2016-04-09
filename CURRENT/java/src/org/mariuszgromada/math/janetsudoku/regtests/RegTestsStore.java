@@ -53,7 +53,7 @@ import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
 /**
  * Regression tests for the SudokuStore class.
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -66,7 +66,7 @@ import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
  *
  * @version        1.0.0
  *
- * @see SudokuSolver
+ * @see SudokuStore
  */
 public class RegTestsStore {
 	/**
@@ -74,7 +74,7 @@ public class RegTestsStore {
 	 * @return    Number of tests with errors.
 	 */
 	public static int start() {
-		return start( Runtime.getRuntime().availableProcessors() );
+		return start(SudokuStore.THREADS_NUMBER);
 	}
 	/**
 	 * Runs SudokuStore regression tests.

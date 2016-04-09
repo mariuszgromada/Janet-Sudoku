@@ -52,7 +52,7 @@ import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
 /**
  * Sudoku generator.
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -243,8 +243,9 @@ public class SudokuGenerator {
 	 * @param info             The string to pass to the msg builder.
 	 */
 	private void boardInit(int [][] initBoard, String info) {
+		SudokuSolver puzzle;
 		if ( (initBoard == null) && (generateRandomBoard == true) ) {
-			SudokuSolver puzzle = new SudokuSolver(SudokuPuzzles.PUZZLE_EMPTY);
+			puzzle = new SudokuSolver(SudokuPuzzles.PUZZLE_EMPTY);
 			puzzle.solve();
 			if (puzzle.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
 				sudokuBoard = puzzle.solvedBoard;
@@ -264,7 +265,7 @@ public class SudokuGenerator {
 			return;
 		}
 		if (solveBeforeGeneration == true) {
-			SudokuSolver puzzle = new SudokuSolver(initBoard);
+			puzzle = new SudokuSolver(initBoard);
 			puzzle.solve();
 			if (puzzle.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
 				sudokuBoard = puzzle.solvedBoard;
@@ -279,7 +280,7 @@ public class SudokuGenerator {
 			}
 		}
 		int[][] board = initBoard;
-		SudokuSolver puzzle = new SudokuSolver(board);
+		puzzle = new SudokuSolver(board);
 		if (puzzle.checkIfUniqueSolution() == SudokuSolver.SOLUTION_UNIQUE) {
 			sudokuBoard = board;
 			addMessage("(SudokuGenerator) Generator initialized usign provided board (" + info + ").", MSG_INFO);
@@ -524,11 +525,10 @@ public class SudokuGenerator {
 	/**
 	 * Saves board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @return               True if saving was successful, otherwise false.
 	 *
-	 * @see SudokuStore#saveBoard(int[][], String);
+	 * @see SudokuStore#saveBoard(int[][], String)
 	 * @see SudokuStore#boardToString(int[][])
 	 */
 	public boolean saveBoard(String filePath) {
@@ -542,7 +542,6 @@ public class SudokuGenerator {
 	/**
 	 * Saves board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @param headComment    Comment to be added at the head.
 	 * @return               True if saving was successful, otherwise false.
@@ -561,7 +560,6 @@ public class SudokuGenerator {
 	/**
 	 * Saves board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @param headComment    Comment to be added at the head.
 	 * @param tailComment    Comment to be added at the tail.

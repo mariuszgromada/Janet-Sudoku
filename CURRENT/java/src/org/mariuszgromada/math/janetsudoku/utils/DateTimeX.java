@@ -57,7 +57,7 @@ import java.util.Date;
  * helping to work with date, time, etc.
  *
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>

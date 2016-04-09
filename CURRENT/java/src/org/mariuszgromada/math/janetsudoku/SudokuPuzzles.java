@@ -50,7 +50,7 @@ package org.mariuszgromada.math.janetsudoku;
 /**
  * Set of static final arrays containing Sudoku puzzles.
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -2917,7 +2917,7 @@ public final class SudokuPuzzles {
 	 * the average number of steps-back performed while recursive
 	 * solving sudoku board.
 	 *
-	 * @param exampleNumber
+	 * @param exampleNumber    The example number {@link SudokuPuzzles#NUMBER_OF_PUZZLE_EXAMPLES}
 	 * @return Puzzle example difficulty rating if example exist, otherwise -1.
 	 */
 	public static final double getPuzzleExampleRating(int exampleNumber) {

@@ -48,10 +48,10 @@
 package org.mariuszgromada.math.janetsudoku;
 
 /**
- * Error codes definition for Janet-Sudoku. The code convention is as follows:<br/>
+ * Error codes definition for Janet-Sudoku. The code convention is as follows:<br>
  * Errors.<b>[CLASS]</b>_<b>[METHOD]</b>_<b>[ERROR_TYPE]</b>
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -64,7 +64,7 @@ package org.mariuszgromada.math.janetsudoku;
  *
  * @version        1.0.0
  */
-public class ErrorCodes {
+public final class ErrorCodes {
 	/**
 	 * Sudoku board loading failed.
 	 *

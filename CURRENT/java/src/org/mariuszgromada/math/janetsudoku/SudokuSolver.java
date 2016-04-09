@@ -57,7 +57,7 @@ import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
  * external examples from arrays or files. Class implements
  * loading methods as well as Sudoku solving methods.
  *
- * @author         <b>Mariusz Gromada</b><br/>
+ * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -425,11 +425,10 @@ public class SudokuSolver {
 	/**
 	 * Saves board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @return               True if saving was successful, otherwise false.
 	 *
-	 * @see SudokuStore#saveBoard(int[][], String);
+	 * @see SudokuStore#saveBoard(int[][], String)
 	 * @see SudokuStore#boardToString(int[][])
 	 */
 	public boolean saveBoard(String filePath) {
@@ -443,7 +442,6 @@ public class SudokuSolver {
 	/**
 	 * Saves board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @param headComment    Comment to be added at the head.
 	 * @return               True if saving was successful, otherwise false.
@@ -462,7 +460,6 @@ public class SudokuSolver {
 	/**
 	 * Saves board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @param headComment    Comment to be added at the head.
 	 * @param tailComment    Comment to be added at the tail.
@@ -482,11 +479,10 @@ public class SudokuSolver {
 	/**
 	 * Saves solved board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @return               True if saving was successful, otherwise false.
 	 *
-	 * @see SudokuStore#saveBoard(int[][], String);
+	 * @see SudokuStore#saveBoard(int[][], String)
 	 * @see SudokuStore#boardToString(int[][])
 	 */
 	public boolean saveSolvedBoard(String filePath) {
@@ -500,7 +496,6 @@ public class SudokuSolver {
 	/**
 	 * Saves solved board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @param headComment    Comment to be added at the head.
 	 * @return               True if saving was successful, otherwise false.
@@ -519,7 +514,6 @@ public class SudokuSolver {
 	/**
 	 * Saves solved board to the text file.
 	 *
-	 * @param sudokuBoard    Sudoku board to be saved.
 	 * @param filePath       Path to the file.
 	 * @param headComment    Comment to be added at the head.
 	 * @param tailComment    Comment to be added at the tail.

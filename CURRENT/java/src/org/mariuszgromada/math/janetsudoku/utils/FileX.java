@@ -54,7 +54,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
 
@@ -154,30 +153,6 @@ public final class FileX {
 	 */
 	public static boolean writeFile(String filePath, String content) {
 		return writeFile( new File(filePath), content);
-	}
-	/**
-	 * Writes the given collection of strings into the the given file, previous file
-	 * content will be overwritten. New line character will not be added after each string.
-	 *
-	 * @param file            File object containing file definition.
-	 * @param content         String collection containing content to be written.
-	 * @return                True if write was successful, otherwise
-	 *                        returns false. Method do not throws
-	 *                        IOException.
-	 */
-	public static boolean writeFile(File file, Collection<String> content) {
-		FileWriter fw;
-		try {
-			fw = new FileWriter(file);
-			for (String line : content) {
-				fw.write(line);
-			}
-			fw.close();
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 	/**
 	 * Removes file denoted as file path.

@@ -1,6 +1,12 @@
 bin/
-.classpath
-.project
+*.classpath
+*.project
 CURRENT/java/src/tests/
 CURRENT/java/.settings/
-src-linked
+.vs/
+bin/
+obj/
+Debug/
+ipch/
+*.pfx
+*.user
