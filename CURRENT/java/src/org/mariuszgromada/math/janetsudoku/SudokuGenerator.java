@@ -48,8 +48,7 @@
 package org.mariuszgromada.math.janetsudoku;
 
 import java.util.ArrayList;
-import org.mariuszgromada.janetutils.DateTimeX;
-
+import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
 /**
  * Sudoku generator.
  *
@@ -703,7 +702,7 @@ public class SudokuGenerator {
 			mt = "(error)";
 			lastErrorMessage = msg;
 		}
-		messages = messages + "\n" + vdt + mt + " " + msg;
+		messages = messages + SudokuStore.NEW_LINE_SEPARATOR + vdt + mt + " " + msg;
 		lastMessage = msg;
 	}
 	/**

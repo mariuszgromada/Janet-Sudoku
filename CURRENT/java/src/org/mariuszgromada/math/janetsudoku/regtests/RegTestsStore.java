@@ -46,10 +46,10 @@
  *                              "Yes, up to isomorphism."
  */
 package org.mariuszgromada.math.janetsudoku.regtests;
-import org.mariuszgromada.janetutils.DateTimeX;
+
 import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
-
+import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
 /**
  * Regression tests for the SudokuStore class.
  *

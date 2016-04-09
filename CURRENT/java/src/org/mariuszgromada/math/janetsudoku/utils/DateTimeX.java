@@ -1,5 +1,5 @@
 /*
- * @(#)Tutorial.java        1.0.0    2016-03-19
+ * @(#)DateTimeX.java        1.1.0    2016-01-31
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -45,15 +45,17 @@
  *                              Asked if he believes in one God, a mathematician answered:
  *                              "Yes, up to isomorphism."
  */
-package org.mariuszgromada.math.janetsudoku.tutorial;
+package org.mariuszgromada.math.janetsudoku.utils;
 
-import org.mariuszgromada.math.janetsudoku.SudokuGenerator;
-import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
-import org.mariuszgromada.math.janetsudoku.SudokuSolver;
-import org.mariuszgromada.math.janetsudoku.SudokuStore;
-import org.mariuszgromada.math.janetsudoku.utils.FileX;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
- * Basic Janet-Sudoku Tutorial.
+ * Class implements general purpose methods
+ * helping to work with date, time, etc.
+ *
  *
  * @author         <b>Mariusz Gromada</b><br/>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
@@ -67,78 +69,44 @@ import org.mariuszgromada.math.janetsudoku.utils.FileX;
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
  * @version        1.0.0
- *
- * @see SudokuSolver
- * @see SudokuGenerator
- * @see SudokuStore
- * @see SudokuPuzzles
  */
-public class Tutorial {
+public final class DateTimeX {
 	/**
-	 * Start the Janet-Sudoku Tutorial code.
-	 * @param args    No arguments are considered.
+	 * Default date time format used while converting date / time
+	 * to string.
 	 */
-	public static void main(String[] args) {
-		String tmpDir = FileX.getTmpDir();
-		{
-			/*
-			 * Simple sudoku generation.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation.");
-			SudokuGenerator sg = new SudokuGenerator();
-			int[][] puzzle = sg.generate();
-			SudokuStore.consolePrintBoard(puzzle);
-		}
-		{
-			/*
-			 * Simple sudoku generation + parameters.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation + parameters.");
-			SudokuGenerator sg = new SudokuGenerator(SudokuGenerator.PARAM_GEN_RND_BOARD);
-			int[][] puzzle = sg.generate();
-			SudokuStore.consolePrintBoard(puzzle);
-		}
-		{
-			/*
-			 * Simple sudoku generation + puzzle rating.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation + puzzle rating.");
-			SudokuGenerator sg = new SudokuGenerator();
-			int[][] puzzle = sg.generate();
-			int rating = SudokuStore.calculatePuzzleRating(puzzle);
-			SudokuStore.consolePrintBoard(puzzle);
-			SudokuStore.consolePrintln("Puzzle rating: " + rating);
-		}
-		{
-			/*
-			 * Solving sudoku example.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Solving sudoku example.");
-			SudokuSolver ss = new SudokuSolver( SudokuPuzzles.PUZZLE_EXAMPLE_001 );
-			SudokuStore.consolePrintBoard( ss.getBoard() );
-			ss.solve();
-			SudokuStore.consolePrintBoard( ss.getSolvedBoard() );
-		}
-		{
-			/*
-			 * Saving board examples
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Saving board examples " + tmpDir);
-			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-1.txt");
-			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-2.txt", "This is a head comment");
-			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-3.txt", "This is a head comment", "And a tail comment");
-			SudokuSolver ss = new SudokuSolver(1);
-			ss.solve();
-			ss.saveSolvedBoard(tmpDir + "sudoku-board-ex-sol.txt", "Solution for the PUZZLE_EXAMPLE_001");
-		}
-		/*
-		 * And many other staff provided by the library :-)
-		 */
+	public static String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	/**
+	 * Gets current date and time;
+	 * @return Current date / time object.
+	 */
+	public static final Date getCurrDateTime() {
+		return Calendar.getInstance().getTime();
 	}
-
+	/**
+	 * Gets string representation of current date time.
+	 *
+	 * @param dateFormat  Format to applied while conversion.
+	 * @return            String representation of current date and time.
+	 */
+	public static final String getCurrDateTimeStr(String dateFormat) {
+		DateFormat df = new SimpleDateFormat(dateFormat);
+		return df.format(getCurrDateTime());
+	}
+	/**
+	 * Gets string representation of current date time applying
+	 * default date and time format.
+	 *
+	 * @return            String representation of current date and time.
+	 */
+	public static final String getCurrDateTimeStr() {
+		return getCurrDateTimeStr(DEFAULT_DATE_TIME_FORMAT);
+	}
+	/**
+	 * Current date/time in milliseconds
+	 * @return Number of milliseconds
+	 */
+	public static final long currentTimeMillis() {
+		return System.currentTimeMillis();
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * @(#)RegTestsApi.java        1.0.0    2016-03-19
+ * @(#)RegTestsApi.java        1.1.0    2016-04-09
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -48,13 +48,14 @@
 package org.mariuszgromada.math.janetsudoku.regtests;
 import java.util.ArrayList;
 
-import org.mariuszgromada.janetutils.DateTimeX;
 import org.mariuszgromada.math.janetsudoku.BoardCell;
 import org.mariuszgromada.math.janetsudoku.SudokuBoard;
+import org.mariuszgromada.math.janetsudoku.SudokuGenerator;
 import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
 import org.mariuszgromada.math.janetsudoku.SudokuSolver;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
-
+import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
+import org.mariuszgromada.math.janetsudoku.utils.FileX;
 /**
  * Regression tests for public API provided by Janet-Sudoku.
  *
@@ -69,7 +70,7 @@ import org.mariuszgromada.math.janetsudoku.SudokuStore;
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
- * @version        1.0.0
+ * @version        1.1.0
  *
  * @see SudokuSolver
  */
@@ -445,6 +446,43 @@ class ApiTests {
 				}
 			}
 			break;
+		case 6:
+			testDesc = "SudokuGenerator -> generate -> save -> load -> compare";
+			{
+				String filePath = FileX.getTmpDir() + FileX.genRndFileName(20, "txt");
+				SudokuGenerator g = new SudokuGenerator(SudokuGenerator.PARAM_GEN_RND_BOARD);
+				int[][] generated = g.generate();
+				g.saveBoard(filePath, "generated", "saved");
+				int[][] loaded = SudokuStore.loadBoard(filePath);
+				FileX.removeFile(filePath);
+				if (SudokuStore.boardsAreEqual(generated, loaded) == false)
+					testResult = false;
+				if ( testResult == true ) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+				}
+			}
+			break;
+		case 7:
+			testDesc = "SudokuSolver -> solve -> save -> load -> compare";
+			{
+				String filePath = FileX.getTmpDir() + FileX.genRndFileName(20, "txt");
+				SudokuSolver s = new SudokuSolver(SudokuStore.getPuzzleExample());
+				s.solve();
+				int[][] solved = s.getSolvedBoard();
+				s.saveSolvedBoard(filePath, "solved", "saved");
+				int[][] loaded = SudokuStore.loadBoard(filePath);
+				FileX.removeFile(filePath);
+				if (SudokuStore.boardsAreEqual(solved, loaded) == false)
+					testResult = false;
+				if ( testResult == true ) {
+					resultDesc = "Expecting equal - are equal.";
+				} else {
+					resultDesc = "Expecting equal - are not equal.";
+				}
+			}
+			break;
 		}
 		if (testResult == true)
 			SudokuStore.consolePrintln("(Thread: " + threadId + ") " + "Test: " + testId + " " + testDesc + " " + resultDesc + " >>> ApiTests, result: OK");
@@ -455,5 +493,5 @@ class ApiTests {
 	/**
 	 * Number of regression tests;
 	 */
-	static final int NUMBER_OF_TESTS = 6;
+	static final int NUMBER_OF_TESTS = 8;
 }

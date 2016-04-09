@@ -47,12 +47,13 @@
  */
 package org.mariuszgromada.math.janetsudoku.regtests;
 
-import org.mariuszgromada.janetutils.DateTimeX;
+
 import org.mariuszgromada.math.janetsudoku.ErrorCodes;
 import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
 import org.mariuszgromada.math.janetsudoku.SudokuSolver;
 import org.mariuszgromada.math.janetsudoku.SudokuGenerator;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
+import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
 
 /**
  * Regression tests for the SudokuGenerator class.

@@ -47,8 +47,9 @@
  */
 
 package org.mariuszgromada.math.janetsudoku.regtests;
-import org.mariuszgromada.janetutils.DateTimeX;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
+import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
+import org.mariuszgromada.math.janetsudoku.*;
 
 /**
  * Starts all regression tests.

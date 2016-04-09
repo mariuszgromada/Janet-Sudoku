@@ -1,5 +1,5 @@
 /*
- * @(#)SudokuStore.java        1.0.0    2016-03-19
+ * @(#)SudokuStore.java        1.1.0    2016-04-09
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -49,9 +49,10 @@ package org.mariuszgromada.math.janetsudoku;
 
 import java.util.ArrayList;
 
-import org.mariuszgromada.janetutils.ArrayX;
-import org.mariuszgromada.janetutils.io.FileX;
-import org.mariuszgromada.janetutils.DateTimeX;
+import org.mariuszgromada.math.janetsudoku.utils.ArrayX;
+import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
+import org.mariuszgromada.math.janetsudoku.utils.FileX;
+
 
 /**
  * Storehouse for various things used in library, i.e. sudoku board examples.
@@ -67,7 +68,7 @@ import org.mariuszgromada.janetutils.DateTimeX;
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
- * @version        1.0.0
+ * @version        1.1.0
  */
 public final class SudokuStore {
 	/**
@@ -115,6 +116,10 @@ public final class SudokuStore {
 	 */
 	public static final int DEFAULT_RND_TRANSF_SEQ_LENGTH = 1000;
 	/**
+	 * System specific new line separator
+	 */
+	public static final String NEW_LINE_SEPARATOR = System.getProperty("line.separator");
+	/**
 	 * Threads number.
 	 */
 	private static final int THREADS_NUMBER = Runtime.getRuntime().availableProcessors();
@@ -137,6 +142,15 @@ public final class SudokuStore {
 	 */
 	public static final int[][] getPuzzleExample(int exampleNumber) {
 		return SudokuPuzzles.getPuzzleExample(exampleNumber);
+	}
+	/**
+	 * Gets Sudoku example for the Sudoku Store.
+	 * @return                  Sudoku example is exists, otherwise null.
+	 * @see SudokuPuzzles#NUMBER_OF_PUZZLE_EXAMPLES
+	 * @see SudokuPuzzles#getPuzzleExample(int)
+	 */
+	public static final int[][] getPuzzleExample() {
+		return SudokuPuzzles.getPuzzleExample( SudokuStore.randomIndex(SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES) );
 	}
 	/**
 	 * Returns pre-calculated puzzle example difficulty rating based on
@@ -1342,12 +1356,12 @@ public final class SudokuStore {
 		String boardStr = "";
 		if (headComment != null)
 			if (headComment.length() > 0)
-					boardStr = boardStr + "# " + headComment + "\n\n";
+					boardStr = boardStr + "# " + headComment + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
 		if (sudokuBoard == null) return "NULL sudoku board.";
-		boardStr = boardStr + "+-------+-------+-------+\n";
+		boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR;
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
 			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
-				boardStr = boardStr + "+-------+-------+-------+\n" ;
+				boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR ;
 			boardStr = boardStr + "| ";
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
@@ -1357,9 +1371,9 @@ public final class SudokuStore {
 				else
 					boardStr = boardStr + ". ";
 			}
-			boardStr = boardStr + "|\n";
+			boardStr = boardStr + "|" + NEW_LINE_SEPARATOR;
 		}
-		boardStr = boardStr + "+-------+-------+-------+\n\n";
+		boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
 		if (tailComment != null)
 			if (tailComment.length() > 0)
 					boardStr = boardStr + "# " + tailComment;
@@ -1398,11 +1412,11 @@ public final class SudokuStore {
 	 * @return Empty cells (only) string representation.
 	 */
 	public static final String emptyCellsToString(int[][] emptyCells) {
-		String boardStr = "Number of free digits\n";
-		boardStr = boardStr + "=====================\n";
+		String boardStr = "Number of free digits" + NEW_LINE_SEPARATOR;
+		boardStr = boardStr + "=====================" + NEW_LINE_SEPARATOR;
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
 			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
-				boardStr = boardStr + "---------------------\n" ;
+				boardStr = boardStr + "---------------------" + NEW_LINE_SEPARATOR ;
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
@@ -1411,9 +1425,9 @@ public final class SudokuStore {
 				else
 					boardStr = boardStr + ". ";
 			}
-			boardStr = boardStr + "\n";
+			boardStr = boardStr + NEW_LINE_SEPARATOR;
 		}
-		boardStr = boardStr + "=====================\n";
+		boardStr = boardStr + "=====================" + NEW_LINE_SEPARATOR;
 		return boardStr;
 	}
 	/**
@@ -1423,11 +1437,11 @@ public final class SudokuStore {
 	 * @return Board and empty cells representation.
 	 */
 	public static final String boardAndEmptyCellsToString(int[][] sudokuBoard, int[][] emptyCells) {
-		String boardStr = "    Sudoku board           Number of free digits\n";
-		boardStr = boardStr + "=====================      =====================\n";
+		String boardStr = "    Sudoku board           Number of free digits" + NEW_LINE_SEPARATOR;
+		boardStr = boardStr + "=====================      =====================" + NEW_LINE_SEPARATOR;
 		for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
 			if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
-				boardStr = boardStr + "---------------------      ---------------------\n" ;
+				boardStr = boardStr + "---------------------      ---------------------" + NEW_LINE_SEPARATOR ;
 			for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
 				if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 					boardStr = boardStr + "| ";
@@ -1445,9 +1459,9 @@ public final class SudokuStore {
 				else
 					boardStr = boardStr + ". ";
 			}
-			boardStr = boardStr + "\n";
+			boardStr = boardStr + NEW_LINE_SEPARATOR;
 		}
-		boardStr = boardStr + "=====================      =====================\n";
+		boardStr = boardStr + "=====================      =====================" + NEW_LINE_SEPARATOR;
 		return boardStr;
 	}
 	/**
@@ -1457,18 +1471,19 @@ public final class SudokuStore {
 	 */
 	public static final String solutionPathToString(BoardCell[] solutionBoardCells) {
 		String solutionPath = "";
-		solutionPath = solutionPath + " --------------- \n";
-		solutionPath = solutionPath + "| id | i, j | d |\n";
-		solutionPath = solutionPath + "|----|----- |---|\n";
+		solutionPath = solutionPath + " --------------- " + NEW_LINE_SEPARATOR;
+		solutionPath = solutionPath + "| id | i, j | d |" + NEW_LINE_SEPARATOR;
+		solutionPath = solutionPath + "|----|----- |---|" + NEW_LINE_SEPARATOR;
 		if (solutionBoardCells != null)
 			for (int i = 0; i < solutionBoardCells.length; i++) {
 				BoardCell b = solutionBoardCells[i];
 				if (i + 1 < 10) solutionPath = solutionPath + "|  ";
 				else solutionPath = solutionPath + "| ";
-				solutionPath = solutionPath + (i+1) + " | " + (b.rowIndex+1) + ", " + (b.colIndex + 1) + " | " + b.digit + " |\n";
+				solutionPath = solutionPath + (i+1) + " | " + (b.rowIndex+1) + ", " + (b.colIndex + 1) + " | " + b.digit + " |" + NEW_LINE_SEPARATOR;
 			}
-		solutionPath = solutionPath + " --------------- \n";
+		solutionPath = solutionPath + " --------------- " + NEW_LINE_SEPARATOR;
 		return solutionPath;
+
 	}
 	/**
 	 * Prints Sudoku board to the console.

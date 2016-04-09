@@ -49,8 +49,8 @@ package org.mariuszgromada.math.janetsudoku;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import org.mariuszgromada.janetutils.ArrayX;
-import org.mariuszgromada.janetutils.DateTimeX;
+import org.mariuszgromada.math.janetsudoku.utils.ArrayX;
+import org.mariuszgromada.math.janetsudoku.utils.DateTimeX;
 
 /**
  * Sudoku board, with predefined Sudoku examples and possibility to load
@@ -1087,7 +1087,7 @@ public class SudokuSolver {
 			mt = "(error)";
 			lastErrorMessage = msg;
 		}
-		messages = messages + "\n" + vdt + mt + " " + msg;
+		messages = messages + SudokuStore.NEW_LINE_SEPARATOR + vdt + mt + " " + msg;
 		lastMessage = msg;
 	}
 	/**
@@ -1292,8 +1292,8 @@ public class SudokuSolver {
 			boardStateStr = boardStateStr + "ready";
 			break;
 		}
-		boardStateStr = boardStateStr + "\n" + "Initial empty cells: " + emptyCellsNumber;
-		boardStateStr = boardStateStr + "\n" + "Solving : ";
+		boardStateStr = boardStateStr + SudokuStore.NEW_LINE_SEPARATOR + "Initial empty cells: " + emptyCellsNumber;
+		boardStateStr = boardStateStr + SudokuStore.NEW_LINE_SEPARATOR + "Solving : ";
 		switch(solvingState) {
 		case SOLVING_STATE_NOT_STARTED:
 			boardStateStr = boardStateStr + "not started";
@@ -1315,21 +1315,21 @@ public class SudokuSolver {
 	 * @return Board and empty cells representation.
 	 */
 	public String boardAndEmptyCellsToString() {
-		return SudokuStore.boardAndEmptyCellsToString(sudokuBoard, getEmptyCells()) + boardStateToString() + "\n";
+		return SudokuStore.boardAndEmptyCellsToString(sudokuBoard, getEmptyCells()) + boardStateToString() + SudokuStore.NEW_LINE_SEPARATOR;
 	}
 	/**
 	 * Returns string board (only) representation.
 	 * @return Board (only) representation.
 	 */
 	public String boardToString() {
-		return SudokuStore.boardToString(sudokuBoard) + boardStateToString() + "\n";
+		return SudokuStore.boardToString(sudokuBoard) + boardStateToString() + SudokuStore.NEW_LINE_SEPARATOR;
 	}
 	/**
 	 * Returns string empty cells (only) representation.
 	 * @return Empty cells (only) representation.
 	 */
 	public String emptyCellsToString() {
-		return SudokuStore.emptyCellsToString( getEmptyCells() ) + boardStateToString() + "\n";
+		return SudokuStore.emptyCellsToString( getEmptyCells() ) + boardStateToString() + SudokuStore.NEW_LINE_SEPARATOR;
 	}
 	/**
 	 * Return string representation of cells that lead to

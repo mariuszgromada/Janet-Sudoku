@@ -1,5 +1,5 @@
 /*
- * @(#)Tutorial.java        1.0.0    2016-03-19
+ * @(#)ArrayX.java        1.0.0    2016-01-18
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -45,15 +45,15 @@
  *                              Asked if he believes in one God, a mathematician answered:
  *                              "Yes, up to isomorphism."
  */
-package org.mariuszgromada.math.janetsudoku.tutorial;
+package org.mariuszgromada.math.janetsudoku.utils;
 
-import org.mariuszgromada.math.janetsudoku.SudokuGenerator;
-import org.mariuszgromada.math.janetsudoku.SudokuPuzzles;
-import org.mariuszgromada.math.janetsudoku.SudokuSolver;
-import org.mariuszgromada.math.janetsudoku.SudokuStore;
-import org.mariuszgromada.math.janetsudoku.utils.FileX;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Stack;
 /**
- * Basic Janet-Sudoku Tutorial.
+ * Class implements general purpose methods
+ * helping to work with arrays, array lists, etc.
+ *
  *
  * @author         <b>Mariusz Gromada</b><br/>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
@@ -67,78 +67,40 @@ import org.mariuszgromada.math.janetsudoku.utils.FileX;
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
  *
  * @version        1.0.0
- *
- * @see SudokuSolver
- * @see SudokuGenerator
- * @see SudokuStore
- * @see SudokuPuzzles
  */
-public class Tutorial {
+public final class ArrayX {
 	/**
-	 * Start the Janet-Sudoku Tutorial code.
-	 * @param args    No arguments are considered.
+	 * Converts generic ArraList to Array
+	 *
+	 * @param componentType    Class type, i.e. if ArrayList<String> is converted
+	 *                         then componentType = String.class
+	 * @param arrayList        ArrayList of <T> to be converted to T[]
+	 *
+	 * @return                 Array T[] including elements of ArrayList<T>
 	 */
-	public static void main(String[] args) {
-		String tmpDir = FileX.getTmpDir();
-		{
-			/*
-			 * Simple sudoku generation.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation.");
-			SudokuGenerator sg = new SudokuGenerator();
-			int[][] puzzle = sg.generate();
-			SudokuStore.consolePrintBoard(puzzle);
-		}
-		{
-			/*
-			 * Simple sudoku generation + parameters.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation + parameters.");
-			SudokuGenerator sg = new SudokuGenerator(SudokuGenerator.PARAM_GEN_RND_BOARD);
-			int[][] puzzle = sg.generate();
-			SudokuStore.consolePrintBoard(puzzle);
-		}
-		{
-			/*
-			 * Simple sudoku generation + puzzle rating.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation + puzzle rating.");
-			SudokuGenerator sg = new SudokuGenerator();
-			int[][] puzzle = sg.generate();
-			int rating = SudokuStore.calculatePuzzleRating(puzzle);
-			SudokuStore.consolePrintBoard(puzzle);
-			SudokuStore.consolePrintln("Puzzle rating: " + rating);
-		}
-		{
-			/*
-			 * Solving sudoku example.
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Solving sudoku example.");
-			SudokuSolver ss = new SudokuSolver( SudokuPuzzles.PUZZLE_EXAMPLE_001 );
-			SudokuStore.consolePrintBoard( ss.getBoard() );
-			ss.solve();
-			SudokuStore.consolePrintBoard( ss.getSolvedBoard() );
-		}
-		{
-			/*
-			 * Saving board examples
-			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Saving board examples " + tmpDir);
-			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-1.txt");
-			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-2.txt", "This is a head comment");
-			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-3.txt", "This is a head comment", "And a tail comment");
-			SudokuSolver ss = new SudokuSolver(1);
-			ss.solve();
-			ss.saveSolvedBoard(tmpDir + "sudoku-board-ex-sol.txt", "Solution for the PUZZLE_EXAMPLE_001");
-		}
-		/*
-		 * And many other staff provided by the library :-)
-		 */
+	public static final <T> T[] toArray(Class<T> componentType, ArrayList<T> arrayList) {
+		int n = arrayList.size();
+		@SuppressWarnings("unchecked")
+		T[] array = (T[])Array.newInstance(componentType, n);
+		for (int i = 0; i < n; i++)
+			array[i] = arrayList.get(i);
+		return array;
 	}
-
+	/**
+	 * Converts generic ArraList to Array
+	 *
+	 * @param componentType    Class type, i.e. if ArrayList<String> is converted
+	 *                         then componentType = String.class
+	 * @param stack            Stack of <T> to be converted to T[]
+	 *
+	 * @return                 Array T[] including elements of Stack<T>
+	 */
+	public static final <T> T[] toArray(Class<T> componentType, Stack<T> stack) {
+		int n = stack.size();
+		@SuppressWarnings("unchecked")
+		T[] array = (T[])Array.newInstance(componentType, n);
+		for (int i = 0; i < n; i++)
+			array[i] = stack.get(i);
+		return array;
+	}
 }
