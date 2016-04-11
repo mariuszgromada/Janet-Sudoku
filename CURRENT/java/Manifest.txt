@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Name: Janet Sudoku
+Specification-Title: Janet Sudoku - Android .NET Sudoku Generator / Sudoku Solver library
+Specification-Version: 1.0
+Specification-Vendor: Mariusz Gromada, MariuszGromada.org
+Implementation-Title: org.mariuszgromada.math.janetsudoku
+Implementation-Version: 1.0.0
+Implementation-Vendor: Mariusz Gromada, MariuszGromada.org

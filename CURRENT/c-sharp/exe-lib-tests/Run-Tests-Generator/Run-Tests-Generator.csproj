@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3E9D02EA-D865-432F-A02C-B3C232DB088E}</ProjectGuid>
+    <ProjectGuid>{5C982AEF-DFD5-40C9-848A-3752768E44F8}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Run_Tests</RootNamespace>
-    <AssemblyName>Run-Tests</AssemblyName>
+    <RootNamespace>janetsudoku.runtests</RootNamespace>
+    <AssemblyName>janet-sudoku-run-tests-generator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\..\..\..\pfx-keys\mariuszgromada.org.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,14 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JanetSudokuRunTests.cs" />
+    <Compile Include="JanetSudokuRunGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="mariuszgromada.org.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Janet-Sudoku.csproj">
+    <ProjectReference Include="..\..\Janet-Sudoku.csproj">
       <Project>{c1a7a455-9810-45a2-8c2f-584572ae6a0d}</Project>
       <Name>Janet-Sudoku</Name>
     </ProjectReference>

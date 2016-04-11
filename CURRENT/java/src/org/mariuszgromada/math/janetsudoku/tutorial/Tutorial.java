@@ -56,12 +56,13 @@ import org.mariuszgromada.math.janetsudoku.utils.FileX;
  * Basic Janet-Sudoku Tutorial.
  *
  * @author         <b>Mariusz Gromada</b><br>
- *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
+ *                 <a href="mailto:mathspace.pl@gmail.com">mathspace.pl@gmail.com</a><br>
+ *                 <a href="http://janet-sudoku.mariuszgromada.org/" target="_blank">Janet-Sudoku.MariuszGromada.org</a><br>
+ *                 <a href="http://mariuszgromada.org/" target="_blank">MariuszGromada.org</a><br>
  *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
- *                 <a href="http://github.com/mariuszgromada/java-utils" target="_blank">Java-Utils on GitHub</a><br>
+ *                 <a href="http://github.com/mariuszgromada/Janet-Sudoku" target="_blank">Janet-Sudoku on GitHub</a><br>
  *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser on GitHub</a><br>
- *                 <a href="http://mariuszgromada.github.io/MathParser.org-mXparser/" target="_blank">mXparser on GitHub pages</a><br>
  *                 <a href="http://mxparser.sourceforge.net/" target="_blank">mXparser on SourceForge</a><br>
  *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
  *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
@@ -84,18 +85,28 @@ public class Tutorial {
 			/*
 			 * Simple sudoku generation.
 			 */
+			SudokuStore.consolePrintln("----------------------------------------------------");
+			SudokuStore.consolePrintln(">>>>>>>> Simple sudoku generation.");
 			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation.");
+			SudokuStore.consolePrintln(">>>>>>>>>>>>>> Code:");
+			SudokuStore.consolePrintln("");
+			SudokuStore.consolePrintln("                 " + "SudokuGenerator sg = new SudokuGenerator();");
+			SudokuStore.consolePrintln("                 " + "SudokuStore.consolePrintBoard(puzzle);");
+			SudokuStore.consolePrintln("                 " + "SudokuStore.consolePrintBoard(puzzle);");
+			SudokuStore.consolePrintln("");
+			SudokuStore.consolePrintln(">>>>>>>>>>>>>> Results:");
+			SudokuStore.consolePrintln("");
 			SudokuGenerator sg = new SudokuGenerator();
 			int[][] puzzle = sg.generate();
 			SudokuStore.consolePrintBoard(puzzle);
+			SudokuStore.consolePrintln("");
 		}
 		{
 			/*
 			 * Simple sudoku generation + parameters.
 			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation + parameters.");
+			SudokuStore.consolePrintln("----------------------------------------------------");
+			SudokuStore.consolePrintln(">>>>>>>> Simple sudoku generation + parameters.");
 			SudokuGenerator sg = new SudokuGenerator(SudokuGenerator.PARAM_GEN_RND_BOARD);
 			int[][] puzzle = sg.generate();
 			SudokuStore.consolePrintBoard(puzzle);
@@ -104,8 +115,8 @@ public class Tutorial {
 			/*
 			 * Simple sudoku generation + puzzle rating.
 			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Simple sudoku generation + puzzle rating.");
+			SudokuStore.consolePrintln("----------------------------------------------------");
+			SudokuStore.consolePrintln(">>>>>>>> Simple sudoku generation + puzzle rating.");
 			SudokuGenerator sg = new SudokuGenerator();
 			int[][] puzzle = sg.generate();
 			int rating = SudokuStore.calculatePuzzleRating(puzzle);
@@ -116,8 +127,8 @@ public class Tutorial {
 			/*
 			 * Solving sudoku example.
 			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Solving sudoku example.");
+			SudokuStore.consolePrintln("----------------------------------------------------");
+			SudokuStore.consolePrintln(">>>>>>>> Solving sudoku example.");
 			SudokuSolver ss = new SudokuSolver( SudokuPuzzles.PUZZLE_EXAMPLE_001 );
 			SudokuStore.consolePrintBoard( ss.getBoard() );
 			ss.solve();
@@ -127,8 +138,8 @@ public class Tutorial {
 			/*
 			 * Saving board examples
 			 */
-			SudokuStore.consolePrintln("");
-			SudokuStore.consolePrintln("Saving board examples " + tmpDir);
+			SudokuStore.consolePrintln("----------------------------------------------------");
+			SudokuStore.consolePrintln(">>>>>>>> Saving board examples " + tmpDir);
 			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-1.txt");
 			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-2.txt", "This is a head comment");
 			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-3.txt", "This is a head comment", "And a tail comment");

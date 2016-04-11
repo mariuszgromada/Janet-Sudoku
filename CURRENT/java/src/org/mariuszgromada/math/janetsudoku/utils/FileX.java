@@ -172,7 +172,9 @@ public final class FileX {
 	 * @return Temporary directory location.
 	 */
 	public static final String getTmpDir() {
-		return System.getProperty("java.io.tmpdir");
+		String tmpDir = System.getProperty("java.io.tmpdir");
+		File tmp = new File(tmpDir);
+		return tmp.getAbsolutePath() + File.separator;
 	}
 	/**
 	 * Generates random file name.

@@ -76,7 +76,7 @@ namespace org.mariuszgromada.math.janetsudoku.tutorial {
 		 * Start the Janet-Sudoku Tutorial code.
 		 * @param args    No arguments are considered.
 		 */
-		public static void main(string[] args) {
+		public static void Start() {
 			String tmpDir = FileX.getTmpDir();
 			{
 				/*
@@ -137,6 +137,9 @@ namespace org.mariuszgromada.math.janetsudoku.tutorial {
 			/*
 			 * And many other staff provided by the library :-)
 			 */
+		}
+		public static void Main(string[] args) {
+			Start();
 		}
 	}
 }
