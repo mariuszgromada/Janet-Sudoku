@@ -4,14 +4,14 @@ final class MenuData {
 	static final String MAIN_TITLE = "Main menu";
 	static final String[] MAIN_CONTENT = {
 		/* 0 */ "Quit from application"
-		/* 1 */ ,"Load"
-		/* 2 */ ,"Generate"
-		/* 3 */ ,"Input"
-		/* 4 */ ,"Modify"
-		/* 5 */ ,"Evaluate"
-		/* 6 */ ,"Solve"
+		/* 1 */ ,"Load ..."
+		/* 2 */ ,"Generate ..."
+		/* 3 */ ,"Input ..."
+		/* 4 */ ,"Modify ..."
+		/* 5 */ ,"Evaluate ..."
+		/* 6 */ ,"Solve ..."
 		/* 7 */ ,"Save"
-		/* 8 */ ,"Options"
+		/* 8 */ ,"Options ..."
 		/* 9 */ ,"About"
 	};
 
@@ -40,8 +40,17 @@ final class MenuData {
 	};
 
 	static final int INPUT = 3;
-	static final String INPUT_TITLE = "";
+	static final String INPUT_TITLE = "Puzzle input";
+	static final int INPUT_ONE_LINE = 1;
+	static final int INPUT_9ROWS = 2;
+	static final int INPUT_11ROWS = 3;
+	static final int INPUT_13ROWS = 4;
 	static final String[] INPUT_CONTENT = {
+			/* 0 */ "Return to main menu"
+			/* 1 */ ,"One line string"
+			/* 2 */ ,"Separate strings for each row - 9 rows"
+			/* 3 */ ,"Separate strings for each row - 11 rows"
+			/* 4 */ ,"Separate strings for each row - 13 rows"
 	};
 
 	static final int MODIFY = 4;

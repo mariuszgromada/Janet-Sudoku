@@ -21,9 +21,9 @@ class Menu {
 		System.out.println("----- " + title + " -----");
 		for (int i = 1; i <= itemsNum; i++) {
 			if ( (itemsNum >= 10) && (i < 10) ) System.out.print(" ");
-			System.out.println(i + ". " + content[i] + ".");
+			System.out.println(i + ". " + content[i]);
 		}
-		System.out.println("0. " + content[0] + ".");
+		System.out.println("0. " + content[0]);
 		System.out.println("----- " + title + " -----");
 	}
 	int getItem() {
