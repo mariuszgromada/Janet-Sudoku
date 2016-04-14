@@ -1,5 +1,7 @@
 package org.mariuszgromada.math.janetsudoku.demoapp;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.mariuszgromada.math.janetsudoku.SudokuBoard;
@@ -17,9 +19,15 @@ public class JanetSudoku {
 	SudokuSolver solver;
 	SudokuGenerator generator;
 	int[][] puzzle;
+	int[][] puzzleUndo;
+	int[][] puzzleRedo;
+	private boolean rndSeedOnEmptyCells;
+	private boolean rndSeedOnFreeDigits;
 	public JanetSudoku() {
 		puzzle = SudokuStore.boardCopy(SudokuPuzzles.PUZZLE_EMPTY);
 		JanetSudoku.console = new Scanner(System.in);
+		rndSeedOnEmptyCells = true;
+		rndSeedOnFreeDigits = true;
 	}
 	void consolePrintPuzzle() {
 		SudokuStore.consolePrintBoard(puzzle);
@@ -53,6 +61,8 @@ public class JanetSudoku {
 			case MenuData.OPTIONS: loopMenuOptions(); break;
 			case MenuData.ABOUT: displayAboutInto(); break;
 			case MenuData.RETURN: quitFromApp(); break;
+			case MenuData.UNDO: puzzleUndo(); break;
+			case MenuData.REDO: puzzleRedo(); break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
@@ -65,7 +75,9 @@ public class JanetSudoku {
 			switch(selItem) {
 			case MenuData.LOAD_FROM_FILE: loadFromFile(); break;
 			case MenuData.LOAD_EXAMPLE: loadFromExample(); break;
-			case MenuData.LOAD_EMPTY_PUZZLE: puzzle = SudokuStore.boardCopy(SudokuPuzzles.PUZZLE_EMPTY); break;
+			case MenuData.LOAD_EMPTY_PUZZLE: trackPuzzleUndo(); puzzle = SudokuStore.boardCopy(SudokuPuzzles.PUZZLE_EMPTY); break;
+			case MenuData.UNDO: puzzleUndo(); break;
+			case MenuData.REDO: puzzleRedo(); break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
@@ -77,8 +89,11 @@ public class JanetSudoku {
 			selItem = menu.getItem();
 			switch(selItem) {
 			case MenuData.GENERATE_RANDOM: generateRandomPuzzle(); break;
-			case MenuData.GENERATE_BASED_ON_EXAMPLE: ; break;
-			case MenuData.GENERATE_BASED_ON_CURRENT_PUZZLE: ; break;
+			case MenuData.GENERATE_RANDOM_PLUS_RATING: generateAndRateRandomPuzzle(); break;
+			case MenuData.GENERATE_BASED_ON_EXAMPLE: generateFromExample(); break;
+			case MenuData.GENERATE_BASED_ON_CURRENT_PUZZLE: generateFromCurrentPuzzle(); break;
+			case MenuData.UNDO: puzzleUndo(); break;
+			case MenuData.REDO: puzzleRedo(); break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
@@ -93,6 +108,8 @@ public class JanetSudoku {
 			case MenuData.INPUT_9ROWS: inputPuzzleFromKeyboard9rows(); break;
 			case MenuData.INPUT_11ROWS: inputPuzzleFromKeyboard11rows(); break;
 			case MenuData.INPUT_13ROWS: inputPuzzleFromKeyboard13rows(); break;
+			case MenuData.UNDO: puzzleUndo(); break;
+			case MenuData.REDO: puzzleRedo(); break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
@@ -103,8 +120,10 @@ public class JanetSudoku {
 		do {
 			selItem = menu.getItem();
 			switch(selItem) {
-			case MenuData.EVALUATE_SOLUTION_EXISTENCE: ; break;
-			case MenuData.EVALUATE_PUZZLE_DIFFICULTY: ; break;
+			case MenuData.EVALUATE_SOLUTION_EXISTENCE: evaluateSolutions(); break;
+			case MenuData.EVALUATE_PUZZLE_DIFFICULTY: ratePuzzleDifficulty(); break;
+			case MenuData.UNDO: puzzleUndo(); break;
+			case MenuData.REDO: puzzleRedo(); break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
@@ -116,7 +135,9 @@ public class JanetSudoku {
 			selItem = menu.getItem();
 			switch(selItem) {
 			case MenuData.SOLVE_FIND_FIRST: solveFindFirst(); break;
-			case MenuData.SOLVE_FIND_ALL: ; break;
+			case MenuData.SOLVE_FIND_ALL: solveFindAll(); break;
+			case MenuData.UNDO: puzzleUndo(); break;
+			case MenuData.REDO: puzzleRedo(); break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
@@ -127,20 +148,68 @@ public class JanetSudoku {
 		do {
 			selItem = menu.getItem();
 			switch(selItem) {
-			case MenuData.MODIFY_SET_CELL: setCell() ; break;
-			case MenuData.MODIFY_ROTATE_CLOCK_WISE: puzzle = SudokuStore.rotateClockWise(puzzle); break;
-			case MenuData.MODIFY_ROTATE_COUNTER_CLOCK_WISE: puzzle = SudokuStore.rotateCounterclockWise(puzzle); break;
-			case MenuData.MODIFY_TRANSPOSE_TL_BR: puzzle = SudokuStore.transposeTlBr(puzzle); break;
-			case MenuData.MODIFY_TRANSPOSE_TR_BL: puzzle = SudokuStore.transposeTrBl(puzzle); break;
-			case MenuData.MODIFY_REFLECT_HORIZ: puzzle = SudokuStore.reflectHorizontally(puzzle); break;
-			case MenuData.MODIFY_REFLECT_VERT: puzzle = SudokuStore.reflectVertically(puzzle); break;
-			case MenuData.MODIFY_SWAP_COL_SEGMENTS: puzzle = SudokuStore.swapColSegmentsRandomly(puzzle); break;
-			case MenuData.MODIFY_SWAP_ROW_SEGMENTS: puzzle = SudokuStore.swapRowSegmentsRandomly(puzzle); break;
-			case MenuData.MODIFY_SWAP_COLS_IN_SEGMENTS: puzzle = SudokuStore.swapColsInSegmentRandomly(puzzle); break;
-			case MenuData.MODIFY_SWAP_ROWS_IN_SEGMENTS: puzzle = SudokuStore.swapRowsInSegmentRandomly(puzzle); break;
-			case MenuData.MODIFY_PERMUTE: puzzle = SudokuStore.permuteBoard(puzzle); break;
-			case MenuData.MODIFY_RANDOM_TRANSF_ONE: puzzle = SudokuStore.randomBoardTransf(puzzle); break;
-			case MenuData.MODIFY_RANDOM_TRANSF_SEQ: puzzle = SudokuStore.seqOfRandomBoardTransf(puzzle); break;
+			case MenuData.MODIFY_SET_CELL:
+				trackPuzzleUndo();
+				setCell();
+				break;
+			case MenuData.MODIFY_ROTATE_CLOCK_WISE:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.rotateClockWise(puzzle);
+				break;
+			case MenuData.MODIFY_ROTATE_COUNTER_CLOCK_WISE:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.rotateCounterclockWise(puzzle);
+				break;
+			case MenuData.MODIFY_TRANSPOSE_TL_BR:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.transposeTlBr(puzzle);
+				break;
+			case MenuData.MODIFY_TRANSPOSE_TR_BL:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.transposeTrBl(puzzle);
+				break;
+			case MenuData.MODIFY_REFLECT_HORIZ:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.reflectHorizontally(puzzle);
+				break;
+			case MenuData.MODIFY_REFLECT_VERT:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.reflectVertically(puzzle);
+				break;
+			case MenuData.MODIFY_SWAP_COL_SEGMENTS:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.swapColSegmentsRandomly(puzzle);
+				break;
+			case MenuData.MODIFY_SWAP_ROW_SEGMENTS:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.swapRowSegmentsRandomly(puzzle);
+				break;
+			case MenuData.MODIFY_SWAP_COLS_IN_SEGMENTS:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.swapColsInSegmentRandomly(puzzle);
+				break;
+			case MenuData.MODIFY_SWAP_ROWS_IN_SEGMENTS:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.swapRowsInSegmentRandomly(puzzle);
+				break;
+			case MenuData.MODIFY_PERMUTE:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.permuteBoard(puzzle);
+				break;
+			case MenuData.MODIFY_RANDOM_TRANSF_ONE:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.randomBoardTransf(puzzle);
+				break;
+			case MenuData.MODIFY_RANDOM_TRANSF_SEQ:
+				trackPuzzleUndo();
+				puzzle = SudokuStore.seqOfRandomBoardTransf(puzzle);
+				break;
+			case MenuData.UNDO:
+				puzzleUndo();
+				break;
+			case MenuData.REDO:
+				puzzleRedo();
+				break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
@@ -151,21 +220,41 @@ public class JanetSudoku {
 		do {
 			selItem = menu.getItem();
 			switch(selItem) {
-			case MenuData.OPTIONS_RND_SEED_ON_EMPTY_CELL: ; break;
-			case MenuData.OPTIONS_RND_SEED_ON_FREE_DIGIT: ; break;
+			case MenuData.OPTIONS_RND_SEED_ON_EMPTY_CELL: optionRndSeedOnEmptyCells(); break;
+			case MenuData.OPTIONS_RND_SEED_ON_FREE_DIGIT: optionRndSeedOnFreeDigits(); break;
+			case MenuData.UNDO: puzzleUndo(); break;
+			case MenuData.REDO: puzzleRedo(); break;
 			default: incorrectSelection();
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
 	private void loadFromFile() {
-
+		System.out.print("File path: ");
+		String filePath = consoleReadLine();
+		File file = new File(filePath);
+		if (file.exists() == false) {
+			System.out.println(">>> !!! Error - file does not exist !!! <<<");
+			return;
+		}
+		if (file.isFile() == false) {
+			System.out.println(">>> !!! Error - not a file !!! <<<");
+			return;
+		}
+		int[][] puzzleLoaded = SudokuStore.loadBoard(filePath);
+		if (puzzleLoaded == null) {
+			System.out.println(">>> !!! Error - incorrect file content !!! <<<");
+			return;
+		}
+		trackPuzzleUndo();
+		puzzle = puzzleLoaded;
 	}
 	private void loadFromExample() {
 		System.out.println();
-		System.out.print("Please provide example number (between 0 and " + SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES + "): ");
+		System.out.print("Please provide example number (between 0 and " + (SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES-1) + "): ");
 		int example = consoleReadInt();
-		if ((example >= 0) && (example <= SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES)) {
+		if ((example >= 0) && (example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES)) {
 			System.out.println("Loading example: " + example);
+			trackPuzzleUndo();
 			puzzle = SudokuStore.boardCopy(SudokuStore.getPuzzleExample(example));
 		} else {
 			System.out.println(">>> !!! Incorrect example number !!! <<<");
@@ -176,7 +265,10 @@ public class JanetSudoku {
 		System.out.print("One line definition: ");
 		String line = consoleReadLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStringLine(line);
-		if (parsedPuzzle != null) puzzle = parsedPuzzle;
+		if (parsedPuzzle != null) {
+			trackPuzzleUndo();
+			puzzle = parsedPuzzle;
+		}
 		else System.out.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	private void inputPuzzleFromKeyboard9rows() {
@@ -191,7 +283,10 @@ public class JanetSudoku {
 		System.out.print("Row 8/9: "); String r8 = consoleReadLine();
 		System.out.print("Row 9/9: "); String r9 = consoleReadLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStrings(r1, r2, r3, r4, r5, r6, r7, r8, r9);
-		if (parsedPuzzle != null) puzzle = parsedPuzzle;
+		if (parsedPuzzle != null) {
+			trackPuzzleUndo();
+			puzzle = parsedPuzzle;
+		}
 		else System.out.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	private void inputPuzzleFromKeyboard11rows() {
@@ -208,7 +303,10 @@ public class JanetSudoku {
 		System.out.print("Row 10/11: "); String r10 = consoleReadLine();
 		System.out.print("Row 11/11: "); String r11 = consoleReadLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStrings(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11);
-		if (parsedPuzzle != null) puzzle = parsedPuzzle;
+		if (parsedPuzzle != null) {
+			trackPuzzleUndo();
+			puzzle = parsedPuzzle;
+		}
 		else System.out.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	private void inputPuzzleFromKeyboard13rows() {
@@ -227,16 +325,39 @@ public class JanetSudoku {
 		System.out.print("Row 12/13: "); String r12 = consoleReadLine();
 		System.out.print("Row 13/13: "); String r13 = consoleReadLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStrings(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13);
-		if (parsedPuzzle != null) puzzle = parsedPuzzle;
+		if (parsedPuzzle != null) {
+			trackPuzzleUndo();
+			puzzle = parsedPuzzle;
+		}
 		else System.out.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	private void solveFindFirst() {
 		solver = new SudokuSolver(puzzle);
 		solver.solve();
 		if (solver.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
+			trackPuzzleUndo();
 			puzzle = solver.getSolvedBoard();
 			System.out.println("Path leading to the solution:");
 			System.out.println(solver.solutionPathToString());
+			System.out.println(">>>>> Computing time: " + solver.getComputingTime() +" s.");
+			System.out.println(">>>>>  Closed routes: " + solver.getClosedRoutesNumber() +" s.");
+		} else {
+			System.out.println(solver.getMessages());
+		}
+	}
+	public void solveFindAll() {
+		solver = new SudokuSolver(puzzle);
+		int solutionsNumber = solver.findAllSolutions();
+		System.out.println(">>>>>>>> Solution found: " + solutionsNumber);
+		if (solutionsNumber > 0) {
+			ArrayList<SudokuBoard> solutions = solver.getAllSolutionsList();
+			for (int i = 0; i < solutionsNumber; i++) {
+				SudokuBoard solution = solutions.get(i);
+				System.out.println(">>>>>    Solution nr: " + i);
+				System.out.println(">>>>>        Path nr: " + solution.pathNumber);
+				System.out.println(">>>>> Computing time: " + solver.getComputingTime() +" s.");
+				SudokuStore.consolePrintBoard(solution.board);
+			}
 		} else {
 			System.out.println(solver.getMessages());
 		}
@@ -244,17 +365,66 @@ public class JanetSudoku {
 	private void generateRandomPuzzle() {
 		generator = new SudokuGenerator(SudokuGenerator.PARAM_GEN_RND_BOARD);
 		int[][] generated = generator.generate();
-		if (generator.getGeneratorState() == SudokuGenerator.GENERATOR_GEN_FINISHED) puzzle = generated;
+		if (generator.getGeneratorState() == SudokuGenerator.GENERATOR_GEN_FINISHED) {
+			trackPuzzleUndo();
+			puzzle = generated;
+		}
 		else {
 			System.out.println(">>> !!! Error while generating random puzzle !!! <<<");
 			System.out.println(generator.getMessages());
 		}
 	}
+	private void generateAndRateRandomPuzzle() {
+		generator = new SudokuGenerator(SudokuGenerator.PARAM_GEN_RND_BOARD);
+		int[][] generated = generator.generate();
+		if (generator.getGeneratorState() == SudokuGenerator.GENERATOR_GEN_FINISHED) {
+			trackPuzzleUndo();
+			puzzle = generated;
+			int rating = SudokuStore.calculatePuzzleRating(puzzle);
+			System.out.println("Rating: " + rating);
+		}
+		else {
+			System.out.println(">>> !!! Error while generating random puzzle !!! <<<");
+			System.out.println(generator.getMessages());
+		}
+	}
+	public void generateFromExample() {
+	}
+	public void generateFromCurrentPuzzle() {
+	}
+	public void evaluateSolutions() {
+	}
+	public void ratePuzzleDifficulty() {
+	}
 	private void savePuzzle() {
+	}
+	public void optionRndSeedOnEmptyCells() {
+	}
+	public void optionRndSeedOnFreeDigits() {
 	}
 	private void displayAboutInto() {
 	}
 	private void setCell() {
+	}
+	private void trackPuzzleUndo() {
+		puzzleUndo = SudokuStore.boardCopy(puzzle);
+	}
+	private void trackPuzzleRedo() {
+		puzzleRedo = SudokuStore.boardCopy(puzzle);
+	}
+	private void puzzleUndo() {
+		if (puzzleUndo != null) {
+			trackPuzzleRedo();
+			puzzle = puzzleUndo;
+			puzzleUndo = null;
+		}
+	}
+	private void puzzleRedo() {
+		if (puzzleRedo != null) {
+			trackPuzzleUndo();
+			puzzle = puzzleRedo;
+			puzzleRedo = null;
+		}
 	}
 	private void quitFromApp() {
 		JanetSudoku.console.close();

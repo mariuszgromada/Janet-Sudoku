@@ -13,18 +13,17 @@ class Menu {
 		this.janetSudoku = janetSudoku;
 	}
 	void consolePrintMenue() {
-		System.out.println();
 		//System.out.println(JanetSudoku.ABOUT + " - v." + JanetSudoku.VERSION);
 		//System.out.println("by " + JanetSudoku.AUTHOR);
 		janetSudoku.consolePrintPuzzle();
-		System.out.println();
 		System.out.println("----- " + title + " -----");
-		for (int i = 1; i <= itemsNum; i++) {
-			if ( (itemsNum >= 10) && (i < 10) ) System.out.print(" ");
-			System.out.println(i + ". " + content[i]);
+		for (int i = 3; i <= itemsNum; i++) {
+			System.out.println(content[i]);
 		}
-		System.out.println("0. " + content[0]);
-		System.out.println("----- " + title + " -----");
+		System.out.println("----- " + "General" + " -----");
+		System.out.println(content[1]);
+		System.out.println(content[2]);
+		System.out.println(content[0]);
 	}
 	int getItem() {
 		int selItem = 0;
