@@ -1451,7 +1451,7 @@ public final class SudokuStore {
 			boardStr = boardStr + "|" + NEW_LINE_SEPARATOR;
 		}
 		boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
-		boardStr = boardStr + "# One line definitions:" + NEW_LINE_SEPARATOR;
+		boardStr = boardStr + "# One line definition:" + NEW_LINE_SEPARATOR;
 		boardStr = boardStr + "# " + oneLineDefDot + NEW_LINE_SEPARATOR;
 		boardStr = boardStr + "# " + oneLineDefZero + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
 		if (tailComment != null)

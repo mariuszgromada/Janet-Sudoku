@@ -781,7 +781,7 @@ public class SudokuSolver {
 	 * @return if board state is {@link SudokuBoard#BOARD_STATE_EMPTY} then {@link ErrorCodes#SUDOKUSOLVER_CHECKIFUNIQUESOLUTION_CHECKING_NOT_STARTED},
 	 *         if board state is {@link SudokuBoard#BOARD_STATE_ERROR} then {@link ErrorCodes#SUDOKUSOLVER_CHECKIFUNIQUESOLUTION_CHECKING_NOT_STARTED},
 	 *         if board state is {@link SudokuBoard#BOARD_STATE_LOADED} then {@link ErrorCodes#SUDOKUSOLVER_CHECKIFUNIQUESOLUTION_CHECKING_NOT_STARTED},
-	 *         if board state is {@link SudokuBoard#BOARD_STATE_READY} then returns number of all solutions found.
+	 *         if board state is {@link SudokuBoard#BOARD_STATE_READY} then returns {@link #SOLUTION_UNIQUE}, {@link #SOLUTION_NON_UNIQUE}, {@link #SOLUTION_NOT_EXISTS}.
 	 */
 	public int checkIfUniqueSolution() {
 		switch(boardState) {

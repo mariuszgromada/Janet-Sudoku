@@ -1,5 +1,5 @@
 /*
- * @(#)Menu.java        1.0.0    2016-04-15
+ * @(#)Console.java        1.0.0    2016-04-15
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -47,8 +47,10 @@
  */
 package org.mariuszgromada.math.janetsudoku.demoapp;
 
+import java.util.Scanner;
+
 /**
- * Package level class for command line menu.
+ * Static Console class providing console print / and system input methods.
  *
  * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
@@ -63,69 +65,51 @@ package org.mariuszgromada.math.janetsudoku.demoapp;
  *
  * @version        1.0.0
  */
-class Menu {
+public final class Console {
 	/**
-	 * Menu title.
+	 * Keyboard input
 	 */
-	String title;
+	static Scanner systemIn = new Scanner(System.in);
 	/**
-	 * Items number in the menu.
+	 * Reads integer from keyboard.
+	 * @return   Integer from keyboard.
 	 */
-	int itemsNum;
-	/**
-	 * Menu content
-	 */
-	String[] content;
-	/**
-	 * Instance of the root JanetSudoku class (demo app)
-	 */
-	JanetSudoku janetSudoku;
-	/**
-	 * Default constructor.
-	 * @param title           Menu title {@link MenuData}.
-	 * @param content         Menu content {@link MenuData}.
-	 * @param janetSudoku     Root JanetSudoku class with demo app {@link JanetSudoku}.
-	 * @see MenuData
-	 * @see JanetSudoku
-	 */
-	Menu(String title, String[] content, JanetSudoku janetSudoku) {
-		this.title = title;
-		this.itemsNum = content.length - 1;
-		this.content = content;
-		this.janetSudoku = janetSudoku;
-	}
-	/**
-	 * Prints menu to the console.
-	 */
-	void consolePrintMenue() {
-		janetSudoku.consolePrintPuzzle();
-		Console.println();
-		Console.println("----- " + title + " -----");
-		for (int i = 3; i <= itemsNum; i++) {
-			Console.println(content[i]);
+	public static int readInt() {
+		String line = systemIn.nextLine();
+		int consoleInt;
+		try {
+			consoleInt = Integer.parseInt(line);
+		} catch (Exception e) {
+			consoleInt = -1;
 		}
-		Console.println("----- " + "General" + " -----");
-		Console.println(content[1]);
-		Console.println(content[2]);
-		Console.println(content[0]);
+		return consoleInt;
 	}
 	/**
-	 * Ask user for menu item selection.
-	 * @return  Select item id {@link MenuData}.
-	 *
-	 * @see MenuData
+	 * Reads new line from keyboard.
+	 * @return   New line from keyboard.
 	 */
-	int getItem() {
-		int selItem = 0;
-		boolean loop = true;
-		do {
-			consolePrintMenue();
-			Console.println();
-			Console.print("Your selection: ");
-			selItem = Console.readInt();
-			if ((selItem >= 0) && (selItem <= itemsNum)) loop = false;
-			else Console.println(">>> !!! Please select correct menu item. !!! <<<");
-		} while (loop == true);
-		return selItem;
+	public static String readLine() {
+		return systemIn.nextLine();
+	}
+	/**
+	 * Prints object.toString() to console (no new line).
+	 * @param o
+	 */
+	public static void print(Object o) {
+		System.out.print(o);
+	}
+	/**
+	 * Prints object.toString() to console + new line.
+	 * @param o
+	 */
+	public static void println(Object o) {
+		System.out.println(o);
+	}
+	/**
+	 * Prints new line to the console.
+	 * @param o
+	 */
+	public static void println() {
+		System.out.println();
 	}
 }
