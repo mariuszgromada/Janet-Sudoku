@@ -57,7 +57,7 @@ import org.mariuszgromada.math.janetsudoku.SudokuSolver;
 import org.mariuszgromada.math.janetsudoku.SudokuStore;
 
 /**
- * Janet Sudoku Demo Application utilizing Janet-Sudoku - Sudoku Solver & Sudoku Generator
+ * Janet Sudoku Demo Application utilizing Janet Sudoku Solver and Generator
  * library.
  *
  * @author         <b>Mariusz Gromada</b><br>
@@ -149,9 +149,9 @@ public class JanetSudoku {
 			case MenuData.OPTIONS: loopMenuOptions(); break;
 			case MenuData.ABOUT: displayAboutInto(); break;
 			case MenuData.RETURN: quitFromApp(); break;
-			case MenuData.UNDO: puzzleUndo(); break;
-			case MenuData.REDO: puzzleRedo(); break;
-			default: incorrectSelection();
+			case MenuData.UNDO: performPuzzleUndo(); break;
+			case MenuData.REDO: performPuzzleRedo(); break;
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -172,9 +172,9 @@ public class JanetSudoku {
 			case MenuData.LOAD_FROM_FILE: loadFromFile(); break;
 			case MenuData.LOAD_EXAMPLE: loadFromExample(); break;
 			case MenuData.LOAD_EMPTY_PUZZLE: trackPuzzleUndo(); puzzle = SudokuStore.boardCopy(SudokuPuzzles.PUZZLE_EMPTY); break;
-			case MenuData.UNDO: puzzleUndo(); break;
-			case MenuData.REDO: puzzleRedo(); break;
-			default: incorrectSelection();
+			case MenuData.UNDO: performPuzzleUndo(); break;
+			case MenuData.REDO: performPuzzleRedo(); break;
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -183,20 +183,20 @@ public class JanetSudoku {
 	 * @see SudokuStore#loadBoard(String)
 	 */
 	private void loadFromFile() {
-		Console.print("File path: ");
-		String filePath = Console.readLine();
+		JanetConsole.print("File path: ");
+		String filePath = JanetConsole.readLine();
 		File file = new File(filePath);
 		if (file.exists() == false) {
-			Console.println(">>> !!! Error - file does not exist !!! <<<");
+			JanetConsole.println(">>> !!! Error - file does not exist !!! <<<");
 			return;
 		}
 		if (file.isFile() == false) {
-			Console.println(">>> !!! Error - not a file !!! <<<");
+			JanetConsole.println(">>> !!! Error - not a file !!! <<<");
 			return;
 		}
 		int[][] puzzleLoaded = SudokuStore.loadBoard(filePath);
 		if (puzzleLoaded == null) {
-			Console.println(">>> !!! Error - incorrect file content !!! <<<");
+			JanetConsole.println(">>> !!! Error - incorrect file content !!! <<<");
 			return;
 		}
 		trackPuzzleUndo();
@@ -208,15 +208,15 @@ public class JanetSudoku {
 	 * @see SudokuStore#getPuzzleExample(int)
 	 */
 	private void loadFromExample() {
-		Console.println();
-		Console.print("Please provide example number (between 0 and " + (SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES-1) + "): ");
-		int example = Console.readInt();
+		JanetConsole.println();
+		JanetConsole.print("Please provide example number (between 0 and " + (SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES-1) + "): ");
+		int example = JanetConsole.readInt();
 		if ((example >= 0) && (example < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES)) {
-			Console.println("Loading example: " + example);
+			JanetConsole.println("Loading example: " + example);
 			trackPuzzleUndo();
 			puzzle = SudokuStore.boardCopy(SudokuStore.getPuzzleExample(example));
 		} else {
-			Console.println(">>> !!! Incorrect example number !!! <<<");
+			JanetConsole.println(">>> !!! Incorrect example number !!! <<<");
 		}
 	}
 	/*
@@ -237,9 +237,9 @@ public class JanetSudoku {
 			case MenuData.GENERATE_RANDOM_PLUS_RATING: generateAndRateRandomPuzzle(); break;
 			case MenuData.GENERATE_BASED_ON_EXAMPLE: generateFromExample(); break;
 			case MenuData.GENERATE_BASED_ON_CURRENT_PUZZLE: generateFromCurrentPuzzle(); break;
-			case MenuData.UNDO: puzzleUndo(); break;
-			case MenuData.REDO: puzzleRedo(); break;
-			default: incorrectSelection();
+			case MenuData.UNDO: performPuzzleUndo(); break;
+			case MenuData.REDO: performPuzzleRedo(); break;
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -259,8 +259,8 @@ public class JanetSudoku {
 			puzzle = generated;
 		}
 		else {
-			Console.println(">>> !!! Error while generating random puzzle !!! <<<");
-			Console.println(generator.getMessages());
+			JanetConsole.println(">>> !!! Error while generating random puzzle !!! <<<");
+			JanetConsole.println(generator.getMessages());
 		}
 	}
 	/**
@@ -282,8 +282,8 @@ public class JanetSudoku {
 			ratePuzzleDifficulty();
 		}
 		else {
-			Console.println(">>> !!! Error while generating random puzzle !!! <<<");
-			Console.println(generator.getMessages());
+			JanetConsole.println(">>> !!! Error while generating random puzzle !!! <<<");
+			JanetConsole.println(generator.getMessages());
 		}
 	}
 	/**
@@ -315,8 +315,8 @@ public class JanetSudoku {
 			puzzle = generated;
 		}
 		else {
-			Console.println(">>> !!! Error while generating puzzle !!! <<<");
-			Console.println(generator.getMessages());
+			JanetConsole.println(">>> !!! Error while generating puzzle !!! <<<");
+			JanetConsole.println(generator.getMessages());
 		}
 	}
 	/*
@@ -337,9 +337,9 @@ public class JanetSudoku {
 			case MenuData.INPUT_9ROWS: inputPuzzleFromKeyboard9rows(); break;
 			case MenuData.INPUT_11ROWS: inputPuzzleFromKeyboard11rows(); break;
 			case MenuData.INPUT_13ROWS: inputPuzzleFromKeyboard13rows(); break;
-			case MenuData.UNDO: puzzleUndo(); break;
-			case MenuData.REDO: puzzleRedo(); break;
-			default: incorrectSelection();
+			case MenuData.UNDO: performPuzzleUndo(); break;
+			case MenuData.REDO: performPuzzleRedo(); break;
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -350,14 +350,14 @@ public class JanetSudoku {
 	 * @see SudokuStore#loadBoardFromStringLine(String)
 	 */
 	private void inputPuzzleFromKeyboard1Line() {
-		Console.print("One line definition: ");
-		String line = Console.readLine();
+		JanetConsole.print("One line definition: ");
+		String line = JanetConsole.readLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStringLine(line);
 		if (parsedPuzzle != null) {
 			trackPuzzleUndo();
 			puzzle = parsedPuzzle;
 		}
-		else Console.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
+		else JanetConsole.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	/**
 	 * 9 rows keyboard input - 0 or '.' as empty cell.
@@ -367,22 +367,22 @@ public class JanetSudoku {
 	 * @see SudokuStore#loadBoard(String[])
 	 */
 	private void inputPuzzleFromKeyboard9rows() {
-		Console.println("You will be asked for inputting 9 rows.");
-		Console.print("Row 1/9: "); String r1 = Console.readLine();
-		Console.print("Row 2/9: "); String r2 = Console.readLine();
-		Console.print("Row 3/9: "); String r3 = Console.readLine();
-		Console.print("Row 4/9: "); String r4 = Console.readLine();
-		Console.print("Row 5/9: "); String r5 = Console.readLine();
-		Console.print("Row 6/9: "); String r6 = Console.readLine();
-		Console.print("Row 7/9: "); String r7 = Console.readLine();
-		Console.print("Row 8/9: "); String r8 = Console.readLine();
-		Console.print("Row 9/9: "); String r9 = Console.readLine();
+		JanetConsole.println("You will be asked for inputting 9 rows.");
+		JanetConsole.print("Row 1/9: "); String r1 = JanetConsole.readLine();
+		JanetConsole.print("Row 2/9: "); String r2 = JanetConsole.readLine();
+		JanetConsole.print("Row 3/9: "); String r3 = JanetConsole.readLine();
+		JanetConsole.print("Row 4/9: "); String r4 = JanetConsole.readLine();
+		JanetConsole.print("Row 5/9: "); String r5 = JanetConsole.readLine();
+		JanetConsole.print("Row 6/9: "); String r6 = JanetConsole.readLine();
+		JanetConsole.print("Row 7/9: "); String r7 = JanetConsole.readLine();
+		JanetConsole.print("Row 8/9: "); String r8 = JanetConsole.readLine();
+		JanetConsole.print("Row 9/9: "); String r9 = JanetConsole.readLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStrings(r1, r2, r3, r4, r5, r6, r7, r8, r9);
 		if (parsedPuzzle != null) {
 			trackPuzzleUndo();
 			puzzle = parsedPuzzle;
 		}
-		else Console.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
+		else JanetConsole.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	/**
 	 * 11 rows keyboard input (2 supporting) - 0 or '.' as empty cell.
@@ -392,24 +392,24 @@ public class JanetSudoku {
 	 * @see SudokuStore#loadBoard(String[])
 	 */
 	private void inputPuzzleFromKeyboard11rows() {
-		Console.println("You will be asked for inputting 11 rows (2 supporting).");
-		Console.print("Row  1/11: "); String r1 = Console.readLine();
-		Console.print("Row  2/11: "); String r2 = Console.readLine();
-		Console.print("Row  3/11: "); String r3 = Console.readLine();
-		Console.print("Row  4/11: "); String r4 = Console.readLine();
-		Console.print("Row  5/11: "); String r5 = Console.readLine();
-		Console.print("Row  6/11: "); String r6 = Console.readLine();
-		Console.print("Row  7/11: "); String r7 = Console.readLine();
-		Console.print("Row  8/11: "); String r8 = Console.readLine();
-		Console.print("Row  9/11: "); String r9 = Console.readLine();
-		Console.print("Row 10/11: "); String r10 = Console.readLine();
-		Console.print("Row 11/11: "); String r11 = Console.readLine();
+		JanetConsole.println("You will be asked for inputting 11 rows (2 supporting).");
+		JanetConsole.print("Row  1/11: "); String r1 = JanetConsole.readLine();
+		JanetConsole.print("Row  2/11: "); String r2 = JanetConsole.readLine();
+		JanetConsole.print("Row  3/11: "); String r3 = JanetConsole.readLine();
+		JanetConsole.print("Row  4/11: "); String r4 = JanetConsole.readLine();
+		JanetConsole.print("Row  5/11: "); String r5 = JanetConsole.readLine();
+		JanetConsole.print("Row  6/11: "); String r6 = JanetConsole.readLine();
+		JanetConsole.print("Row  7/11: "); String r7 = JanetConsole.readLine();
+		JanetConsole.print("Row  8/11: "); String r8 = JanetConsole.readLine();
+		JanetConsole.print("Row  9/11: "); String r9 = JanetConsole.readLine();
+		JanetConsole.print("Row 10/11: "); String r10 = JanetConsole.readLine();
+		JanetConsole.print("Row 11/11: "); String r11 = JanetConsole.readLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStrings(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11);
 		if (parsedPuzzle != null) {
 			trackPuzzleUndo();
 			puzzle = parsedPuzzle;
 		}
-		else Console.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
+		else JanetConsole.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	/**
 	 * 13 rows keyboard input (4 supporting) - 0 or '.' as empty cell.
@@ -419,26 +419,26 @@ public class JanetSudoku {
 	 * @see SudokuStore#loadBoard(String[])
 	 */
 	private void inputPuzzleFromKeyboard13rows() {
-		Console.println("You will be asked for inputting 13 rows (4 supporting).");
-		Console.print("Row  1/13: "); String r1 = Console.readLine();
-		Console.print("Row  2/13: "); String r2 = Console.readLine();
-		Console.print("Row  3/13: "); String r3 = Console.readLine();
-		Console.print("Row  4/13: "); String r4 = Console.readLine();
-		Console.print("Row  5/13: "); String r5 = Console.readLine();
-		Console.print("Row  6/13: "); String r6 = Console.readLine();
-		Console.print("Row  7/13: "); String r7 = Console.readLine();
-		Console.print("Row  8/13: "); String r8 = Console.readLine();
-		Console.print("Row  9/13: "); String r9 = Console.readLine();
-		Console.print("Row 10/13: "); String r10 = Console.readLine();
-		Console.print("Row 11/13: "); String r11 = Console.readLine();
-		Console.print("Row 12/13: "); String r12 = Console.readLine();
-		Console.print("Row 13/13: "); String r13 = Console.readLine();
+		JanetConsole.println("You will be asked for inputting 13 rows (4 supporting).");
+		JanetConsole.print("Row  1/13: "); String r1 = JanetConsole.readLine();
+		JanetConsole.print("Row  2/13: "); String r2 = JanetConsole.readLine();
+		JanetConsole.print("Row  3/13: "); String r3 = JanetConsole.readLine();
+		JanetConsole.print("Row  4/13: "); String r4 = JanetConsole.readLine();
+		JanetConsole.print("Row  5/13: "); String r5 = JanetConsole.readLine();
+		JanetConsole.print("Row  6/13: "); String r6 = JanetConsole.readLine();
+		JanetConsole.print("Row  7/13: "); String r7 = JanetConsole.readLine();
+		JanetConsole.print("Row  8/13: "); String r8 = JanetConsole.readLine();
+		JanetConsole.print("Row  9/13: "); String r9 = JanetConsole.readLine();
+		JanetConsole.print("Row 10/13: "); String r10 = JanetConsole.readLine();
+		JanetConsole.print("Row 11/13: "); String r11 = JanetConsole.readLine();
+		JanetConsole.print("Row 12/13: "); String r12 = JanetConsole.readLine();
+		JanetConsole.print("Row 13/13: "); String r13 = JanetConsole.readLine();
 		int[][] parsedPuzzle = SudokuStore.loadBoardFromStrings(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13);
 		if (parsedPuzzle != null) {
 			trackPuzzleUndo();
 			puzzle = parsedPuzzle;
 		}
-		else Console.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
+		else JanetConsole.println(">>> !!! Error - incorrect puzzle definition !!! <<<");
 	}
 	/*
 	 * ========================================
@@ -456,9 +456,9 @@ public class JanetSudoku {
 			switch(selItem) {
 			case MenuData.EVALUATE_SOLUTION_EXISTENCE: evaluateSolutions(); break;
 			case MenuData.EVALUATE_PUZZLE_DIFFICULTY: ratePuzzleDifficulty(); break;
-			case MenuData.UNDO: puzzleUndo(); break;
-			case MenuData.REDO: puzzleRedo(); break;
-			default: incorrectSelection();
+			case MenuData.UNDO: performPuzzleUndo(); break;
+			case MenuData.REDO: performPuzzleRedo(); break;
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -470,12 +470,12 @@ public class JanetSudoku {
 	public void evaluateSolutions() {
 		solver = new SudokuSolver(puzzle);
 		int solutionsInfo = solver.checkIfUniqueSolution();
-		Console.println(">>>");
-		if (solutionsInfo == SudokuSolver.SOLUTION_UNIQUE) Console.println(">>> Solution exists and is unique!");
-		else if (solutionsInfo == SudokuSolver.SOLUTION_NON_UNIQUE) Console.println(">>> Solution exists but is non-unique!");
-		else if (solutionsInfo == SudokuSolver.SOLUTION_NOT_EXISTS) Console.println(">>> Solution does not exists.");
-		else Console.println(solver.getMessages());
-		Console.println(">>> Computing time: " + solver.getComputingTime() + " s.");
+		JanetConsole.println(">>>");
+		if (solutionsInfo == SudokuSolver.SOLUTION_UNIQUE) JanetConsole.println(">>> Solution exists and is unique!");
+		else if (solutionsInfo == SudokuSolver.SOLUTION_NON_UNIQUE) JanetConsole.println(">>> Solution exists but is non-unique!");
+		else if (solutionsInfo == SudokuSolver.SOLUTION_NOT_EXISTS) JanetConsole.println(">>> Solution does not exists.");
+		else JanetConsole.println(solver.getMessages());
+		JanetConsole.println(">>> Computing time: " + solver.getComputingTime() + " s.");
 	}
 	/**
 	 * Rate puzzle difficulty meaning as number of closed routes (number of
@@ -485,9 +485,9 @@ public class JanetSudoku {
 	 */
 	public void ratePuzzleDifficulty() {
 		int rating = SudokuStore.calculatePuzzleRating(puzzle);
-		Console.println(">>>");
-		Console.println(">>> Puzzle rating: " + rating);
-		Console.println(">>>");
+		JanetConsole.println(">>>");
+		JanetConsole.println(">>> Puzzle rating: " + rating);
+		JanetConsole.println(">>>");
 	}
 	/*
 	 * ========================================
@@ -505,9 +505,9 @@ public class JanetSudoku {
 			switch(selItem) {
 			case MenuData.SOLVE_FIND_FIRST: solveFindFirst(); break;
 			case MenuData.SOLVE_FIND_ALL: solveFindAll(); break;
-			case MenuData.UNDO: puzzleUndo(); break;
-			case MenuData.REDO: puzzleRedo(); break;
-			default: incorrectSelection();
+			case MenuData.UNDO: performPuzzleUndo(); break;
+			case MenuData.REDO: performPuzzleRedo(); break;
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -525,12 +525,12 @@ public class JanetSudoku {
 		if (solver.getSolvingState() == SudokuSolver.SOLVING_STATE_SOLVED) {
 			trackPuzzleUndo();
 			puzzle = solver.getSolvedBoard();
-			Console.println("Path leading to the solution:");
-			Console.println(solver.solutionPathToString());
-			Console.println(">>>>> Computing time: " + solver.getComputingTime() +" s.");
-			Console.println(">>>>>  Closed routes: " + solver.getClosedRoutesNumber() +" s.");
+			JanetConsole.println("Path leading to the solution:");
+			JanetConsole.println(solver.solutionPathToString());
+			JanetConsole.println(">>>>> Computing time: " + solver.getComputingTime() +" s.");
+			JanetConsole.println(">>>>>  Closed routes: " + solver.getClosedRoutesNumber() +" s.");
 		} else {
-			Console.println(solver.getMessages());
+			JanetConsole.println(solver.getMessages());
 		}
 	}
 	/**
@@ -542,18 +542,18 @@ public class JanetSudoku {
 		solver = new SudokuSolver(puzzle);
 		setSolverOptions();
 		int solutionsNumber = solver.findAllSolutions();
-		Console.println(">>>>>>>> Solution found: " + solutionsNumber);
+		JanetConsole.println(">>>>>>>> Solution found: " + solutionsNumber);
 		if (solutionsNumber > 0) {
 			ArrayList<SudokuBoard> solutions = solver.getAllSolutionsList();
 			for (int i = 0; i < solutionsNumber; i++) {
 				SudokuBoard solution = solutions.get(i);
-				Console.println(">>>>>    Solution nr: " + i);
-				Console.println(">>>>>        Path nr: " + solution.pathNumber);
-				Console.println(">>>>> Computing time: " + solver.getComputingTime() +" s.");
+				JanetConsole.println(">>>>>    Solution nr: " + i);
+				JanetConsole.println(">>>>>        Path nr: " + solution.pathNumber);
+				JanetConsole.println(">>>>> Computing time: " + solver.getComputingTime() +" s.");
 				SudokuStore.consolePrintBoard(solution.board);
 			}
 		} else {
-			Console.println(solver.getMessages());
+			JanetConsole.println(solver.getMessages());
 		}
 	}
 	/*
@@ -567,16 +567,16 @@ public class JanetSudoku {
 	 * @see SudokuStore#saveBoard(int[][], String, String)
 	 */
 	private void savePuzzle() {
-		Console.print("File path: ");
-		String filePath = Console.readLine();
+		JanetConsole.print("File path: ");
+		String filePath = JanetConsole.readLine();
 		File file = new File(filePath);
 		if (file.exists() == true) {
-			Console.println(">>> !!! Error - file already exists !!! <<<");
+			JanetConsole.println(">>> !!! Error - file already exists !!! <<<");
 			return;
 		}
 		boolean puzzleSaved = SudokuStore.saveBoard(puzzle, "Janet-Sudoku Demo App");
 		if (puzzleSaved == false)
-			Console.println(">>> !!! Error while saving !!! <<<");
+			JanetConsole.println(">>> !!! Error while saving !!! <<<");
 	}
 	/*
 	 * ========================================
@@ -649,12 +649,12 @@ public class JanetSudoku {
 				puzzle = SudokuStore.seqOfRandomBoardTransf(puzzle);
 				break;
 			case MenuData.UNDO:
-				puzzleUndo();
+				performPuzzleUndo();
 				break;
 			case MenuData.REDO:
-				puzzleRedo();
+				performPuzzleRedo();
 				break;
-			default: incorrectSelection();
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -662,19 +662,19 @@ public class JanetSudoku {
 	 * Manually sets cell value.
 	 */
 	private void setCell() {
-		Console.print("   Row number (between 1 and 9): "); int row = Console.readInt();
+		JanetConsole.print("   Row number (between 1 and 9): "); int row = JanetConsole.readInt();
 		if ( (row < 1) || (row > 9) ) {
-			Console.println(">>> !!! Error - incorrect row number !!! <<<");
+			JanetConsole.println(">>> !!! Error - incorrect row number !!! <<<");
 			return;
 		}
-		Console.print("Column number (between 1 and 9): "); int col = Console.readInt();
+		JanetConsole.print("Column number (between 1 and 9): "); int col = JanetConsole.readInt();
 		if ( (col < 1) || (col > 9) ) {
-			Console.println(">>> !!! Error - incorrect column number !!! <<<");
+			JanetConsole.println(">>> !!! Error - incorrect column number !!! <<<");
 			return;
 		}
-		Console.print("        Digit (between 0 and 9): "); int digit = Console.readInt();
+		JanetConsole.print("        Digit (between 0 and 9): "); int digit = JanetConsole.readInt();
 		if ( (digit < 0) || (digit > 9) ) {
-			Console.println(">>> !!! Error - incorrect digit !!! <<<");
+			JanetConsole.println(">>> !!! Error - incorrect digit !!! <<<");
 			return;
 		}
 		trackPuzzleUndo();
@@ -696,9 +696,9 @@ public class JanetSudoku {
 			switch(selItem) {
 			case MenuData.OPTIONS_RND_SEED_ON_EMPTY_CELL: rndSeedOnCells = !rndSeedOnCells; break;
 			case MenuData.OPTIONS_RND_SEED_ON_FREE_DIGIT: rndSeedOnDigits = !rndSeedOnDigits; break;
-			case MenuData.UNDO: puzzleUndo(); break;
-			case MenuData.REDO: puzzleRedo(); break;
-			default: incorrectSelection();
+			case MenuData.UNDO: performPuzzleUndo(); break;
+			case MenuData.REDO: performPuzzleRedo(); break;
+			default: incorrectSelection(); break;
 			}
 		} while ( selItem != MenuData.RETURN );
 	}
@@ -738,7 +738,7 @@ public class JanetSudoku {
 	/**
 	 * Performs puzzle undo.
 	 */
-	private void puzzleUndo() {
+	private void performPuzzleUndo() {
 		if (puzzleUndo != null) {
 			trackPuzzleRedo();
 			puzzle = puzzleUndo;
@@ -748,7 +748,7 @@ public class JanetSudoku {
 	/**
 	 * Performs puzzle redo.
 	 */
-	private void puzzleRedo() {
+	private void performPuzzleRedo() {
 		if (puzzleRedo != null) {
 			trackPuzzleUndo();
 			puzzle = puzzleRedo;
@@ -776,16 +776,16 @@ public class JanetSudoku {
 	 * Displays info about this app.
 	 */
 	private void displayAboutInto() {
-		Console.println(">>>");
-		Console.println(">>> Janet-Sudoku Demo App based on the Janet-Sudoku Library.");
-		Console.println(">>>");
-		Console.println(">>>                                  Author: Mariusz Gromada");
-		Console.println(">>>                              mariusz.gromada@mathspace.pl");
-		Console.println(">>>                     http://janetsudoku.mariuszgromada.org");
-		Console.println(">>>");
-		Console.println(">>>                                Demo App version: v." + VERSION);
-		Console.println(">>>                            Janet-Sudoku version: v." + SudokuStore.JANET_SUDOKU_VERSION);
-		Console.println(">>>");
+		JanetConsole.println(">>>");
+		JanetConsole.println(">>> Janet-Sudoku Demo App based on the Janet-Sudoku Library.");
+		JanetConsole.println(">>>");
+		JanetConsole.println(">>>                                  Author: Mariusz Gromada");
+		JanetConsole.println(">>>                              mariusz.gromada@mathspace.pl");
+		JanetConsole.println(">>>                     http://janetsudoku.mariuszgromada.org");
+		JanetConsole.println(">>>");
+		JanetConsole.println(">>>                                Demo App version: v." + VERSION);
+		JanetConsole.println(">>>                            Janet-Sudoku version: v." + SudokuStore.JANET_SUDOKU_VERSION);
+		JanetConsole.println(">>>");
 	}
 	/*
 	 * ========================================
@@ -796,42 +796,51 @@ public class JanetSudoku {
 	 * Displays info on app quit.
 	 */
 	private void quitFromApp() {
-		Console.println();
-		Console.println("                 Thank you for using Janet-Sudoku!");
-		Console.println();
-		Console.println("                                     Please visit:");
-		Console.println("             http://janetsudoku.mariuszgromada.org");
-		Console.println("                             http://mathparser.org");
-		Console.println("                               http://mathspace.pl");
-		Console.println();
-		Console.println("                                    Mariusz Gromada");
-		Console.println("                       mariusz.gromada@mathspace.pl");
+		JanetConsole.println();
+		JanetConsole.println("                 Thank you for using Janet-Sudoku!");
+		JanetConsole.println();
+		JanetConsole.println("                                     Please visit:");
+		JanetConsole.println("             http://janetsudoku.mariuszgromada.org");
+		JanetConsole.println("                             http://mathparser.org");
+		JanetConsole.println("                               http://mathspace.pl");
+		JanetConsole.println();
+		JanetConsole.println("                                    Mariusz Gromada");
+		JanetConsole.println("                       mariusz.gromada@mathspace.pl");
 	}
 	/**
 	 * Error - when incorrect selection.
 	 */
 	private void incorrectSelection() {
-		Console.println("Error - unrecognized menu item.");
+		JanetConsole.println("Error - unrecognized menu item.");
 	}
 	/**
 	 * Start the Janet-Sudoku Demp app.
 	 */
-	public void start() {
+	public void startApp() {
 		loopMenuMain();
 	}
 	/**
+	 * Start the Janet-Sudoku Demo app.
+	 */
+	public static void start() {
+		JanetSudoku js = new JanetSudoku();
+		js.startApp();
+	}
+	/**
 	 * Start the Janet-Sudoku Demp app.
+	 *
+	 * @param    args   Not used
 	 */
 	public static void main(String[] args) {
 		JanetSudoku js = new JanetSudoku();
-		js.start();
+		js.startApp();
 	}
 	/**
 	 * Print current puzzle to the console
 	 */
 	void consolePrintPuzzle() {
-		Console.println();
-		Console.print(">>> Random seed option - empty cells = " + rndSeedOnCells + ", free digits = " + rndSeedOnDigits);
+		JanetConsole.println();
+		JanetConsole.print(">>> Random seed option - empty cells = " + rndSeedOnCells + ", free digits = " + rndSeedOnDigits);
 		SudokuStore.consolePrintBoard(puzzle);
 	}
 }

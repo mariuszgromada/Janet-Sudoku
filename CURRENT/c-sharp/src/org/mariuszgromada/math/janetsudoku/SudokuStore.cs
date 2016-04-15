@@ -384,6 +384,74 @@ namespace org.mariuszgromada.math.janetsudoku {
 			return sudokuBoard;
 		}
 		/**
+		 * Loads Sudoku board from one string line ('0' and' '.' treated as empty cell).
+		 * Any other char than '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'
+		 * is being filtered out.
+		 *
+		 * @param boardDefinition    Board definition in one string line containing
+		 *                           row after row.
+		 * @return                   Loaded board if data is sufficient to fill 81 cells
+		 *                           (including empty cells), otherwise null.
+		 */
+		public static int[,] loadBoardFromStringLine(String boardDefinition) {
+			int lastInex = BOARD_SIZE - 1;
+			if (boardDefinition == null) return null;
+			if (boardDefinition.Length < SudokuBoard.BOARD_CELLS_NUMBER) return null;
+			int[,] board = boardCopy(SudokuPuzzles.PUZZLE_EMPTY);
+			int cellNum = 0;
+			int i = 0;
+			int j = -1;
+			char[] line = boardDefinition.ToCharArray();
+			for (int k = 0; k < line.Length; k++) {
+				char c = line[k];
+				int d = -1;
+				if (c == '1') d = 1;
+				else if (c == '2') d = 2;
+				else if (c == '3') d = 3;
+				else if (c == '4') d = 4;
+				else if (c == '5') d = 5;
+				else if (c == '6') d = 6;
+				else if (c == '7') d = 7;
+				else if (c == '8') d = 8;
+				else if (c == '9') d = 9;
+				else if (c == '0') d = 0;
+				else if (c == '.') d = 0;
+				if ((d >= 0) && (cellNum < SudokuBoard.BOARD_CELLS_NUMBER)) {
+					j++;
+					cellNum++;
+					board[i, j] = d;
+					if (j == lastInex) {
+						i++;
+						j = -1;
+					}
+				}
+			}
+			if (cellNum == SudokuBoard.BOARD_CELLS_NUMBER) return board;
+			else return null;
+		}
+		/**
+		 * Loads Sudoku board from variadic list of strings (each string as a
+		 * one row)
+		 *
+		 * Format:
+		 * Any character different than '1-9' and '.' is being removed.
+		 * Any line starting with '#' is being removed.
+		 * Any empty line is being removed.
+		 * Any final line having less than 9 characters is being removed.
+		 *
+		 * If number of final lines is less then 9 then null is returned.
+		 *
+		 * Finally 9 starting characters for first 9 lines is the
+		 * loaded board definition.
+		 *
+		 * @param boardDefinition  Board definition (variadic list of strings).
+		 * @return  Array representing loaded Sudoku board,
+		 *          null - if problem occurred while loading.
+		 */
+		public static int[,] loadBoardFromStrings(params String[] boardDefinition) {
+			return loadBoard(boardDefinition);
+		}
+		/**
 		 * Saves board to the text file.
 		 *
 		 * @param sudokuBoard    Sudoku board to be saved.
@@ -1375,29 +1443,39 @@ namespace org.mariuszgromada.math.janetsudoku {
 		 */
 		private static String convBoardToString(int[,] sudokuBoard, String headComment, String tailComment) {
 			String boardStr = "";
+			String oneLineDefDot = "";
+			String oneLineDefZero = "";
 			if (headComment != null)
 				if (headComment.Length > 0)
-						boardStr = boardStr + "# " + headComment + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
+					boardStr = boardStr + "# " + headComment + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
 			if (sudokuBoard == null) return "NULL sudoku board.";
 			boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR;
-			for (int i = 0; i < SudokuBoard.BOARD_SIZE; i ++) {
+			for (int i = 0; i < SudokuBoard.BOARD_SIZE; i++) {
 				if ((i > 0) && (i < SudokuBoard.BOARD_SIZE) && (i % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
-					boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR ;
+					boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR;
 				boardStr = boardStr + "| ";
 				for (int j = 0; j < SudokuBoard.BOARD_SIZE; j++) {
 					if ((j > 0) && (j < SudokuBoard.BOARD_SIZE) && (j % SudokuBoard.BOARD_SUB_SQURE_SIZE == 0))
 						boardStr = boardStr + "| ";
-					if (sudokuBoard[i, j] != BoardCell.EMPTY)
+					if (sudokuBoard[i, j] != BoardCell.EMPTY) {
 						boardStr = boardStr + sudokuBoard[i, j] + " ";
-					else
+						oneLineDefDot = oneLineDefDot + sudokuBoard[i, j];
+						oneLineDefZero = oneLineDefZero + sudokuBoard[i, j];
+					} else {
 						boardStr = boardStr + ". ";
+						oneLineDefDot = oneLineDefDot + '.';
+						oneLineDefZero = oneLineDefZero + '0';
+					}
 				}
 				boardStr = boardStr + "|" + NEW_LINE_SEPARATOR;
 			}
 			boardStr = boardStr + "+-------+-------+-------+" + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
+			boardStr = boardStr + "# One line definition:" + NEW_LINE_SEPARATOR;
+			boardStr = boardStr + "# " + oneLineDefDot + NEW_LINE_SEPARATOR;
+			boardStr = boardStr + "# " + oneLineDefZero + NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR;
 			if (tailComment != null)
 				if (tailComment.Length > 0)
-						boardStr = boardStr + "# " + tailComment;
+					boardStr = NEW_LINE_SEPARATOR + NEW_LINE_SEPARATOR + boardStr + "# " + tailComment;
 			return boardStr;
 		}
 		/**

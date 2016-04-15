@@ -1,5 +1,5 @@
 /*
- * @(#)Console.java        1.0.0    2016-04-15
+ * @(#)JanetConsole.java        1.0.0    2016-04-15
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -65,7 +65,7 @@ import java.util.Scanner;
  *
  * @version        1.0.0
  */
-public final class Console {
+public final class JanetConsole {
 	/**
 	 * Keyboard input
 	 */
@@ -93,21 +93,20 @@ public final class Console {
 	}
 	/**
 	 * Prints object.toString() to console (no new line).
-	 * @param o
+	 * @param o  Object to be printed.
 	 */
 	public static void print(Object o) {
 		System.out.print(o);
 	}
 	/**
 	 * Prints object.toString() to console + new line.
-	 * @param o
+	 * @param o  Object to be printed.
 	 */
 	public static void println(Object o) {
 		System.out.println(o);
 	}
 	/**
 	 * Prints new line to the console.
-	 * @param o
 	 */
 	public static void println() {
 		System.out.println();

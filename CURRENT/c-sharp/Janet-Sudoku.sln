@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Run-Tests-Generator", "exe-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Run-Tests-Store", "exe-lib-tests\Run-Tests-Store\Run-Tests-Store.csproj", "{A269C8E3-9CFB-41F7-B2D7-09FA3164F384}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Janet-Sudoku-Demop-App", "exe-lib-tests\Janet-Sudoku-Demop-App\Janet-Sudoku-Demop-App.csproj", "{F9FC5225-D42C-4F62-BA4C-BC2B38E9785F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A269C8E3-9CFB-41F7-B2D7-09FA3164F384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A269C8E3-9CFB-41F7-B2D7-09FA3164F384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A269C8E3-9CFB-41F7-B2D7-09FA3164F384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9FC5225-D42C-4F62-BA4C-BC2B38E9785F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9FC5225-D42C-4F62-BA4C-BC2B38E9785F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9FC5225-D42C-4F62-BA4C-BC2B38E9785F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9FC5225-D42C-4F62-BA4C-BC2B38E9785F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

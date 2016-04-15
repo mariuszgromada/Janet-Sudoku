@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>janetsudoku.runtests</RootNamespace>
-    <AssemblyName>janet-sudoku-run-tests-generator</AssemblyName>
+    <AssemblyName>janetsudoku-runtests-generator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

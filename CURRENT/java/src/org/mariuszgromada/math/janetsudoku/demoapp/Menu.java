@@ -99,15 +99,15 @@ class Menu {
 	 */
 	void consolePrintMenue() {
 		janetSudoku.consolePrintPuzzle();
-		Console.println();
-		Console.println("----- " + title + " -----");
+		JanetConsole.println();
+		JanetConsole.println("----- " + title + " -----");
 		for (int i = 3; i <= itemsNum; i++) {
-			Console.println(content[i]);
+			JanetConsole.println(content[i]);
 		}
-		Console.println("----- " + "General" + " -----");
-		Console.println(content[1]);
-		Console.println(content[2]);
-		Console.println(content[0]);
+		JanetConsole.println("----- " + "General" + " -----");
+		JanetConsole.println(content[1]);
+		JanetConsole.println(content[2]);
+		JanetConsole.println(content[0]);
 	}
 	/**
 	 * Ask user for menu item selection.
@@ -120,11 +120,11 @@ class Menu {
 		boolean loop = true;
 		do {
 			consolePrintMenue();
-			Console.println();
-			Console.print("Your selection: ");
-			selItem = Console.readInt();
+			JanetConsole.println();
+			JanetConsole.print("Your selection: ");
+			selItem = JanetConsole.readInt();
 			if ((selItem >= 0) && (selItem <= itemsNum)) loop = false;
-			else Console.println(">>> !!! Please select correct menu item. !!! <<<");
+			else JanetConsole.println(">>> !!! Please select correct menu item. !!! <<<");
 		} while (loop == true);
 		return selItem;
 	}
