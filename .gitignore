@@ -10,3 +10,7 @@ Debug/
 ipch/
 *.pfx
 *.user
+*.exe
+*.dll
+*.jar
+*.pdb

@@ -1,5 +1,5 @@
 /*
- * @(#)SudokuStore.java        1.1.0    2016-04-09
+ * @(#)SudokuStore.java        1.1.0    2016-04-16
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -15,7 +15,7 @@
  *       of conditions and the following disclaimer in the documentation and/or other materials
  *       provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY <MARIUSZ GROMADA> ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ * THIS SOFTWARE IS PROVIDED BY MARIUSZ GROMADA ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
  * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
@@ -33,14 +33,15 @@
  *
  *     Mariusz Gromada
  *     mariusz.gromada@mathspace.pl
- *     http://mathspace.pl/
- *     http://mathparser.org/
- *     http://github.com/mariuszgromada/java-utils
+ *     http://janetsudoku.mariuszgromada.org
+ *     http://mathparser.org
+ *     http://mathspace.pl
+ *     http://github.com/mariuszgromada/Janet-Sudoku
+ *     http://janetsudoku.codeplex.com
+ *     http://sourceforge.net/projects/janetsudoku
+ *     http://bitbucket.org/mariuszgromada/janet-sudoku
  *     http://github.com/mariuszgromada/MathParser.org-mXparser
- *     http://mariuszgromada.github.io/MathParser.org-mXparser/
- *     http://mxparser.sourceforge.net/
- *     http://bitbucket.org/mariuszgromada/mxparser/
- *     http://mxparser.codeplex.com/
+ *
  *
  *                              Asked if he believes in one God, a mathematician answered:
  *                              "Yes, up to isomorphism."
@@ -59,14 +60,14 @@ import org.mariuszgromada.math.janetsudoku.utils.FileX;
  *
  * @author         <b>Mariusz Gromada</b><br>
  *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
- *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
- *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
- *                 <a href="http://github.com/mariuszgromada/java-utils" target="_blank">Java-Utils on GitHub</a><br>
- *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser on GitHub</a><br>
- *                 <a href="http://mariuszgromada.github.io/MathParser.org-mXparser/" target="_blank">mXparser on GitHub pages</a><br>
- *                 <a href="http://mxparser.sourceforge.net/" target="_blank">mXparser on SourceForge</a><br>
- *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
- *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
+ *                 <a href="http://janetsudoku.mariuszgromada.org" target="_blank">Janet Sudoku - project web page</a><br>
+ *                 <a href="http://mathspace.pl" target="_blank">MathSpace.pl</a><br>
+ *                 <a href="http://mathparser.org" target="_blank">MathParser.org - mXparser project page</a><br>
+ *                 <a href="http://github.com/mariuszgromada/Janet-Sudoku" target="_blank">Janet Sudoku on GitHub</a><br>
+ *                 <a href="http://janetsudoku.codeplex.com" target="_blank">Janet Sudoku on CodePlex</a><br>
+ *                 <a href="http://sourceforge.net/projects/janetsudoku" target="_blank">Janet Sudoku on SourceForge</a><br>
+ *                 <a href="http://bitbucket.org/mariuszgromada/janet-sudoku" target="_blank">Janet Sudoku on BitBucket</a><br>
+ *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser-MathParser.org on GitHub</a><br>
  *
  * @version        1.1.0
  */
@@ -74,7 +75,7 @@ public final class SudokuStore {
 	/**
 	 * Sudoku solver version.
 	 */
-	public static final String JANET_SUDOKU_VERSION = "1.0.0";
+	public static final String JANET_SUDOKU_VERSION = "1.1.0";
 	/**
 	 * Sudoku solver name.
 	 */
@@ -174,7 +175,7 @@ public final class SudokuStore {
 	 *                       If puzzle has no solutions then {@link ErrorCodes#SUDOKUSTORE_CALCULATEPUZZLERATING_NO_SOLUTION}.
 	 *                       If solution is non-unique then {@link ErrorCodes#SUDOKUSTORE_CALCULATEPUZZLERATING_NON_UNIQUE_SOLUTION}.
 	 */
-	public static final int calculatePuzzleRating(int[][] sudokuPuzzle) {
+	public static final int calculatePuzzleRating(final int[][] sudokuPuzzle) {
 		if (checkPuzzle(sudokuPuzzle) == false)
 			return ErrorCodes.SUDOKUSTORE_CALCULATEPUZZLERATING_PUZZLE_ERROR;
 		SudokuSolver s = new SudokuSolver(sudokuPuzzle);
@@ -187,7 +188,7 @@ public final class SudokuStore {
 		 * Multi-threading implementation
 		 */
 		int threadIterNum = RATING_DEF_NUM_OF_ITERATIONS / THREADS_NUMBER;
-		int[][] results = new int[THREADS_NUMBER][threadIterNum];
+		final int[][] results = new int[THREADS_NUMBER][threadIterNum];
 		/**
 		 * Runner implementation.
 		 */
@@ -219,7 +220,6 @@ public final class SudokuStore {
 					results[threadId][i] = result;
 				}
 			}
-			@Override
 			public void run() {
 				for (int i = 0; i < iterNum; i++) {
 					SudokuSolver s = new SudokuSolver(sudokuPuzzle);

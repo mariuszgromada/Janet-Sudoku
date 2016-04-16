@@ -15,7 +15,7 @@
  *       of conditions and the following disclaimer in the documentation and/or other materials
  *       provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY <MARIUSZ GROMADA> ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ * THIS SOFTWARE IS PROVIDED BY MARIUSZ GROMADA ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
  * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
@@ -33,19 +33,19 @@
  *
  *     Mariusz Gromada
  *     mariusz.gromada@mathspace.pl
- *     http://mathspace.pl/
- *     http://mathparser.org/
- *     http://github.com/mariuszgromada/java-utils
+ *     http://janetsudoku.mariuszgromada.org
+ *     http://mathparser.org
+ *     http://mathspace.pl
+ *     http://github.com/mariuszgromada/Janet-Sudoku
+ *     http://janetsudoku.codeplex.com
+ *     http://sourceforge.net/projects/janetsudoku
+ *     http://bitbucket.org/mariuszgromada/janet-sudoku
  *     http://github.com/mariuszgromada/MathParser.org-mXparser
- *     http://mariuszgromada.github.io/MathParser.org-mXparser/
- *     http://mxparser.sourceforge.net/
- *     http://bitbucket.org/mariuszgromada/mxparser/
- *     http://mxparser.codeplex.com/
+ *
  *
  *                              Asked if he believes in one God, a mathematician answered:
  *                              "Yes, up to isomorphism."
  */
-using org.mariuszgromada.math.janetsudoku;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,14 +57,14 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 	 *
 	 * @author         <b>Mariusz Gromada</b><br>
 	 *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
-	 *                 <a href="http://mathspace.pl/" target="_blank">MathSpace.pl</a><br>
-	 *                 <a href="http://mathparser.org/" target="_blank">MathParser.org - mXparser project page</a><br>
-	 *                 <a href="http://github.com/mariuszgromada/java-utils" target="_blank">Java-Utils on GitHub</a><br>
-	 *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser on GitHub</a><br>
-	 *                 <a href="http://mariuszgromada.github.io/MathParser.org-mXparser/" target="_blank">mXparser on GitHub pages</a><br>
-	 *                 <a href="http://mxparser.sourceforge.net/" target="_blank">mXparser on SourceForge</a><br>
-	 *                 <a href="http://bitbucket.org/mariuszgromada/mxparser/" target="_blank">mXparser on Bitbucket</a><br>
-	 *                 <a href="http://mxparser.codeplex.com/" target="_blank">mXparser on CodePlex</a><br>
+	 *                 <a href="http://janetsudoku.mariuszgromada.org" target="_blank">Janet Sudoku - project web page</a><br>
+	 *                 <a href="http://mathspace.pl" target="_blank">MathSpace.pl</a><br>
+	 *                 <a href="http://mathparser.org" target="_blank">MathParser.org - mXparser project page</a><br>
+	 *                 <a href="http://github.com/mariuszgromada/Janet-Sudoku" target="_blank">Janet Sudoku on GitHub</a><br>
+	 *                 <a href="http://janetsudoku.codeplex.com" target="_blank">Janet Sudoku on CodePlex</a><br>
+	 *                 <a href="http://sourceforge.net/projects/janetsudoku" target="_blank">Janet Sudoku on SourceForge</a><br>
+	 *                 <a href="http://bitbucket.org/mariuszgromada/janet-sudoku" target="_blank">Janet Sudoku on BitBucket</a><br>
+	 *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser-MathParser.org on GitHub</a><br>
 	 *
 	 * @version        1.0.0
 	 */
@@ -73,7 +73,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		/**
 		 * Demo app version.
 		 */
-		public const String VERSION = "1.0.0";
+		public const String VERSION = "1.1.0";
 		/**
 		 * Internal solver.
 		 */
@@ -791,8 +791,8 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 			JanetConsole.println(">>> Janet-Sudoku Demo App based on the Janet-Sudoku Library.");
 			JanetConsole.println(">>>");
 			JanetConsole.println(">>>                                  Author: Mariusz Gromada");
-			JanetConsole.println(">>>                              mariusz.gromada@mathspace.pl");
-			JanetConsole.println(">>>                     http://janetsudoku.mariuszgromada.org");
+			JanetConsole.println(">>>                             mariusz.gromada@mathspace.pl");
+			JanetConsole.println(">>>                    http://janetsudoku.mariuszgromada.org");
 			JanetConsole.println(">>>");
 			JanetConsole.println(">>>                                Demo App version: v." + VERSION);
 			JanetConsole.println(">>>                            Janet-Sudoku version: v." + SudokuStore.JANET_SUDOKU_VERSION);
@@ -807,16 +807,16 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		 * Displays info on app quit.
 		 */
 		private void quitFromApp() {
-			JanetConsole.println();
-			JanetConsole.println("                 Thank you for using Janet-Sudoku!");
-			JanetConsole.println();
-			JanetConsole.println("                                     Please visit:");
-			JanetConsole.println("             http://janetsudoku.mariuszgromada.org");
-			JanetConsole.println("                             http://mathparser.org");
-			JanetConsole.println("                               http://mathspace.pl");
-			JanetConsole.println();
-			JanetConsole.println("                                    Mariusz Gromada");
-			JanetConsole.println("                       mariusz.gromada@mathspace.pl");
+			JanetConsole.println(">>>");
+			JanetConsole.println(">>>                        Thank you for using Janet-Sudoku!");
+			JanetConsole.println(">>>");
+			JanetConsole.println(">>>                                            Please visit:");
+			JanetConsole.println(">>>                    http://janetsudoku.mariuszgromada.org");
+			JanetConsole.println(">>>                                    http://mathparser.org");
+			JanetConsole.println(">>>                                      http://mathspace.pl");
+			JanetConsole.println(">>>");
+			JanetConsole.println(">>>                                          Mariusz Gromada");
+			JanetConsole.println(">>>                             mariusz.gromada@mathspace.pl");
 		}
 		/**
 		 * Error - when incorrect selection.
