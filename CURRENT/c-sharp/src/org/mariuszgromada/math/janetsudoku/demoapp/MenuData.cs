@@ -120,6 +120,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		internal const int LOAD_FROM_FILE								= 3;
 		internal const int LOAD_EXAMPLE									= 4;
 		internal const int LOAD_EMPTY_PUZZLE							= 5;
+		internal const int LOAD_LIST_EXAMPLES							= 6;
 		internal static String[] LOAD_CONTENT = {
 			/* 0 */ 	menuItem1(RETURN,								"Return to main menu")
 			/* 1 */ ,	menuItem1(UNDO,									"Puzzle undo")
@@ -127,6 +128,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 			/* 3 */ ,	menuItem1(LOAD_FROM_FILE,						"Load from file")
 			/* 4 */ ,	menuItem1(LOAD_EXAMPLE,							"Load example")
 			/* 5 */ ,	menuItem1(LOAD_EMPTY_PUZZLE,					"Load empty puzzle")
+			/* 6 */ ,   menuItem1(LOAD_LIST_EXAMPLES,                   "List puzzle examples")
 		};
 		/**
 		 * Main menu

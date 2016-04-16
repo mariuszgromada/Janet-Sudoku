@@ -64,6 +64,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 	 *
 	 * @version        1.0.0
 	 */
+	[CLSCompliant(true)]
 	public sealed class JanetConsole {
 		/**
 		 * Reads integer from keyboard.
@@ -75,6 +76,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 			try {
 				consoleInt = int.Parse(line);
 			} catch (Exception e) {
+				e.GetHashCode();
 				consoleInt = -1;
 			}
 			return consoleInt;

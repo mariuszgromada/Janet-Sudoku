@@ -119,6 +119,7 @@ final class MenuData {
 	static final int LOAD_FROM_FILE									= 3;
 	static final int LOAD_EXAMPLE									= 4;
 	static final int LOAD_EMPTY_PUZZLE								= 5;
+	static final int LOAD_LIST_EXAMPLES								= 6;
 	static final String[] LOAD_CONTENT = {
 		/* 0 */ 	menuItem1(RETURN,								"Return to main menu")
 		/* 1 */ ,	menuItem1(UNDO,									"Puzzle undo")
@@ -126,6 +127,7 @@ final class MenuData {
 		/* 3 */ ,	menuItem1(LOAD_FROM_FILE,						"Load from file")
 		/* 4 */ ,	menuItem1(LOAD_EXAMPLE,							"Load example")
 		/* 5 */ ,	menuItem1(LOAD_EMPTY_PUZZLE,					"Load empty puzzle")
+		/* 6 */ ,	menuItem1(LOAD_LIST_EXAMPLES,					"List puzzle examples")
 	};
 	/**
 	 * Main menu

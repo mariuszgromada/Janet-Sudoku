@@ -68,6 +68,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 	 *
 	 * @version        1.0.0
 	 */
+	[CLSCompliant(true)]
 	public class JanetSudoku {
 		/**
 		 * Demo app version.
@@ -167,6 +168,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 				case MenuData.LOAD_FROM_FILE: loadFromFile(); break;
 				case MenuData.LOAD_EXAMPLE: loadFromExample(); break;
 				case MenuData.LOAD_EMPTY_PUZZLE: trackPuzzleUndo(); puzzle = SudokuStore.boardCopy(SudokuPuzzles.PUZZLE_EMPTY); break;
+				case MenuData.LOAD_LIST_EXAMPLES: listPuzzleExamples(); break;
 				case MenuData.UNDO: performPuzzleUndo(); break;
 				case MenuData.REDO: performPuzzleRedo(); break;
 				default: incorrectSelection(); break;
@@ -214,6 +216,16 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 			} else {
 				JanetConsole.println(">>> !!! Incorrect example number !!! <<<");
 			}
+		}
+		/**
+		 * Prints puzzle examples identifiers along with difficulty rating.
+		 */
+		private void listPuzzleExamples() {
+			JanetConsole.println("");
+			for (int i = 0; i < SudokuPuzzles.NUMBER_OF_PUZZLE_EXAMPLES; i++) {
+				JanetConsole.println(">>> Example nr: " + i + ", rating = " + (int)SudokuPuzzles.getPuzzleExampleRating(i));
+			}
+			JanetConsole.println("");
 		}
 		/*
 		 * ========================================
@@ -288,7 +300,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		 * @see SudokuGenerator#PARAM_DO_NOT_TRANSFORM
 		 * @see SudokuGenerator#generate()
 		 */
-		public void generateFromExample() {
+		private void generateFromExample() {
 			loadFromExample();
 			generateFromCurrentPuzzle();
 		}
@@ -300,7 +312,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		 * @see SudokuGenerator#PARAM_DO_NOT_TRANSFORM
 		 * @see SudokuGenerator#generate()
 		 */
-		public void generateFromCurrentPuzzle() {
+		private void generateFromCurrentPuzzle() {
 			generator = new SudokuGenerator(puzzle, SudokuGenerator.PARAM_DO_NOT_TRANSFORM);
 			setGeneratorOptions();
 			int[,] generated = generator.generate();
@@ -456,7 +468,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		 *
 		 * @see SudokuSolver#checkIfUniqueSolution()
 		 */
-		public void evaluateSolutions() {
+		private void evaluateSolutions() {
 			solver = new SudokuSolver(puzzle);
 			int solutionsInfo = solver.checkIfUniqueSolution();
 			JanetConsole.println(">>>");
@@ -472,11 +484,16 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		 *
 		 * @see SudokuStore#calculatePuzzleRating(int[,])
 		 */
-		public void ratePuzzleDifficulty() {
+		private void ratePuzzleDifficulty() {
 			int rating = SudokuStore.calculatePuzzleRating(puzzle);
-			JanetConsole.println(">>>");
-			JanetConsole.println(">>> Puzzle rating: " + rating);
-			JanetConsole.println(">>>");
+			if (rating >= 0) {
+				JanetConsole.println(">>>");
+				JanetConsole.println(">>> Puzzle rating: " + rating);
+				JanetConsole.println(">>>");
+			} else {
+				JanetConsole.println(">>> !!! Error code: " + rating + " !!! <<<");
+				JanetConsole.println(">>> " + ErrorCodes.getErrorDescription(rating));
+			}
 		}
 		/*
 		 * ========================================
@@ -527,19 +544,23 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		 *
 		 * @see SudokuSolver#findAllSolutions()
 		 */
-		public void solveFindAll() {
+		private void solveFindAll() {
 			solver = new SudokuSolver(puzzle);
 			setSolverOptions();
 			int solutionsNumber = solver.findAllSolutions();
-			JanetConsole.println(">>>>>>>> Solution found: " + solutionsNumber);
+			JanetConsole.println(">>>>>>>> Solutions found: " + solutionsNumber);
 			if (solutionsNumber > 0) {
 				List<SudokuBoard> solutions = solver.getAllSolutionsList();
 				for (int i = 0; i < solutionsNumber; i++) {
 					SudokuBoard solution = solutions[i];
-					JanetConsole.println(">>>>>    Solution nr: " + i);
+					JanetConsole.println(">>>>>    Solution nr: " + i + "/" + solutionsNumber);
 					JanetConsole.println(">>>>>        Path nr: " + solution.pathNumber);
 					JanetConsole.println(">>>>> Computing time: " + solver.getComputingTime() + " s.");
 					SudokuStore.consolePrintBoard(solution.board);
+					JanetConsole.println(">>>>>");
+					JanetConsole.println(">>>>> Hit enter o to continue (non empty line will cancel).");
+					String line = JanetConsole.readLine();
+					if (line.Length > 0) break;
 				}
 			} else {
 				JanetConsole.println(solver.getMessages());
@@ -553,7 +574,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 		/**
 		 * Saves current puzzle in the txt file.
 		 *
-		 * @see SudokuStore#saveBoard(int[,], String, String)
+		 * @see SudokuStore#saveBoard(int[,], String)
 		 */
 		private void savePuzzle() {
 			JanetConsole.print("File path: ");
@@ -564,7 +585,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 				JanetConsole.println(">>> !!! Error - file already exists !!! <<<");
 				return;
 			}
-			bool puzzleSaved = SudokuStore.saveBoard(puzzle, "Janet-Sudoku Demo App");
+			bool puzzleSaved = SudokuStore.saveBoard(puzzle, filePath);
 			if (puzzleSaved == false)
 				JanetConsole.println(">>> !!! Error while saving !!! <<<");
 		}
