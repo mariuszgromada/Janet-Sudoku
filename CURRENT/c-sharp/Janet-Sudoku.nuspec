@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Janet-Sudoku</id>
+    <version>1.1.0.0</version>
+    <title>Janet Sudoku - Sudoku Generator and Sudoku Solver library for Java Android .NET MONO (C#) CLS compliant (C++/CLI, F#, VB)</title>
+    <authors>Mariusz Gromada</authors>
+    <owners>Mariusz Gromada</owners>
+    <licenseUrl>http://janetsudoku.mariuszgromada.org/license/</licenseUrl>
+    <projectUrl>http://janetsudoku.mariuszgromada.org/</projectUrl>
+    <iconUrl>http://janetsudoku.mariuszgromada.org/wp-content/uploads/2016/04/Janet-Sudoku-icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Janet Sudoku is a powerful Sudoku Generator and Sudoku Solver library for Java (since jdk 1.5) Android .NET (since 2.0) MONO CLS compliant. Additionally library delivers Janet Sudoku Demo App implementation in a simple form command line tool, yet highly functional.</description>
+    <summary>1. Sudoku Generator - generate Sudoku puzzles using variety of different methods. 2. Sudoku Solver - Solve any Sudoku puzzle, get the path leading to the correct solution. Check whether unique solution exists. Find all solutions if more than one present. Analyse many built-in examples of Sudoku puzzles or load any other. 3. Manipulate the board by applying transformations not affecting solution existence (i.e. rotation, reflection, permutation, swapping segments, and others). Interact with the library via consisted and well documented API. 4. Janet Sudoku Demo App - use simple, yet highly functional, command line tool to generate, solve evaluate different puzzles. Janet Sudoku is distributed under "Simplified BSD license", which means software is completely free.</summary>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2016 - Mariusz Gromada - MariuszGromada.org</copyright>
+    <tags>Sudoku Puzzles Solver Generator Library</tags>
+  </metadata>
+</package>

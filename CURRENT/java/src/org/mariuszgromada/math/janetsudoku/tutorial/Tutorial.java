@@ -32,7 +32,7 @@
  * If you have any questions/bugs feel free to contact:
  *
  *     Mariusz Gromada
- *     mariusz.gromada@mathspace.pl
+ *     mariuszgromada.org@gmail.com
  *     http://janetsudoku.mariuszgromada.org
  *     http://mathparser.org
  *     http://mathspace.pl
@@ -57,7 +57,7 @@ import org.mariuszgromada.math.janetsudoku.utils.FileX;
  * Basic Janet-Sudoku Tutorial.
  *
  * @author         <b>Mariusz Gromada</b><br>
- *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
+ *                 <a href="mailto:mariuszgromada.org@gmail.com">mariuszgromada.org@gmail.com</a><br>
  *                 <a href="http://janetsudoku.mariuszgromada.org" target="_blank">Janet Sudoku - project web page</a><br>
  *                 <a href="http://mathspace.pl" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -138,6 +138,7 @@ public class Tutorial {
 			/*
 			 * Saving board examples
 			 */
+
 			SudokuStore.consolePrintln("----------------------------------------------------");
 			SudokuStore.consolePrintln(">>>>>>>> Saving board examples " + tmpDir);
 			SudokuStore.saveBoard(SudokuPuzzles.PUZZLE_EXAMPLE_001, tmpDir + "sudoku-board-ex-1.txt");
@@ -146,6 +147,17 @@ public class Tutorial {
 			SudokuSolver ss = new SudokuSolver(1);
 			ss.solve();
 			ss.saveSolvedBoard(tmpDir + "sudoku-board-ex-sol.txt", "Solution for the PUZZLE_EXAMPLE_001");
+		}
+		{
+			/*
+			 * Puzzle modification - i.e. rotation
+			 */
+			SudokuStore.consolePrintln("----------------------------------------------------");
+			SudokuStore.consolePrintln(">>>>>>>> Puzzle modification");
+			int[][] puzzle = SudokuStore.getPuzzleExample(0);
+			int[][] puzzleRotated = SudokuStore.rotateClockWise(puzzle);
+			SudokuStore.consolePrintBoard(puzzle);
+			SudokuStore.consolePrintBoard(puzzleRotated);
 		}
 		/*
 		 * And many other staff provided by the library :-)

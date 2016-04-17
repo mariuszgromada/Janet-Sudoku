@@ -32,7 +32,7 @@
  * If you have any questions/bugs feel free to contact:
  *
  *     Mariusz Gromada
- *     mariusz.gromada@mathspace.pl
+ *     mariuszgromada.org@gmail.com
  *     http://janetsudoku.mariuszgromada.org
  *     http://mathparser.org
  *     http://mathspace.pl
@@ -63,7 +63,7 @@ import org.mariuszgromada.math.janetsudoku.SudokuStore;
  * library.
  *
  * @author         <b>Mariusz Gromada</b><br>
- *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
+ *                 <a href="mailto:mariuszgromada.org@gmail.com">mariuszgromada.org@gmail.com</a><br>
  *                 <a href="http://janetsudoku.mariuszgromada.org" target="_blank">Janet Sudoku - project web page</a><br>
  *                 <a href="http://mathspace.pl" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -802,7 +802,7 @@ public class JanetSudoku {
 		JanetConsole.println(">>> Janet-Sudoku Demo App based on the Janet-Sudoku Library.");
 		JanetConsole.println(">>>");
 		JanetConsole.println(">>>                                  Author: Mariusz Gromada");
-		JanetConsole.println(">>>                             mariusz.gromada@mathspace.pl");
+		JanetConsole.println(">>>                             mariuszgromada.org@gmail.com");
 		JanetConsole.println(">>>                    http://janetsudoku.mariuszgromada.org");
 		JanetConsole.println(">>>");
 		JanetConsole.println(">>>                                Demo App version: v." + VERSION);
@@ -827,7 +827,7 @@ public class JanetSudoku {
 		JanetConsole.println(">>>                                      http://mathspace.pl");
 		JanetConsole.println(">>>");
 		JanetConsole.println(">>>                                          Mariusz Gromada");
-		JanetConsole.println(">>>                             mariusz.gromada@mathspace.pl");
+		JanetConsole.println(">>>                             mariuszgromada.org@gmail.com");
 	}
 	/**
 	 * Error - when incorrect selection.

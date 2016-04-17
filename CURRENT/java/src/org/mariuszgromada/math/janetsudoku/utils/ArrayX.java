@@ -32,7 +32,7 @@
  * If you have any questions/bugs feel free to contact:
  *
  *     Mariusz Gromada
- *     mariusz.gromada@mathspace.pl
+ *     mariuszgromada.org@gmail.com
  *     http://janetsudoku.mariuszgromada.org
  *     http://mathparser.org
  *     http://mathspace.pl
@@ -57,7 +57,7 @@ import java.util.Stack;
  *
  *
  * @author         <b>Mariusz Gromada</b><br>
- *                 <a href="mailto:mariusz.gromada@mathspace.pl">mariusz.gromada@mathspace.pl</a><br>
+ *                 <a href="mailto:mariuszgromada.org@gmail.com">mariuszgromada.org@gmail.com</a><br>
  *                 <a href="http://janetsudoku.mariuszgromada.org" target="_blank">Janet Sudoku - project web page</a><br>
  *                 <a href="http://mathspace.pl" target="_blank">MathSpace.pl</a><br>
  *                 <a href="http://mathparser.org" target="_blank">MathParser.org - mXparser project page</a><br>
@@ -73,11 +73,12 @@ public final class ArrayX {
 	/**
 	 * Converts generic ArraList to Array
 	 *
-	 * @param componentType    Class type, i.e. if ArrayList<String> is converted
+	 * @param componentType    Class type, i.e. if ArrayList String  is converted
 	 *                         then componentType = String.class
-	 * @param arrayList        ArrayList of <T> to be converted to T[]
+	 * @param arrayList        ArrayList of T to be converted to T[]
+	 * @param <T>                Type in container.
 	 *
-	 * @return                 Array T[] including elements of ArrayList<T>
+	 * @return                 Array T[] including elements of ArrayList T
 	 */
 	public static final <T> T[] toArray(Class<T> componentType, ArrayList<T> arrayList) {
 		int n = arrayList.size();
@@ -90,11 +91,12 @@ public final class ArrayX {
 	/**
 	 * Converts generic ArraList to Array
 	 *
-	 * @param componentType    Class type, i.e. if ArrayList<String> is converted
+	 * @param componentType    Class type, i.e. if ArrayList String  is converted
 	 *                         then componentType = String.class
-	 * @param stack            Stack of <T> to be converted to T[]
+	 * @param stack            Stack of T0 to be converted to T[]
+	 * @param <T>                Type in container.
 	 *
-	 * @return                 Array T[] including elements of Stack<T>
+	 * @return                 Array T[] including elements of Stack T
 	 */
 	public static final <T> T[] toArray(Class<T> componentType, Stack<T> stack) {
 		int n = stack.size();
