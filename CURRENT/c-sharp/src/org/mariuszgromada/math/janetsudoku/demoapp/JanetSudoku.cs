@@ -1,5 +1,5 @@
 /*
- * @(#)JanetSudoku.cs        1.0.0    2016-04-15
+ * @(#)JanetSudoku.cs        1.1.1    2016-04-18
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -66,14 +66,14 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 	 *                 <a href="http://bitbucket.org/mariuszgromada/janet-sudoku" target="_blank">Janet Sudoku on BitBucket</a><br>
 	 *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser-MathParser.org on GitHub</a><br>
 	 *
-	 * @version        1.0.0
+	 * @version        1.1.1
 	 */
 	[CLSCompliant(true)]
 	public class JanetSudoku {
 		/**
 		 * Demo app version.
 		 */
-		public const String VERSION = "1.1.0";
+		public const String VERSION = "1.1.1";
 		/**
 		 * Internal solver.
 		 */
@@ -534,7 +534,7 @@ namespace org.mariuszgromada.math.janetsudoku.demoapp {
 				JanetConsole.println("Path leading to the solution:");
 				JanetConsole.println(solver.solutionPathToString());
 				JanetConsole.println(">>>>> Computing time: " + solver.getComputingTime() + " s.");
-				JanetConsole.println(">>>>>  Closed routes: " + solver.getClosedRoutesNumber() + " s.");
+				JanetConsole.println(">>>>>  Closed routes: " + solver.getClosedRoutesNumber());
 			} else {
 				JanetConsole.println(solver.getMessages());
 			}

@@ -1,6 +1,8 @@
                 Janet Sudoku - Sudoku Solver & Sudoku Generator
 powerful and flexible library for JAVA, Android, .NET, MONO  (C# .NET CLS Compliant)
 
+v.1.1.1 (2016-04-18): Small bug fixed related to solving already solved puzzle :-)
+
 v.1.1.0 (2016-04-16): Initial release providing
 
     * Sudoku Solver API

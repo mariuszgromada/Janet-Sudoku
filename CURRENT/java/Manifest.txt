@@ -4,6 +4,6 @@ Specification-Title: Janet Sudoku - Android .NET Sudoku Generator / Sudoku Solve
 Specification-Version: 1.1
 Specification-Vendor: Mariusz Gromada, MariuszGromada.org
 Implementation-Title: org.mariuszgromada.math.janetsudoku
-Implementation-Version: 1.1.0
+Implementation-Version: 1.1.1
 Implementation-Vendor: Mariusz Gromada, MariuszGromada.org
 Main-Class: org.mariuszgromada.math.janetsudoku.demoapp.JanetSudoku

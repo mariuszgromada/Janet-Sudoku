@@ -1,5 +1,5 @@
 /*
- * @(#)SudokuSolver.cs        1.0.0    2016-03-19
+ * @(#)SudokuSolver.cs        1.1.1    2016-04-18
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -68,7 +68,7 @@ namespace org.mariuszgromada.math.janetsudoku {
 	 *                 <a href="http://bitbucket.org/mariuszgromada/janet-sudoku" target="_blank">Janet Sudoku on BitBucket</a><br>
 	 *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser-MathParser.org on GitHub</a><br>
 	 *
-	 * @version        1.0.0
+	 * @version        1.1.1
 	 */
 	[CLSCompliant(true)]
 	public class SudokuSolver {
@@ -944,9 +944,16 @@ namespace org.mariuszgromada.math.janetsudoku {
 				sortEmptyCells(0, emptyCellsNumber - 1);
 				boardState = BOARD_STATE_READY;
 			} else {
-				addMessage("(findEmptyCells) No cells to solve - check Sudoku board definition.", MSG_ERROR);
-				boardState = BOARD_STATE_ERROR;
-				return BOARD_STATE_ERROR;
+				if (SudokuStore.checkSolvedBoard(sudokuBoard) == true) {
+					addMessage("(findEmptyCells) Puzzle already solved. Marking as solved, but no path leading to the solution.", MSG_INFO);
+					boardState = BOARD_STATE_READY;
+					solvingState = SOLVING_STATE_SOLVED;
+					solvedBoard = SudokuStore.boardCopy(sudokuBoard);
+				} else {
+					addMessage("(findEmptyCells) No cells to solve + board error.", MSG_ERROR);
+					boardState = BOARD_STATE_ERROR;
+					return BOARD_STATE_ERROR;
+				}
 			}
 
 			if (SudokuStore.checkPuzzle(sudokuBoard) != true) {

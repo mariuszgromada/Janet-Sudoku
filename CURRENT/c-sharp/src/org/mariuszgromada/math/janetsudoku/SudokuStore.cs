@@ -1,5 +1,5 @@
 /*
- * @(#)SudokuStore.cs        1.1.0    2016-04-09
+ * @(#)SudokuStore.cs        1.1.1    2016-04-18
  *
  * You may use this software under the condition of "Simplified BSD License"
  *
@@ -67,14 +67,14 @@ namespace org.mariuszgromada.math.janetsudoku {
 	 *                 <a href="http://bitbucket.org/mariuszgromada/janet-sudoku" target="_blank">Janet Sudoku on BitBucket</a><br>
 	 *                 <a href="http://github.com/mariuszgromada/MathParser.org-mXparser" target="_blank">mXparser-MathParser.org on GitHub</a><br>
 	 *
-	 * @version        1.1.0
+	 * @version        1.1.1
 	 */
 	[CLSCompliant(true)]
 	public sealed class SudokuStore {
 		/**
 		 * Sudoku solver version.
 		 */
-		public const String JANET_SUDOKU_VERSION = "1.1.0";
+		public const String JANET_SUDOKU_VERSION = "1.1.1";
 		/**
 		 * Sudoku solver name.
 		 */
