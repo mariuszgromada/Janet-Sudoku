@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Janet-Sudoku</id>
-    <version>1.1.1.0</version>
+    <version>1.1.0.0</version>
     <title>Janet Sudoku - Sudoku Generator and Sudoku Solver library for Java Android .NET MONO (C#) CLS compliant (C++/CLI, F#, VB)</title>
     <authors>Mariusz Gromada</authors>
     <owners>Mariusz Gromada</owners>

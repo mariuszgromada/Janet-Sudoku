@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1A7A455-9810-45A2-8C2F-584572AE6A0D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>janetsudoku</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>org.mariuszgromada.math.janetsudoku</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\..\pfx-keys\mariuszgromada.org.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\BoardCell.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\demoapp\JanetConsole.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\demoapp\JanetSudoku.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\demoapp\Menu.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\demoapp\MenuData.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\ErrorCodes.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\regtests\RegTests.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\regtests\RegTestsApi.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\regtests\RegTestsGenerator.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\regtests\RegTestsSolver.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\regtests\RegTestsStore.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\SudokuBoard.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\SudokuGenerator.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\SudokuPuzzles.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\SudokuSolver.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\SudokuStore.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\tutorial\Tutorial.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\utils\ArrayX.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\utils\DateTimeX.cs" />
+    <Compile Include="src\org\mariuszgromada\math\janetsudoku\utils\FileX.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mariuszgromada.org.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Janet-Sudoku-icon-transp-256x256.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

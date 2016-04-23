@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="D:\Projekty\GitHub\Janet-Sudoku\Janet-Sudoku\CURRENT\doc" doctitle="Janet Sudoku - Sudoku Solver / Generator library for JAVA, Android, .NET, MONO" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="org.mariuszgromada.math.janetsudoku.tutorial,org.mariuszgromada.math.janetsudoku.regtests,org.mariuszgromada.math.janetsudoku" source="1.5" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
