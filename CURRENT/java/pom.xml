@@ -1,0 +1,134 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mariuszgromada.math</groupId>
+	<artifactId>Janet-Sudoku</artifactId>
+	<version>1.1.1</version>
+	<packaging>jar</packaging>
+	<name>
+		Janet Sudoku - Sudoku Generator and Sudoku Solver library
+		for Java Android .NET MONO (C#) CLS compliant (C++/CLI, F#, VB)
+	</name>
+	<description>
+		Janet Sudoku is a powerful Sudoku Generator and Sudoku Solver
+		library for Java (since jdk 1.5) Android .NET (since 2.0)
+		MONO CLS compliant. Additionally library delivers
+		Janet Sudoku Demo App implementation in a simple form of
+		command line tool, yet highly functional.
+
+		1. Sudoku Generator - generate Sudoku puzzles using
+		variety of different methods.
+
+		2. Sudoku Solver - Solve any Sudoku puzzle, get the path leading
+		to the correct solution. Check whether unique solution exists.
+		Find all solutions if more than one present. Analyse many built-in
+		examples of Sudoku puzzles or load any other.
+
+		3. Manipulate the board by applying transformations not affecting
+		solution existence (i.e. rotation, reflection, permutation,
+		swapping segments, and others). Interact with the library
+		via consisted and well documented API.
+
+		4. Janet Sudoku Demo App - use simple, yet highly functional,
+		command line tool to generate, solve evaluate different puzzles.
+	</description>
+	<url>http://janetsudoku.mariuszgromada.org/</url>
+	<developers>
+		<developer>
+			<name>Mariusz Gromada</name>
+			<email>mariuszgromada.org@gmail.com</email>
+			<organization>MathParser.org</organization>
+			<organizationUrl>http://mathparser.org/</organizationUrl>
+		</developer>
+	</developers>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<compilerId>eclipse</compilerId>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-compiler-eclipse</artifactId>
+						<version>2.8.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<createChecksum>true</createChecksum>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<scm>
+		<connection>scm:git:git@github.com:mariuszgromada/Janet-Sudoku.git</connection>
+		<developerConnection>scm:git:git@github.com:mariuszgromada/Janet-Sudoku.git</developerConnection>
+		<url>http://github.com/mariuszgromada/Janet-Sudoku</url>
+	</scm>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+	<licenses>
+		<license>
+			<name>Simplified BSD License</name>
+			<url>http://janetsudoku.mariuszgromada.org/license/</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+</project>
