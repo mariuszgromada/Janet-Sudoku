@@ -1,4 +1,9 @@
 ![Janet-Sudoku logo](http://janetsudoku.mariuszgromada.org/wp-content/uploads/2016/04/Janet-Sudoku-logo.png)
+
+### If you found the software useful donation is something you might consider :-)
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QJYYH86583LEN)
+
 # Janet-Sudoku - Java Android .NET Sudoku Generator &amp; Sudoku Solver Library
 
 | + |---|---|---| + |---|---|---| + |---|---|---| + |
@@ -58,3 +63,7 @@
 
 ## Regression tests
 - Large number of regression / unit tests
+
+### If you found the software useful donation is something you might consider :-)
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QJYYH86583LEN)
